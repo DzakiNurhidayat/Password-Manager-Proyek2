@@ -101,6 +101,7 @@ void menuPassword (listPassword *list, int count_password) {
         case 4:
             printf("Anda memilih Buka List Password\n");
             printListPassword(list, count_password);
+            break;
         default:
             printf("Pilihan tidak valid\n");
     }
@@ -111,9 +112,6 @@ void menuPassword (listPassword *list, int count_password) {
 //     cout << "\n====================\n";
 //     cout << "1. Tambah Password\n";
 //     cout << "2. Ubah Password\n";
-//     cout << "3. Hapus Password\n";
-//     cout << "4. Buka List Password \n";
-//     cout << "====================\n";
 
 //     int menu;
 //     cout << "Pilih hal yang ingin anda lakukan : ";
