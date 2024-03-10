@@ -13,7 +13,6 @@ int main() {
   bool valid = false;
   int strength;
 
-  // Perulangan untuk meminta password
   while (!valid) {
     cout << "Masukkan Password (minimal 8 karakter, harus mengandung simbol): ";
     cin >> password;
@@ -21,7 +20,7 @@ int main() {
     // Validasi panjang password
     if (password.length() < 8) {
       cout << "Password harus lebih dari 8 karakter!" << endl;
-      continue; // Kembali ke awal perulangan
+      continue; 
     }
 
     // Validasi simbol
@@ -29,7 +28,7 @@ int main() {
     for (int i = 0; i < password.length(); i++) {
       if (!isalnum(password[i]) && !isspace(password[i])) {
         hasSymbol = true;
-        break; // Simbol ditemukan, hentikan perulangan
+        break; 
       }
     }
 
@@ -44,14 +43,13 @@ int main() {
       }
     }
 
-    // Keluar dari perulangan jika password valid
     if (hasSymbol && hasLetter && hasNumber) {
       valid = true;
     } else {
       cout << "Password harus mengandung kombinasi huruf, nomor, dan simbol." << endl;
     }
     
-    // Menghitung level kekuatan password
+    // Modul level kekuatan password
     if (hasSymbol && hasLetter && hasNumber) {
       strength = 3;
     } else if (hasLetter && hasNumber) {
@@ -62,7 +60,6 @@ int main() {
 
   }
 
-  // Tampilkan password
   cout << "Password: " << password << endl;
 	cout << "level kekuatan: " << strength;
   return 0;
