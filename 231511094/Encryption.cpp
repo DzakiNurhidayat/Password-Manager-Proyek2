@@ -107,7 +107,7 @@ void SubBytes(unsigned char* state)
     }
     
 }
-void shiftrow(unsigned char *state)
+void ShiftRows(unsigned char *state)
 {
     unsigned char temp[16];
 
@@ -134,7 +134,7 @@ void shiftrow(unsigned char *state)
     for (int i = 0; i < 16; i++)
         state[i] = temp[i];
 }
-void MixColums(unsigned char* state){
+void MixColumns(unsigned char* state){
     // Dot product and byte mod of state
 
     unsigned char tmp[16];
