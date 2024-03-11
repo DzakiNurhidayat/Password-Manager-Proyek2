@@ -15,10 +15,9 @@ typedef struct {
         char password[30];
     } User;
         
-
     void registerUser() {
         User user;
-        FILE *fp = fopen("users.dat", "ab"); // Buka file dalam mode append binary
+        FILE *fp = fopen("users.dat", "ab");
 
         if (fp == NULL) {
             perror("Error opening file");
@@ -31,7 +30,7 @@ typedef struct {
         cin >> user.password;
 
 
-        fwrite(&user, sizeof(User), 1, fp); // Tulis data pengguna ke file
+        fwrite(&user, sizeof(User), 1, fp); 
 
         fclose(fp);
         printf("Registration successful!\n");
@@ -39,7 +38,7 @@ typedef struct {
 
 void loginUser() {
         User user, inputUser;
-        FILE *fp = fopen("users.dat", "rb"); // Buka file dalam mode read binary
+        FILE *fp = fopen("users.dat", "rb"); 
 
         if (fp == NULL) {
             perror("Error opening file");
