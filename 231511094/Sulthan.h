@@ -4,6 +4,7 @@
 /*https://cryptography.fandom.com/wiki/Rijndael_key_schedule*/
 /*https://github.com/kpielacki/whats-a-creel-aes/blob/master/aes.h*/
 /*https://www.youtube.com/watch?v=K2Xfm0-owS4*/
+/*https://github.com/mahshiv/AES*/
 
 const unsigned char SBOX[] ={
     0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76,
@@ -104,3 +105,9 @@ void ShiftRows(unsigned char *state);
 void MixColumns(unsigned char *state);
 void KeyexpansionCore(unsigned char *in, unsigned char i);
 void Keyexpansion(unsigned char *inputKey, unsigned char *expandedKeys);
+
+/*Fungsi dan Prosedur Decryption*/
+void AES_Decryption(unsigned *messages, unsigned char *key);
+void INV_ShiftRows(unsigned char *state);
+void INV_MixColumns(unsigned char *state);
+void INV_SubBytes(unsigned char *state);
