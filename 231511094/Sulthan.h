@@ -108,6 +108,6 @@ void Keyexpansion(unsigned char *inputKey, unsigned char *expandedKeys);
 
 /*Fungsi dan Prosedur Decryption*/
 void AES_Decryption(unsigned *messages, unsigned char *key);
-void INV_ShiftRows(unsigned char *state);
+void INV_ShiftRow(unsigned char *state);
 void INV_MixColumns(unsigned char *state);
 void INV_SubBytes(unsigned char *state);
