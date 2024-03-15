@@ -6,8 +6,8 @@ using namespace std;
 
 int main()
 {
-    string key = "TESASERACT";
-    char playfair_table[5][5];
+    string key = "WakWaw!123";
+    char playfair_table[10][10];
     buatplayfairtable(key, playfair_table);
 
     // Membaca teks terenkripsi dari file
@@ -29,43 +29,34 @@ int main()
 
     return 0;
 }
-void buatplayfairtable(string key, char playfairtable[5][5])
+void buatplayfairtable(string key, char playfair_table[10][10])
 {
-    string charkey;    // akan digunakan unkt menyimpan char dari KEY
-    for (char c : key) // akan mengambil elemen dari variabel key
-        if (c != ' ')  // semua yang bukan spasi dimasukan ke charkey
-        {
-            charkey.push_back(toupper(c)); // charkey di ubah menjadi huruf besar
-        }
 
-    string alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ"; // string alphabet untuk melengkapi tabel playfair
-    // Memasukan Key ke tabel playfair
+    string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/`~©ÜüØ ";
     int row = 0, col = 0;
-    for (char c : charkey) // memasukan alphabet yang ada di charkey kedalam c untuk setiap charkey
-    {
-        if (row * 5 + col == 25) // jikasudah 25(tabel terisi semua) maka keluar dari prosedur ini diselsaikan
-            break;
 
-        playfairtable[row][col] = c; // masukan charcter yang telah di ambil dari charkey ke tabel playfair
+    // Memasukkan key ke dalam tabel Playfair
+    for (char c : key)
+    {
+        playfair_table[row][col] = c;
         col++;
-        if (col == 5) // Jika setiap colom telah terpenuhi maka ganti colom dan tambahkan row
+        if (col == 10)
         {
             col = 0;
             row++;
         }
     }
 
-    // memaukan alphabet yang tersisa ke dalam tabel
-    for (char c : alphabet) // mengambil  character dari alphabet
+    // Memasukkan karakter tambahan ke dalam tabel Playfair
+    for (char c : add_chars)
     {
-        if (row * 5 + col == 25) // jikasudah 25(tabel terisi semua) maka keluar dari prosedur ini diselsaikan
+        if (row == 10)
             break;
-
-        if (charkey.find(c) == string::npos) // string::npos == konstanta tidak di temukan dalam string (jadi ini menanadakan"Jika tidak ada di char kosong")
+        if (key.find(c) == string::npos)
         {
-            playfairtable[row][col] = c; // Memasukan char ke tabel playfair
+            playfair_table[row][col] = c;
             col++;
-            if (col == 5) // Jika setiap colom telah terpenuhi maka ganti colom dan tambahkan row
+            if (col == 10)
             {
                 col = 0;
                 row++;
@@ -73,15 +64,11 @@ void buatplayfairtable(string key, char playfairtable[5][5])
         }
     }
 }
-void cekposisi(char playfairtable[5][5], char c, int &row, int &col)
+void cekposisi(char playfairtable[10][10], char c, int &row, int &col)
 {
-    if (c == 'J')
+    for (int i = 0; i < 10; i++)
     {
-        c = 'I';
-    }
-    for (int i = 0; i < 5; i++)
-    {
-        for (int j = 0; j < 5; j++) // Perbaikan: Perulangan harus untuk iterasi kolom (j), bukan i
+        for (int j = 0; j < 10; j++) // Perbaikan: Perulangan harus untuk iterasi kolom (j), bukan i
         {
             if (playfairtable[i][j] == c)
             {
@@ -93,33 +80,41 @@ void cekposisi(char playfairtable[5][5], char c, int &row, int &col)
     }
 }
 
-string dekripsi_playfair(string ciphertext, char playfairtable[5][5])
+string dekripsi_playfair(string ciphertext, char playfairtable[10][10])
 {
     string decrypted_text;
+    size_t len = ciphertext.length();
 
-    for (size_t i = 0; i < ciphertext.length(); i += 2)
+    if (len % 2 != 0)
+    {
+        ciphertext.pop_back();
+    }
+
+    for (size_t i = 0; i < len; i += 2)
     {
         int row1, col1, row2, col2;
         cekposisi(playfairtable, ciphertext[i], row1, col1);
         cekposisi(playfairtable, ciphertext[i + 1], row2, col2);
-
-        // Jika huruf-huruf berada di baris yang sama, ganti dengan huruf di sebelah kiri
-        if (row1 == row2)
+        if (ciphertext[i] != ciphertext[i + 1])
         {
-            decrypted_text.push_back(playfairtable[row1][(col1 + 4) % 5]);
-            decrypted_text.push_back(playfairtable[row2][(col2 + 4) % 5]);
-        }
-        // Jika huruf-huruf berada di kolom yang sama, ganti dengan huruf di atasnya
-        else if (col1 == col2)
-        {
-            decrypted_text.push_back(playfairtable[(row1 + 4) % 5][col1]);
-            decrypted_text.push_back(playfairtable[(row2 + 4) % 5][col2]);
-        }
-        // Jika huruf-huruf membentuk persegi, ganti dengan huruf yang membentuk persegi lain di sampingnya
-        else
-        {
-            decrypted_text.push_back(playfairtable[row1][col2]);
-            decrypted_text.push_back(playfairtable[row2][col1]);
+            // Jika huruf-huruf berada di baris yang sama, ganti dengan huruf di sebelah kiri
+            if (row1 == row2)
+            {
+                decrypted_text.push_back(playfairtable[row1][(col1 + 9) % 10]);
+                decrypted_text.push_back(playfairtable[row2][(col2 + 9) % 10]);
+            }
+            // Jika huruf-huruf berada di kolom yang sama, ganti dengan huruf di atasnya
+            else if (col1 == col2)
+            {
+                decrypted_text.push_back(playfairtable[(row1 + 9) % 10][col1]);
+                decrypted_text.push_back(playfairtable[(row2 + 9) % 10][col2]);
+            }
+            // Jika huruf-huruf membentuk persegi, ganti dengan huruf yang membentuk persegi lain di sampingnya
+            else
+            {
+                decrypted_text.push_back(playfairtable[row1][col2]);
+                decrypted_text.push_back(playfairtable[row2][col1]);
+            }
         }
     }
     return decrypted_text;
