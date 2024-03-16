@@ -85,8 +85,8 @@ void searching(listPassword* list, int countLine, string keyword) {
 }
 
 
-int readListPassword (listPassword *list, string pengguna){
-    string fileName = (pengguna + ".txt"); // Akan dijadikan Modul Terpisah
+int readListPassword (listPassword *list, string loggedInUser){
+    string fileName = (loggedInUser + ".txt"); // Akan dijadikan Modul Terpisah
     ifstream inFile(fileName, ios::binary);
     if (inFile.fail())
     {
@@ -125,6 +125,7 @@ int readListPassword (listPassword *list, string pengguna){
 
 void printListPassword (listPassword *list, int countLine) {
     int i;
+
     cout << endl;
     i = 0;
     while (i < countLine)
@@ -191,7 +192,7 @@ void menuList(listPassword *list, int countLine) {
     } while (menu != 3);
 }
 
-    void menuPassword (listPassword *list, int countLine, string pengguna) {
+    void menuPassword (listPassword *list, int countLine, string loggedInUser) {
         int menu;
         do
         {
@@ -211,8 +212,8 @@ void menuList(listPassword *list, int countLine) {
             switch(menu) {
                 case 1:
                     cout << "Anda memilih Tambah Password\n";
-                    inputPassword(pengguna);
-                    readListPassword(list, pengguna);
+                    inputPassword(loggedInUser);
+                    countLine = readListPassword(list, loggedInUser);
                     break;
                 case 2:
                     cout << "Anda memilih Ubah Password\n";
@@ -223,9 +224,16 @@ void menuList(listPassword *list, int countLine) {
                     // Manggil .h Jihan
                     break;
                 case 4:
-                    cout << "Anda memilih Buka List Password\n";
-                    printListPassword(list, countLine);
-                    menuList(list, countLine);
+                    if (countLine < 1)
+                    {
+                        cout << "List Kosong\n";
+                    }
+                    else
+                    {
+                        cout << "Anda memilih Buka List Password\n";
+                        printListPassword(list, countLine);
+                        menuList(list, countLine);
+                    }
                     break;
                 case 5:
                     cout << "Logout\n";
