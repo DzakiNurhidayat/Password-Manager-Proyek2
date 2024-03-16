@@ -7,17 +7,33 @@ using namespace std;
 int main()
 {
     string key = "WakWaw!123";
+    string encrypted_text;
     char playfair_table[10][10];
     buatplayfairtable(key, playfair_table);
+    char lastchar;
 
     string plaintext;
     cout << "Masukkan plaintext yang akan dienkripsi: ";
     cin >> plaintext;
 
-    string encrypted_text = enkripsi_playfair(plaintext, playfair_table);
+    // mengambil char akhir jika total plaintext nya ganjil
+
+    if (plaintext.length() % 2 != 0)
+    {
+        lastchar = plaintext[plaintext.length() - 1];
+        cout << "\nlast char = " << lastchar << "\n";
+        plaintext.pop_back(); // Menghapus char terakhir agar jumlahnya genap
+        encrypted_text = enkripsi_playfair(plaintext, playfair_table);
+        encrypted_text.push_back(lastchar);
+    }
+    else
+    {
+        encrypted_text = enkripsi_playfair(plaintext, playfair_table);
+    }
+
     cout << "Hasil enkripsi: " << encrypted_text << endl;
 
-    // Simpan hasil enkripsi ke dalam file
+    // Simpan hasil enkripsi ke dalam file txt
     ofstream encrypted_file("encrypted_text.txt");
     if (encrypted_file.is_open())
     {
@@ -34,9 +50,10 @@ int main()
 }
 
 void buatplayfairtable(string key, char playfair_table[10][10])
-{
+{                   
     string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/`~©ÜüØ ";
-    int row = 0, col = 0;
+    // Alternatif add_char = !@#$%^&*()cdefghijklmnopABCDEFGHIJKLMNOPQRSTUVWXYZabqrstuvwxyz0123456789_+-=[]{}|;:,.<>?/`~©ÜüØ; //(di shuffle dikit)
+    int row = 0, col = 0; 
 
     // Memasukkan key ke dalam tabel Playfair
     for (char c : key)
@@ -122,3 +139,6 @@ string enkripsi_playfair(string plaintext, char playfair_table[10][10])
         }
     return encrypted_text;
 }
+// TODO LIST
+//  char ganda deskripsi problem = belum
+// buat documentation (mungkin seperti tracing agar lenih mudah dimengerti)

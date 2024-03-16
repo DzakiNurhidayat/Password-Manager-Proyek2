@@ -8,7 +8,9 @@ int main()
 {
     string key = "WakWaw!123";
     char playfair_table[10][10];
+    char lastchar;
     buatplayfairtable(key, playfair_table);
+    string decrypted_text;
 
     // Membaca teks terenkripsi dari file
     ifstream encrypted_file("encrypted_text.txt");
@@ -24,7 +26,19 @@ int main()
         return 1;
     }
 
-    string decrypted_text = dekripsi_playfair(ciphertext, playfair_table);
+    if (ciphertext.length() % 2 != 0)//jika ganjil char akhir dihapus lalu dimasukan kembali setelah di dekripsi
+    {
+        lastchar = ciphertext[ciphertext.length() - 1];
+        ciphertext.pop_back();
+        decrypted_text = dekripsi_playfair(ciphertext, playfair_table);
+        decrypted_text.push_back(lastchar);
+    }
+    else
+    {
+        decrypted_text = dekripsi_playfair(ciphertext, playfair_table);
+    }
+
+    
     cout << "Hasil Dekripsi: " << decrypted_text << endl;
 
     return 0;
@@ -119,3 +133,7 @@ string dekripsi_playfair(string ciphertext, char playfairtable[10][10])
     }
     return decrypted_text;
 }
+
+//TODO LIST
+// char ganda deskripsi problem = belum
+// buat documentation (mungkin seperti tracing agar lenih mudah dimengerti)
