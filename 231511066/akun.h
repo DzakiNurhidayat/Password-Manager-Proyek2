@@ -21,7 +21,6 @@ void Register();
 string Login();
 void gantiPassword();
 void ReadUserFile(const string& username);
-void gantiPassword();
 
 
 #endif
