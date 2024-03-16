@@ -15,7 +15,6 @@ typedef struct
     char pertanyaan[30];
     char jawaban[30];
 } User;
-
 void Register()
 {
     User user;
@@ -82,11 +81,6 @@ void Register()
             {
                 cout << "User belum menambahkan password\n";
             }
-            else
-            {
-                outFile << "Username: " << user.username << "\n Password: " << user.password << "\n Pertanyaan: " << user.pertanyaan << "\nPassword: " << user.jawaban << endl;
-                outFile.close();
-            }
             break;
         }
         else
@@ -125,7 +119,8 @@ string Login()
             {
                 cout << "Login successful!\n";
                 fp.close();
-                return string(user.username); // Mengembalikan username
+                string pengguna = user.username;
+                return pengguna; // Mengembalikan username
             }
         }
 

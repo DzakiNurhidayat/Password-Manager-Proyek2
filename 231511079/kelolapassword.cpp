@@ -14,7 +14,7 @@ struct Password {
 
 vector<Password> listPassword;
 
-void inputPassword() {
+void inputPassword(string pengguna) {
 	Password PasswordBaru;
 	
 	cout << "---- Input Password ----" << endl;
@@ -38,9 +38,9 @@ void inputPassword() {
 
 	ofstream inputFile;
 	//Membuka file
-	inputFile.open("data-password.txt", std::ios::app);
+	inputFile.open(pengguna + ".txt", std::ios::app);
 	//Menyimpan file
-	inputFile << PasswordBaru.nama << ";" << PasswordBaru.username << ";" << PasswordBaru.password << ";" << PasswordBaru.note << endl;
+	inputFile << PasswordBaru.nama << ";" << PasswordBaru.username << ";" << PasswordBaru.password << ";" << PasswordBaru.note;
 	inputFile.close();
 
 }
@@ -116,18 +116,18 @@ void modifyPassword() {
 
 }
 
-void simpanData() {
-	ofstream inputFile;
-	//Membuka file;
-	inputFile.open("data-password.txt", std::ios::app);
-	//Menyimpan password
-	for (Password password : listPassword) {
-		inputFile << password.nama << ";" << password.username << ";" << password.password << ";" << password.note << endl;
-	}
-	inputFile.close();
-}
+//void simpanData() {
+//	ofstream inputFile;
+//	//Membuka file;
+//	inputFile.open("data-password.txt", std::ios::app);
+//	//Menyimpan password
+//	for (Password password : listPassword) {
+//		inputFile << password.nama << ";" << password.username << ";" << password.password << ";" << password.note << endl;
+//	}
+//	inputFile.close();
+//}
 
-int main() {
-    inputPassword();  // Call the inputPassword function here
-    return 0;
-}
+// int main() {
+//     inputPassword();  // Call the inputPassword function here
+//     return 0;
+// }

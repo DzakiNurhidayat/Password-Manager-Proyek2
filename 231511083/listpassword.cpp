@@ -1,4 +1,5 @@
-#include "dzaki.h"
+#include "listpassword.h"
+#include "../231511079/kelola.h"
 
 // Saat ini menggunakan Algoritma Bubblesort, algoritma sorting mungkin akan diganti
 void sorting (listPassword *list, int countLine, int sortBy) {
@@ -84,12 +85,8 @@ void searching(listPassword* list, int countLine, string keyword) {
 }
 
 
-int readListPassword (listPassword *list){
-    string user;
-    cout << "Masukkan User = ";
-    cin >> user; // Nanti diganti dengan user yang ada pada modul akun
-
-    string fileName = (user + ".txt"); // Akan dijadikan Modul Terpisah
+int readListPassword (listPassword *list, string pengguna){
+    string fileName = (pengguna + ".txt"); // Akan dijadikan Modul Terpisah
     ifstream inFile(fileName, ios::binary);
     if (inFile.fail())
     {
@@ -194,48 +191,54 @@ void menuList(listPassword *list, int countLine) {
     } while (menu != 3);
 }
 
-void menuPassword (listPassword *list, int countLine) {
-    int menu;
-    do
-    {
-        cout << "\nPassword Manager v1";
-        cout << "\n====================\n";
-        cout << "1. Tambah Password\n";
-        cout << "2. Ubah Password\n";
-        cout << "3. Hapus Password\n";
-        cout << "4. Buka List Password \n";
-        cout << "5. Keluar \n";
-        cout << "====================\n";
+    void menuPassword (listPassword *list, int countLine, string pengguna) {
+        int menu;
+        do
+        {
+            cout << "\nPassword Manager v1";
+            cout << "\n====================\n";
+            cout << "1. Tambah Password\n";
+            cout << "2. Ubah Password\n";
+            cout << "3. Hapus Password\n";
+            cout << "4. Buka List Password \n";
+            cout << "5. Keluar \n";
+            cout << "====================\n";
 
 
-        cout << "Pilih hal yang ingin anda lakukan : ";
-        cin >> menu;
+            cout << "Pilih hal yang ingin anda lakukan : ";
+            cin >> menu;
 
-        switch(menu) {
-            case 1:
-                cout << "Anda memilih Tambah Password\n";
-                printf("Anda memilih Tambah Password\n");
-                break;
-            case 2:
-                cout << "Anda memilih Ubah Password\n";
-                break;
-            case 3:
-                cout << "Anda memilih Hapus Password\n";
-                break;
-            case 4:
-                cout << "Anda memilih Buka List Password\n";
-                printListPassword(list, countLine);
-                menuList(list, countLine);
-                break;
-            default:
-                cout << "Pilihan tidak valid\n";
-        }
-    } while (menu!=5);
-}
+            switch(menu) {
+                case 1:
+                    cout << "Anda memilih Tambah Password\n";
+                    inputPassword(pengguna);
+                    readListPassword(list, pengguna);
+                    break;
+                case 2:
+                    cout << "Anda memilih Ubah Password\n";
+                    // Manggil .h Jihan
+                    break;
+                case 3:
+                    cout << "Anda memilih Hapus Password\n";
+                    // Manggil .h Jihan
+                    break;
+                case 4:
+                    cout << "Anda memilih Buka List Password\n";
+                    printListPassword(list, countLine);
+                    menuList(list, countLine);
+                    break;
+                case 5:
+                    cout << "Logout\n";
+                    break;
+                default:
+                    cout << "Pilihan tidak valid\n";
+            }
+        } while (menu!=5);
+    }
 
-int main(){
-    listPassword list[MAX_PASS];
-    int countLine = readListPassword(list);
-    menuPassword(list, countLine);
-    return 0;
-}
+// int main(){
+//     listPassword list[MAX_PASS];
+//     int countLine = readListPassword(list);
+//     menuPassword(list, countLine);
+//     return 0;
+// }

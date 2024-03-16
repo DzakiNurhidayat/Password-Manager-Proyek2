@@ -1,10 +1,11 @@
-#include "akun.h"
-
+#include "231511066/akun.h"
+#include "231511083/listpassword.h"
 
 int main()
 {
-    int choice;
+    int choice, countLine;
     string loggedInUser;
+    listPassword list[MAX_PASS];
 
     do
     {
@@ -18,28 +19,28 @@ int main()
         switch (choice)
         {
             case 1:
+                cout << "Registering..." << endl;
                 Register();
+                cout << "Registration complete." << endl;
                 break;
             case 2:
+                cout << "Logging in..." << endl;
                 loggedInUser = Login(); // Menyimpan username yang berhasil login
+                cout << "Login successful." << endl;
+                cout << "Reading list password..." << endl;
+                countLine = readListPassword(list, loggedInUser);
+                cout << "Menu password..." << endl;
+                menuPassword(list, countLine, loggedInUser);
                 break;
             case 3:
+                cout << "Changing password..." << endl;
                 gantiPassword();
-            break;
+                cout << "Password changed." << endl;
+                break;
             case 4:
                 cout << "Exiting..." << endl;
                 break;
-            // case 5:
-            //     if (!loggedInUser.empty()) // Memastikan user telah login
-            //     {
-            //         // Fungsi untuk membaca file berdasarkan loggedInUser
-            //         ReadUserFile(loggedInUser);
-            //     }
-            //     else
-            //     {
-            //         cout << "Silakan login terlebih dahulu.\n";
-            //     }
-            //     break;
+
             default:
                 cout << "Invalid option! Please try again.\n";
         }
@@ -47,4 +48,3 @@ int main()
 
     return 0;
 }
-

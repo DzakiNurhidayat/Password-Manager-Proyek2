@@ -6,7 +6,6 @@
 #include <sstream>
 #include <string>
 #include <cctype>
-#include <algorithm>
 
 using namespace std;
 #define MAX_PASS 100
@@ -19,16 +18,17 @@ struct listPassword {
 };
 
 // Fitur List Password
+void lowerCase(string &keyword);
 void sorting (listPassword *list, int countLine, int sortBy);
 void searching (listPassword* list, int countLine, string keyword);
 
 // Baca dan Print File
-int readListPassword (listPassword *list);
+int readListPassword (listPassword *list, string pengguna);
 void printListPassword (listPassword *list, int countLine);
 
 // Print Menu
 void menuSorting (listPassword *list, int countLine);
 void menuList(listPassword *list, int countLine);
-void menuPassword (listPassword *list, int countLine);
+void menuPassword (listPassword *list, int countLine, string pengguna);
 
 #endif // DZAKI_H
