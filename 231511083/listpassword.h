@@ -23,12 +23,12 @@ void sorting (listPassword *list, int countLine, int sortBy);
 void searching (listPassword* list, int countLine, string keyword);
 
 // Baca dan Print File
-int readListPassword (listPassword *list, string pengguna);
+int readListPassword (listPassword *list, string loggedInUser);
 void printListPassword (listPassword *list, int countLine);
 
 // Print Menu
 void menuSorting (listPassword *list, int countLine);
 void menuList(listPassword *list, int countLine);
-void menuPassword (listPassword *list, int countLine, string pengguna);
+void menuPassword (listPassword *list, int countLine, string loggedInUser);
 
 #endif // DZAKI_H
