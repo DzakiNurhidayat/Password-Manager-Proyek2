@@ -1,26 +1,13 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-
-using namespace std;
-#define MAX_PASS 100
-
-struct listPassword {
-    string nama;
-    string username;
-    string password;
-    string note;
-};
+#include "dzaki.h"
 
 // Saat ini menggunakan Algoritma Bubblesort, algoritma sorting mungkin akan diganti
-void sorting (listPassword *list, int count_line, int sortBy) {
+void sorting (listPassword *list, int countLine, int sortBy) {
     listPassword temp;
     bool swapped;   
-    for (int i = 0; i < count_line - 1; i++)
+    for (int i = 0; i < countLine - 1; i++)
     {
         swapped = false;
-        for (int j = 0; j < count_line - i - 1; j++)
+        for (int j = 0; j < countLine - i - 1; j++)
         {
             if (sortBy == 1) /* Untuk Fitur Sorting Ascending */
             {
@@ -54,12 +41,55 @@ void sorting (listPassword *list, int count_line, int sortBy) {
     }
 }
 
+void lowerCase(string &keyword) {
+    for (char &c : keyword) {
+        c = tolower(c);
+    }
+}
+
+void searching(listPassword* list, int countLine, string keyword) {
+    bool found;
+    string lowerKeyword, lowerNama, lowerUsername, lowerPassword, lowerNote;
+    found = false;
+    lowerKeyword = keyword;
+    lowerCase(lowerKeyword);
+
+    for (int i = 0; i < countLine; i++) {
+        // Variabel ini dibuat untuk menampung hasil konversi lowercase
+        lowerNama = list[i].nama;
+        lowerUsername = list[i].username;
+        lowerPassword = list[i].password;
+        lowerNote = list[i].note;
+        lowerCase(lowerNama);
+        lowerCase(lowerUsername);
+        lowerCase(lowerPassword);
+        lowerCase(lowerNote);
+
+        if (lowerNama.find(lowerKeyword) != string::npos ||
+            lowerUsername.find(lowerKeyword) != string::npos ||
+            lowerPassword.find(lowerKeyword) != string::npos ||
+            lowerNote.find(lowerKeyword) != string::npos) {
+
+            found = true;
+            cout << endl;
+            cout << "Nama : " << list[i].nama << endl;
+            cout << "Username : " << list[i].username << endl;
+            cout << "Password : " << list[i].password << endl;
+            cout << "Note : " << list[i].note << endl;
+        }
+    }
+    if (found == false) {
+        cout << "Data tidak ditemukan.\n";
+    }
+}
+
+
 int readListPassword (listPassword *list){
     string user;
     cout << "Masukkan User = ";
     cin >> user; // Nanti diganti dengan user yang ada pada modul akun
 
-    string fileName = (user + ".txt"); // AKan dijadikan Modul Terpisah
+    string fileName = (user + ".txt"); // Akan dijadikan Modul Terpisah
     ifstream inFile(fileName, ios::binary);
     if (inFile.fail())
     {
@@ -68,9 +98,9 @@ int readListPassword (listPassword *list){
     }
 
     // Deklarasi Variabel Lokal
-    int count_line, count_token;
+    int countLine, count_token;
     string line, token, tokens[4];
-    count_line = 0;
+    countLine = 0;
 
     // Mengambil Informasi dari setiap baris pada file
     while (getline(inFile, line)) {        
@@ -86,23 +116,22 @@ int readListPassword (listPassword *list){
         if (count_token != 4) {
             continue;
         }
-        list[count_line].nama = tokens[0];
-        list[count_line].username = tokens[1];
-        list[count_line].password = tokens[2];
-        list[count_line].note = tokens[3];
-        count_line++;
+        list[countLine].nama = tokens[0];
+        list[countLine].username = tokens[1];
+        list[countLine].password = tokens[2];
+        list[countLine].note = tokens[3];
+        countLine++;
     }
     inFile.close();
-    return count_line;
+    return countLine;
 } 
 
-void printListPassword (listPassword *list, int count_line) {
+void printListPassword (listPassword *list, int countLine) {
     int i;
     cout << endl;
     i = 0;
-    while (i < count_line)
+    while (i < countLine)
     {
-        // cout  << i+1 << ") " << list[i].nama << " " << list[i].username << " " << list[i].password << " " << list[i].note << endl;
         cout << "Nama = " << list[i].nama << endl;
         cout << "Username = " << list[i].username << endl;
         cout << "Password = " << list[i].password << endl;
@@ -111,7 +140,7 @@ void printListPassword (listPassword *list, int count_line) {
     }
 }
 
-void menuSorting (listPassword *list, int count_line) {
+void menuSorting (listPassword *list, int countLine) {
     int sortBy;
     cout << "Ascending/Descending\n";
     cout << "(1) Asc\n";
@@ -121,8 +150,8 @@ void menuSorting (listPassword *list, int count_line) {
     cin >> sortBy;
     if (sortBy == 1 or sortBy == 2)
     {
-        sorting(list, count_line, sortBy);
-        printListPassword(list, count_line);
+        sorting(list, countLine, sortBy);
+        printListPassword(list, countLine);
     }
     else if (sortBy == 3)
     {
@@ -130,29 +159,31 @@ void menuSorting (listPassword *list, int count_line) {
     }
     else
     {
-        cout << "Gagal melakukan sorting, Tolong Masukkan Angka yang Tersedia";
-        menuSorting(list, count_line);
+        cout << "Gagal melakukan sorting, Tolong Masukkan Angka yang Tersedia\n";
+        menuSorting(list, countLine);
     }
 }
 
-void menuList(listPassword *list, int count_line) {
+void menuList(listPassword *list, int countLine) {
     int menu, sortBy;
+    string keyword;
     do {
         cout << "\n";
         cout << "(1) Sorting\n";
         cout << "(2) Searching\n";
-        cout << "(3) Exit List Password\n";
+        cout << "(3) Keluar Menu List Password\n";
 
         cout << "Pilih hal yang ingin anda lakukan : ";
         cin >> menu;
 
         switch (menu) {
             case 1:
-                menuSorting(list, count_line);
+                menuSorting(list, countLine);
                 break;
             case 2:
                 cout << "Masukkan Kata Kunci = ";
-                // cin >> amsdmds;
+                cin >> keyword;
+                searching(list, countLine, keyword);
                 break;
             case 3:
                 cout << "Kembali ke Halaman Utama\n";
@@ -163,43 +194,48 @@ void menuList(listPassword *list, int count_line) {
     } while (menu != 3);
 }
 
-void menuPassword (listPassword *list, int count_line) {
-    cout << "\nPassword Manager v1";
-    cout << "\n====================\n";
-    cout << "1. Tambah Password\n";
-    cout << "2. Ubah Password\n";
-    cout << "3. Hapus Password\n";
-    cout << "4. Buka List Password \n";
-    cout << "====================\n";
-
+void menuPassword (listPassword *list, int countLine) {
     int menu;
-    cout << "Pilih hal yang ingin anda lakukan : ";
-    cin >> menu;
+    do
+    {
+        cout << "\nPassword Manager v1";
+        cout << "\n====================\n";
+        cout << "1. Tambah Password\n";
+        cout << "2. Ubah Password\n";
+        cout << "3. Hapus Password\n";
+        cout << "4. Buka List Password \n";
+        cout << "5. Keluar \n";
+        cout << "====================\n";
 
-    switch(menu) {
-        case 1:
-            cout << "Anda memilih Tambah Password\n";
-            printf("Anda memilih Tambah Password\n");
-            break;
-        case 2:
-            cout << "Anda memilih Ubah Password\n";
-            break;
-        case 3:
-            cout << "Anda memilih Hapus Password\n";
-            break;
-        case 4:
-            cout << "Anda memilih Buka List Password\n";
-            printListPassword(list, count_line);
-            menuList(list, count_line);
-            break;
-        default:
-            cout << "Pilihan tidak valid\n";
-    }
+
+        cout << "Pilih hal yang ingin anda lakukan : ";
+        cin >> menu;
+
+        switch(menu) {
+            case 1:
+                cout << "Anda memilih Tambah Password\n";
+                printf("Anda memilih Tambah Password\n");
+                break;
+            case 2:
+                cout << "Anda memilih Ubah Password\n";
+                break;
+            case 3:
+                cout << "Anda memilih Hapus Password\n";
+                break;
+            case 4:
+                cout << "Anda memilih Buka List Password\n";
+                printListPassword(list, countLine);
+                menuList(list, countLine);
+                break;
+            default:
+                cout << "Pilihan tidak valid\n";
+        }
+    } while (menu!=5);
 }
 
 int main(){
     listPassword list[MAX_PASS];
-    int count_line = readListPassword(list);
-    menuPassword(list, count_line);
+    int countLine = readListPassword(list);
+    menuPassword(list, countLine);
     return 0;
 }
