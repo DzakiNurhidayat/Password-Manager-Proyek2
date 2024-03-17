@@ -169,42 +169,8 @@ void deletePassword(string loggedInUser) {
 //	inputFile.close();
 //}
 
-// int main() {
-// 	int choice;
-// 	string pengguna = "afriza";
-//     // inputPassword(pengguna);  // Call the inputPassword function here
-    
-// 	do
-//     {
-//         cout << "1. inpuut\n";
-//         cout << "2. delete\n";
-//         cout << "3. Ganti\n"; // Opsi baru untuk membaca file user
-//         cout << "4. Exit\n";
-//         cout << "Enter your choice: ";
-//         cin >> choice;
-
-//         switch (choice)
-//         {
-//             case 1:
-//                 cout << "Registering..." << endl;
-//                 countLine = readListPassword(list, loggedInUser);
-//                 inputPassword(pengguna);
-//                 cout << "Registration complete." << endl;
-//                 break;
-//             case 2:
-//                 cout << "Registering..." << endl;
-//                 deletePassword(pengguna);
-//                 cout << "delete complete." << endl;
-//                 break;
-//             case 3:
-//                 cout << "Registering..." << endl;
-//                 modifyPassword(pengguna);
-//                 break;
-//             default:
-//                 cout << "Invalid option! Please try again.\n";
-//         }
-//     } while (choice != 3);
-
-	
-// 	return 0;
-// }
+int main() {
+	string pengguna = "Dzaki";
+    inputPassword(pengguna);  // Call the inputPassword function here
+    return 0;
+}

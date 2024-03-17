@@ -8,60 +8,69 @@ bool hasSymbol(char c) {
   return !isalnum(c) && !isspace(c);
 }
 
-int main() {
-  string password;
-  bool valid = false;
-  int strength;
+int main() 
+{
+	string password;
+	bool valid = false;
+	int strength;
 
-  while (!valid) {
-    cout << "Masukkan Password (minimal 8 karakter, harus mengandung simbol): ";
-    cin >> password;
+  // Meminta input password
+	while (!valid) 
+	{
+    	cout << "Masukkan Password (minimal 5 karakter): ";
+    	cin >> password;
 
     // Validasi panjang password
-    if (password.length() < 8) {
-      cout << "Password harus lebih dari 8 karakter!" << endl;
-      continue; 
+    if (password.length() < 5)
+	{
+      cout << "Password harus minimal 5 karakter!" << endl;
+      continue;
     }
 
-    // Validasi simbol
-    bool hasSymbol = false;
-    for (int i = 0; i < password.length(); i++) {
-      if (!isalnum(password[i]) && !isspace(password[i])) {
-        hasSymbol = true;
-        break; 
-      }
-    }
-
-    // Validasi kombinasi huruf dan nomor
+    valid = true;
+    bool hasAnySymbol = false;
     bool hasLetter = false;
     bool hasNumber = false;
-    for (int i = 0; i < password.length(); i++) {
-      if (isalpha(password[i])) {
-        hasLetter = true;
-      } else if (isdigit(password[i])) {
-        hasNumber = true;
-      }
+
+    // Periksa keberadaan simbol, huruf, dan nomor pada setiap karakter password
+    for (int i = 0; i < password.length(); i++) 
+	{
+    	if (hasSymbol(password[i])) 
+		{
+    		hasAnySymbol = true;
+		} 
+		else if (isalpha(password[i])) 
+		{
+        	hasLetter = true;
+    	} 
+		else if (isdigit(password[i])) 
+		{
+        	hasNumber = true;
+      	}
     }
 
-    if (hasSymbol && hasLetter && hasNumber) {
-      valid = true;
-    } else {
-      cout << "Password harus mengandung kombinasi huruf, nomor, dan simbol." << endl;
+    // Hitung level kekuatan password
+    if (hasAnySymbol && hasLetter && hasNumber) 
+	{
+    	strength = 3;
+    } 
+	else if (hasLetter && hasNumber) 
+	{
+		strength = 2;
+    } 
+	else if (hasLetter || hasNumber) 
+	{
+		strength = 1;
+    } 
+	else 
+	{
+    	strength = 0;
     }
-    
-    // Modul level kekuatan password
-    if (hasSymbol && hasLetter && hasNumber) {
-      strength = 3;
-    } else if (hasLetter && hasNumber) {
-      strength = 2;
-    } else if (hasLetter || hasNumber) {
-      strength = 1;
-    }
-
   }
 
+  // Menampilkan hasil
   cout << "Password: " << password << endl;
-	cout << "level kekuatan: " << strength;
+  cout << "Level kekuatan: " << strength << endl;
+
   return 0;
 }
-
