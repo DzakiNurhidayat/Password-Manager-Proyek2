@@ -6,7 +6,7 @@ using namespace std;
 
 int main()
 {
-    string key = "WakWaw!123";
+    string key = "WakWaw!123";                          //KEY (nanti di ganti dengan userlogin)
     char playfair_table[10][10];
     char lastchar;
     buatplayfairtable(key, playfair_table);
@@ -37,19 +37,22 @@ int main()
     {
         decrypted_text = dekripsi_playfair(ciphertext, playfair_table);
     }
-    for (int i = 0; i < 10; i++)
-    {
-        for (int j = 0; j < 10; j++)
-        {
-            cout << playfair_table[i][j] << " | ";
-        }
-        cout << "\n";
-    }
+
+    // Munculkan tabel
+    // for (int i = 0; i < 10; i++)
+    // {
+    //     for (int j = 0; j < 10; j++)
+    //     {
+    //         cout << playfair_table[i][j] << " | ";
+    //     }
+    //     cout << "\n";
+    // }
 
     cout << "Hasil Dekripsi: " << decrypted_text << endl;
 
     return 0;
 }
+//sudah di standarisasi
 void buatplayfairtable(string key, char playfair_table[10][10])
 {
     string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` ~©ÜüØö÷æ×Ø";
@@ -58,9 +61,9 @@ void buatplayfairtable(string key, char playfair_table[10][10])
 
     // Menghapus duplikat karakter dalam key (agar Key nya )
     string uniqueKey;
-    for (char c : key)
+    for (char c : key) // Loop untuk setiap karakter key (dan element dari variabel key diambil lalu dimasukan ke variabel c)
     {
-        if (uniqueKey.find(c) == string::npos)
+        if (uniqueKey.find(c) == string::npos) // Jika karakter tambahan belum ada di key, masukkan ke dalam tabel
         {
             uniqueKey += c;
         }
@@ -110,7 +113,7 @@ void cekposisi(char playfairtable[10][10], char c, int &row, int &col)
         }
     }
 }
-
+//belum di standarisasi (variabel belum sama dengan yang encryption)
 string dekripsi_playfair(string ciphertext, char playfairtable[10][10])
 {
     string decrypted_text;
@@ -122,11 +125,12 @@ string dekripsi_playfair(string ciphertext, char playfairtable[10][10])
 
     for (size_t i = 0; i < ciphertext.length(); i += 2)
     {
-        int row1, col1, row2, col2;
-        cekposisi(playfairtable, ciphertext[i], row1, col1);
-        cekposisi(playfairtable, ciphertext[i + 1], row2, col2);
         if (ciphertext[i] != ciphertext[i + 1])
         {
+            int row1, col1, row2, col2;
+            cekposisi(playfairtable, ciphertext[i], row1, col1);
+            cekposisi(playfairtable, ciphertext[i + 1], row2, col2);
+
             // Jika huruf-huruf berada di baris yang sama, ganti dengan huruf di sebelah kiri
             if (row1 == row2)
             {
@@ -145,7 +149,7 @@ string dekripsi_playfair(string ciphertext, char playfairtable[10][10])
                 decrypted_text.push_back(playfairtable[row1][col2]);
                 decrypted_text.push_back(playfairtable[row2][col1]);
             }
-        }
+        }//jika ciphertext nya sama huruf tidak di ganti
         else
         {
             decrypted_text.push_back(ciphertext[i]);
@@ -154,7 +158,3 @@ string dekripsi_playfair(string ciphertext, char playfairtable[10][10])
     }
     return decrypted_text;
 }
-
-//TODO LIST
-// char ganda deskripsi problem = testing
-// buat documentation (mungkin seperti tracing agar lenih mudah dimengerti)

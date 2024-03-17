@@ -6,31 +6,32 @@ using namespace std;
 
 int main()
 {
-    string key = "WakWaw!123";
+    string key = "WakWaw!123"; // KEY (nanti di ganti dengan userlogin)
     string encrypted_text;
     char playfair_table[10][10];
     buatplayfairtable(key, playfair_table);
     char lastchar;
     
-    for (int i = 0; i < 10; i++)
-    {
-        for (int j = 0; j  < 10; j++)
-        {
-            cout << playfair_table[i][j] << " | ";
-        }
-        cout << "\n";
-        }
+    //Munculkan tabel
+    // for (int i = 0; i < 10; i++)
+    // {
+    //     for (int j = 0; j  < 10; j++)
+    //     {
+    //         cout << playfair_table[i][j] << " | ";
+    //     }
+    //     cout << "\n";
+    // }
     
     string plaintext;
-    cout << "Masukkan plaintext yang akan dienkripsi: ";
-    cin >> plaintext;
+    cout << "Masukkan plaintext yang akan dienkripsi: "; // plainteks (nanti di ganti dengan password)
+    cin >> plaintext;                                    // plainteks (nanti di ganti dengan password)
 
     // mengambil char akhir jika total plaintext nya ganjil
 
     if (plaintext.length() % 2 != 0)
     {
         lastchar = plaintext[plaintext.length() - 1];
-        cout << "\nlast char = " << lastchar << "\n";
+        cout << "\nlast char = " << lastchar << "\n";                   // Menunjukan last char(boleh dihapus)
         plaintext.pop_back();                                           // Menghapus char terakhir agar jumlahnya genap
         encrypted_text = enkripsi_playfair(plaintext, playfair_table);  // Memasukan teks enkripsi ke variabel encrypted_text
         encrypted_text.push_back(lastchar);
@@ -57,7 +58,7 @@ int main()
 
     return 0;
 }
-
+//sudah di standarisasi
 void buatplayfairtable(string key, char playfair_table[10][10])
 {
     string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` ~©ÜüØö÷æ×Ø";
@@ -66,9 +67,9 @@ void buatplayfairtable(string key, char playfair_table[10][10])
 
     //Menghapus duplikat karakter dalam key
     string uniqueKey;
-    for (char c : key)
+    for (char c : key)              // Loop untuk setiap karakter key (dan element dari variabel key diambil lalu dimasukan ke variabel c)
     {
-        if (uniqueKey.find(c) == string::npos)
+        if (uniqueKey.find(c) == string::npos) // Jika karakter tambahan belum ada di key, masukkan ke dalam tabel
         {
             uniqueKey += c;
         }
@@ -103,7 +104,6 @@ void buatplayfairtable(string key, char playfair_table[10][10])
         }
     }
 }
-
 void cekposisi(char playfair_table[10][10], char c, int &row, int &col)
 {
     for (int i = 0; i < 10; i++)
@@ -119,7 +119,7 @@ void cekposisi(char playfair_table[10][10], char c, int &row, int &col)
         }
     }
 }
-
+// belum di standarisasi (variabel belum sama dengan yang encryption)
 string enkripsi_playfair(string plaintext, char playfair_table[10][10])
 {
     string encrypted_text;
@@ -162,6 +162,3 @@ string enkripsi_playfair(string plaintext, char playfair_table[10][10])
         }
     return encrypted_text;
 }
-// TODO LIST
-// char ganda deskripsi problem = testing
-// buat documentation (mungkin seperti tracing agar lenih mudah dimengerti)
