@@ -4,38 +4,38 @@
 using namespace std;
 #include "playfair.h"
 
-int main()
+string decryption(string loggedInUser, string cipherText)
 {
-    string key = "WakWaw!123";                          //KEY (nanti di ganti dengan userlogin)
+    // string key = "WakWaw!123";                          //KEY (nanti di ganti dengan userlogin)
     char playfair_table[10][10];
     char lastchar;
-    buatplayfairtable(key, playfair_table);
+    buatplayfairtable(loggedInUser, playfair_table);
     string decrypted_text;
 
     // Membaca teks terenkripsi dari file
-    ifstream encrypted_file("encrypted_text.txt");
-    string ciphertext;
-    if (encrypted_file.is_open())
-    {
-        getline(encrypted_file, ciphertext);
-        encrypted_file.close();
-    }
-    else
-    {
-        cerr << "Gagal membuka file terenkripsi." << endl;
-        return 1;
-    }
+    // ifstream encrypted_file("encrypted_text.txt");
+    // string ciphertext;
+    // if (encrypted_file.is_open())
+    // {
+    //     getline(encrypted_file, ciphertext);
+    //     encrypted_file.close();
+    // }
+    // else
+    // {
+    //     cerr << "Gagal membuka file terenkripsi." << endl;
+    //     return 1;
+    // }
 
-    if (ciphertext.length() % 2 != 0)//jika ganjil char akhir dihapus lalu dimasukan kembali setelah di dekripsi
+    if (cipherText.length() % 2 != 0)//jika ganjil char akhir dihapus lalu dimasukan kembali setelah di dekripsi
     {
-        lastchar = ciphertext[ciphertext.length() - 1];
-        ciphertext.pop_back();
-        decrypted_text = dekripsi_playfair(ciphertext, playfair_table);
+        lastchar = cipherText[cipherText.length() - 1];
+        cipherText.pop_back();
+        decrypted_text = dekripsi_playfair(cipherText, playfair_table);
         decrypted_text.push_back(lastchar);
     }
     else
     {
-        decrypted_text = dekripsi_playfair(ciphertext, playfair_table);
+        decrypted_text = dekripsi_playfair(cipherText, playfair_table);
     }
 
     // Munculkan tabel
@@ -48,72 +48,72 @@ int main()
     //     cout << "\n";
     // }
 
-    cout << "Hasil Dekripsi: " << decrypted_text << endl;
+    // cout << "Hasil Dekripsi: " << decrypted_text << endl;
 
-    return 0;
+    return decrypted_text;
 }
 
-void buatplayfairtable(string key, char playfair_table[10][10])
-{
-    string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` ~©ÜüØö÷æ×Ø";
-    // Alternatif add_char = !@#&*()cdefLMSTUVWXYZghijkl$%^mn+NOPQR-=[]{}|op ABGHIJK1234abqrstuCDEFvwxyz056789_;:,.<>?/`~©ÜüØö÷æ×Ø; //(di shuffle dikit)
-    int row = 0, col = 0;
+// void buatplayfairtable(string key, char playfair_table[10][10])
+// {
+//     string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` ~©ÜüØö÷æ×Ø";
+//     // Alternatif add_char = !@#&*()cdefLMSTUVWXYZghijkl$%^mn+NOPQR-=[]{}|op ABGHIJK1234abqrstuCDEFvwxyz056789_;:,.<>?/`~©ÜüØö÷æ×Ø; //(di shuffle dikit)
+//     int row = 0, col = 0;
 
-    // Menghapus duplikat karakter dalam key (agar Key nya )
-    string uniqueKey;
-    for (char c : key) // Loop untuk setiap karakter key (dan element dari variabel key diambil lalu dimasukan ke variabel c)
-    {
-        if (uniqueKey.find(c) == string::npos) // Jika karakter tambahan belum ada di key, masukkan ke dalam tabel
-        {
-            uniqueKey += c;
-        }
-    }
+//     // Menghapus duplikat karakter dalam key (agar Key nya )
+//     string uniqueKey;
+//     for (char c : key) // Loop untuk setiap karakter key (dan element dari variabel key diambil lalu dimasukan ke variabel c)
+//     {
+//         if (uniqueKey.find(c) == string::npos) // Jika karakter tambahan belum ada di key, masukkan ke dalam tabel
+//         {
+//             uniqueKey += c;
+//         }
+//     }
 
-    // Memasukkan key ke dalam tabel Playfair
-    for (char c : uniqueKey)
-    {
-        playfair_table[row][col] = c;
-        col++;
-        if (col == 10)
-        {
-            col = 0;
-            row++;
-        }
-    }
+//     // Memasukkan key ke dalam tabel Playfair
+//     for (char c : uniqueKey)
+//     {
+//         playfair_table[row][col] = c;
+//         col++;
+//         if (col == 10)
+//         {
+//             col = 0;
+//             row++;
+//         }
+//     }
 
-    // Memasukkan karakter tambahan ke dalam tabel Playfair
-    for (char c : add_chars) // Loop untuk setiap karakter tambahan
-    {
-        if (row == 10)
-            break;
-        if (key.find(c) == string::npos) // Jika karakter tambahan belum ada di key, masukkan ke dalam tabel
-        {
-            playfair_table[row][col] = c;
-            col++;
-            if (col == 10)
-            {
-                col = 0;
-                row++;
-            }
-        }
-    }
-}
+//     // Memasukkan karakter tambahan ke dalam tabel Playfair
+//     for (char c : add_chars) // Loop untuk setiap karakter tambahan
+//     {
+//         if (row == 10)
+//             break;
+//         if (key.find(c) == string::npos) // Jika karakter tambahan belum ada di key, masukkan ke dalam tabel
+//         {
+//             playfair_table[row][col] = c;
+//             col++;
+//             if (col == 10)
+//             {
+//                 col = 0;
+//                 row++;
+//             }
+//         }
+//     }
+// }
 
-void cekposisi(char playfairtable[10][10], char c, int &row, int &col)
-{
-    for (int i = 0; i < 10; i++)
-    {
-        for (int j = 0; j < 10; j++) 
-        {
-            if (playfairtable[i][j] == c)
-            {
-                row = i;
-                col = j;
-                return;
-            }
-        }
-    }
-}
+// void cekposisi(char playfairtable[10][10], char c, int &row, int &col)
+// {
+//     for (int i = 0; i < 10; i++)
+//     {
+//         for (int j = 0; j < 10; j++) 
+//         {
+//             if (playfairtable[i][j] == c)
+//             {
+//                 row = i;
+//                 col = j;
+//                 return;
+//             }
+//         }
+//     }
+// }
 
 string dekripsi_playfair(string ciphertext, char playfairtable[10][10])
 {

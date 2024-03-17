@@ -4,12 +4,11 @@
 using namespace std;
 #include "playfair.h"
 
-int main()
-{
-    string key = "WakWaw!123"; // KEY (nanti di ganti dengan userlogin)
+string encryption(string loggedInUser, string plainText) {
+    // string key = "WakWaw!123"; // KEY (nanti di ganti dengan userlogin)
     string encrypted_text;
     char playfair_table[10][10];
-    buatplayfairtable(key, playfair_table);
+    buatplayfairtable(loggedInUser, playfair_table);
     char lastchar;
     
     //Munculkan tabel
@@ -22,41 +21,40 @@ int main()
     //     cout << "\n";
     // }
     
-    string plaintext;
-    cout << "Masukkan plaintext yang akan dienkripsi: "; // plainteks (nanti di ganti dengan password)
-    cin >> plaintext;                                    // plainteks (nanti di ganti dengan password)
+    // string plaintext;
+    // cout << "Masukkan plaintext yang akan dienkripsi: "; // plainteks (nanti di ganti dengan password)
+    // cin >> plaintext;                                    // plainteks (nanti di ganti dengan password)
 
     // mengambil char akhir jika total plaintext nya ganjil
 
-    if (plaintext.length() % 2 != 0)
+    if (plainText.length() % 2 != 0)
     {
-        lastchar = plaintext[plaintext.length() - 1];
+        lastchar = plainText[plainText.length() - 1];
         cout << "\nlast char = " << lastchar << "\n";                   // Menunjukan last char(boleh dihapus)
-        plaintext.pop_back();                                           // Menghapus char terakhir agar jumlahnya genap
-        encrypted_text = enkripsi_playfair(plaintext, playfair_table);  // Memasukan teks enkripsi ke variabel encrypted_text
+        plainText.pop_back();                                           // Menghapus char terakhir agar jumlahnya genap
+        encrypted_text = enkripsi_playfair(plainText, playfair_table);  // Memasukan teks enkripsi ke variabel encrypted_text
         encrypted_text.push_back(lastchar);
     }
     else
     {
-        encrypted_text = enkripsi_playfair(plaintext, playfair_table);
+        encrypted_text = enkripsi_playfair(plainText, playfair_table);
     }
 
     cout << "Hasil enkripsi: " << encrypted_text << endl;
 
     // Simpan hasil enkripsi ke dalam file txt
-    ofstream encrypted_file("encrypted_text.txt");
-    if (encrypted_file.is_open())
-    {
-        encrypted_file << encrypted_text;
-        encrypted_file.close();
-        cout << "Hasil enkripsi telah disimpan dalam file 'encrypted_text.txt'" << endl;
-    }
-    else
-    {
-        cerr << "Gagal menyimpan hasil enkripsi ke dalam file." << endl;
-    }
-
-    return 0;
+    // ofstream encrypted_file("encrypted_text.txt");
+    // if (encrypted_file.is_open())
+    // {
+    //     encrypted_file << encrypted_text;
+    //     encrypted_file.close();
+    //     cout << "Hasil enkripsi telah disimpan dalam file 'encrypted_text.txt'" << endl;
+    // }
+    // else
+    // {
+    //     cerr << "Gagal menyimpan hasil enkripsi ke dalam file." << endl;
+    // }
+    return encrypted_text;
 }
 
 void buatplayfairtable(string key, char playfair_table[10][10])
@@ -121,19 +119,19 @@ void cekposisi(char playfair_table[10][10], char c, int &row, int &col)
     }
 }
 
-string enkripsi_playfair(string plaintext, char playfair_table[10][10])
+string enkripsi_playfair(string message, char playfair_table[10][10])
 {
     string encrypted_text;
-    for (size_t i = 0; i < plaintext.length(); i += 2)// Loop untuk setiap dua karakter dalam plaintext
+    for (size_t i = 0; i < message.length(); i += 2)// Loop untuk setiap dua karakter dalam message
     {
-        char c1 = plaintext[i];                                          // karakter kesatu
-        char c2 = (i + 1 < plaintext.length()) ? plaintext[i + 1] : ' '; // Karakter kedua atau spasi jika tidak ada karakter kedua
+        char c1 = message[i];                                          // karakter kesatu
+        char c2 = (i + 1 < message.length()) ? message[i + 1] : ' '; // Karakter kedua atau spasi jika tidak ada karakter kedua
 
         if (c1 != c2)
         {
             int row1, col1, row2, col2;
-            cekposisi(playfair_table, plaintext[i], row1, col1);        // cek dimana karakter ke satu
-            cekposisi(playfair_table, plaintext[i + 1], row2, col2);    // cek dimana karakter ke dua
+            cekposisi(playfair_table, message[i], row1, col1);        // cek dimana karakter ke satu
+            cekposisi(playfair_table, message[i + 1], row2, col2);    // cek dimana karakter ke dua
 
             // Jika huruf-huruf berada di baris yang sama, ganti dengan huruf di sebelah kanannya
             if (row1 == row2)

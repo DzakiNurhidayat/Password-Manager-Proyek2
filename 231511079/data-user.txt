@@ -1,3 +1,0 @@
-instagram;jihan;123456;sosmed
-tiktok;jihan;654321;sosmmed
-cd;"C:\MinGW\bin";cd;"d:\Proyek2\PasswordManager\Password-Manager-Proyek2\231511079\" ; if ($?) { g++ kelolapassword.cpp -o kelolapassword } ; if ($?) { .\kelolapassword }
