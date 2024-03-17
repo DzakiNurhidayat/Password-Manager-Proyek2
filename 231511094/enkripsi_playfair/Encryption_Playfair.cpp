@@ -58,7 +58,7 @@ int main()
 
     return 0;
 }
-//sudah di standarisasi
+
 void buatplayfairtable(string key, char playfair_table[10][10])
 {
     string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` ~©ÜüØö÷æ×Ø";
@@ -104,6 +104,7 @@ void buatplayfairtable(string key, char playfair_table[10][10])
         }
     }
 }
+
 void cekposisi(char playfair_table[10][10], char c, int &row, int &col)
 {
     for (int i = 0; i < 10; i++)
@@ -119,7 +120,7 @@ void cekposisi(char playfair_table[10][10], char c, int &row, int &col)
         }
     }
 }
-// belum di standarisasi (variabel belum sama dengan yang encryption)
+
 string enkripsi_playfair(string plaintext, char playfair_table[10][10])
 {
     string encrypted_text;

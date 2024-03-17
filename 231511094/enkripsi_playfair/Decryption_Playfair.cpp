@@ -52,7 +52,7 @@ int main()
 
     return 0;
 }
-//sudah di standarisasi
+
 void buatplayfairtable(string key, char playfair_table[10][10])
 {
     string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` ~©ÜüØö÷æ×Ø";
@@ -98,6 +98,7 @@ void buatplayfairtable(string key, char playfair_table[10][10])
         }
     }
 }
+
 void cekposisi(char playfairtable[10][10], char c, int &row, int &col)
 {
     for (int i = 0; i < 10; i++)
@@ -113,19 +114,17 @@ void cekposisi(char playfairtable[10][10], char c, int &row, int &col)
         }
     }
 }
-//belum di standarisasi (variabel belum sama dengan yang encryption)
+
 string dekripsi_playfair(string ciphertext, char playfairtable[10][10])
 {
     string decrypted_text;
 
-    if (ciphertext.length() % 2 != 0) // jika ciphetext panjang nya ganjil maka hapus huruf paling belakang
-    {
-        ciphertext.pop_back();
-    }
-
     for (size_t i = 0; i < ciphertext.length(); i += 2)
     {
-        if (ciphertext[i] != ciphertext[i + 1])
+        char c1 = ciphertext[i];                                          // karakter kesatu
+        char c2 = (i + 1 < ciphertext.length()) ? ciphertext[i + 1] : ' '; // Karakter kedua atau spasi jika tidak ada karakter kedua
+
+        if (c1 != c2)
         {
             int row1, col1, row2, col2;
             cekposisi(playfairtable, ciphertext[i], row1, col1);
@@ -152,8 +151,8 @@ string dekripsi_playfair(string ciphertext, char playfairtable[10][10])
         }//jika ciphertext nya sama huruf tidak di ganti
         else
         {
-            decrypted_text.push_back(ciphertext[i]);
-            decrypted_text.push_back(ciphertext[i]);
+            decrypted_text.push_back(c1);
+            decrypted_text.push_back(c1);
         }
     }
     return decrypted_text;
