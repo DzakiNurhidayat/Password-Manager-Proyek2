@@ -156,12 +156,12 @@ string enkripsi_playfair(string plaintext, char playfair_table[10][10])
         // Jika dua karakter berturut-turut sama
         else
         {
-            encrypted_text.push_back(c1); //masukan karakter pertama
+            encrypted_text.push_back(c1); // masukan karakter pertama
             encrypted_text.push_back(c1); // masukan karakter pertama
         }
         }
     return encrypted_text;
 }
 // TODO LIST
-// char ganda deskripsi problem = belum
+// char ganda deskripsi problem = testing
 // buat documentation (mungkin seperti tracing agar lenih mudah dimengerti)

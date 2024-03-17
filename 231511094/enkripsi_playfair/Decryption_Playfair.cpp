@@ -107,14 +107,13 @@ void cekposisi(char playfairtable[10][10], char c, int &row, int &col)
 string dekripsi_playfair(string ciphertext, char playfairtable[10][10])
 {
     string decrypted_text;
-    size_t len = ciphertext.length();
 
-    if (len % 2 != 0)
+    if (ciphertext.length() % 2 != 0) // jika ciphetext panjang nya ganjil maka hapus huruf paling belakang
     {
         ciphertext.pop_back();
     }
 
-    for (size_t i = 0; i < len; i += 2)
+    for (size_t i = 0; i < ciphertext.length(); i += 2)
     {
         int row1, col1, row2, col2;
         cekposisi(playfairtable, ciphertext[i], row1, col1);
@@ -139,6 +138,11 @@ string dekripsi_playfair(string ciphertext, char playfairtable[10][10])
                 decrypted_text.push_back(playfairtable[row1][col2]);
                 decrypted_text.push_back(playfairtable[row2][col1]);
             }
+        }
+        else
+        {
+            decrypted_text.push_back(ciphertext[i]);
+            decrypted_text.push_back(ciphertext[i]);
         }
     }
     return decrypted_text;
