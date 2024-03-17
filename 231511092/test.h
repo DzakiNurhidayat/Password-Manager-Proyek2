@@ -11,6 +11,8 @@
 using namespace std;
 
 // Function prototypes
+void helpLogin();
+void helpIn();
 bool hasSymbol(char c);
 bool hasSpecialChar(char c);
 int checkPasswordStrength(const string& password);

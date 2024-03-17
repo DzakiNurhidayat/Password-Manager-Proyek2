@@ -1,5 +1,6 @@
 #include "231511066/akun.h"
 #include "231511083/listpassword.h"
+#include "231511092/test.h"
 
 int main()
 {
@@ -53,7 +54,7 @@ int main()
                 cout << "| Keluar..." << endl;
                 break;
             case 5:
-                // Manggil Sifa;
+                helpLogin();
                 break;
             default:
                 cout << "Tolong Masukan Pilihan Yang Benar\n";

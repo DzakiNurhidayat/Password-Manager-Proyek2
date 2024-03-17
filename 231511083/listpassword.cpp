@@ -1,6 +1,7 @@
 #include "listpassword.h"
 #include "../231511079/kelola.h"
 #include "../231511094/enkripsi_playfair/playfair.h"
+#include "../231511092/test.h"
 
 // Saat ini menggunakan Algoritma Bubblesort, algoritma sorting mungkin akan diganti
 void sorting (listPassword *list, int countLine, int sortBy) {
@@ -285,7 +286,7 @@ void menuPassword (listPassword *list, int countLine, string loggedInUser) {
                     break;
 
                 case 5:
-                    // Manggil Sifa;
+                    helpIn();
                 break;
                 case 6:
                     cout << "| Logout" << endl;
