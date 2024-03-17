@@ -127,8 +127,8 @@ void modifyPassword() {
 //	inputFile.close();
 //}
 
-int main() {
-	string pengguna = "Dzaki";
-    inputPassword(pengguna);  // Call the inputPassword function here
-    return 0;
-}
+// int main() {
+// 	string pengguna = "Dzaki";
+//     inputPassword(pengguna);  // Call the inputPassword function here
+//     return 0;
+// }
