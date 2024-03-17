@@ -149,5 +149,5 @@ string dekripsi_playfair(string ciphertext, char playfairtable[10][10])
 }
 
 //TODO LIST
-// char ganda deskripsi problem = belum
+// char ganda deskripsi problem = testing
 // buat documentation (mungkin seperti tracing agar lenih mudah dimengerti)
