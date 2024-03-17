@@ -51,9 +51,19 @@ void lowerCase(string &keyword) {
 void searching(listPassword *list, int countLine, string keyword) {
     bool found;
     string lowerKeyword, lowerNama, lowerUsername, lowerPassword, lowerNote;
+    int numberWidth, namaWidth, userWidth, passWidth, noteWidth;
+    numberWidth = 10;
+    namaWidth = 18;
+    userWidth = 18;
+    passWidth = 18;
+    noteWidth = 18;
     found = false;
     lowerKeyword = keyword;
     lowerCase(lowerKeyword);
+
+    cout << setfill('=') << setw(numberWidth + namaWidth + userWidth + passWidth + noteWidth + 16) << "" << endl;
+    cout << setw(0) << setfill(' ') << setw(numberWidth) << left << "Kendala" << " | "  << setw(namaWidth) << left << "Nama" << " | " << setw(userWidth) << left << "Username" << " | " << setw(passWidth) << left << "Password" << " | " << setw(1) << left << "Note" << endl;
+    cout << setfill('=') << setw(numberWidth + namaWidth + userWidth + passWidth + noteWidth + 16) << "" << endl;
 
     for (int i = 0; i < countLine; i++) {
         // Variabel ini dibuat untuk menampung hasil konversi lowercase
@@ -72,11 +82,14 @@ void searching(listPassword *list, int countLine, string keyword) {
             lowerNote.find(lowerKeyword) != string::npos) {
 
             found = true;
-            printListPassword(list, countLine);
+            cout << setw(0) << setfill(' ') << setw(numberWidth) << left << i+1 << " | " << setw(namaWidth) << left << list[i].nama << " | " << setw(userWidth) << left << list[i].username << " | " << setw(passWidth) << left << list[i].password << " | " << setw(noteWidth) << left << list[i].note << endl;
         }
     }
     if (found == false) {
         cout << "Data tidak ditemukan.\n";
+    }
+    if (found == true) {
+        cout << setfill('=') << setw(numberWidth + namaWidth + userWidth + passWidth + noteWidth + 16) << "" << endl;
     }
 }
 
@@ -119,49 +132,26 @@ int readListPassword (listPassword *list, string loggedInUser){
     return countLine;
 } 
 
-void printHorizontalLine(int namaWidth, int userWidth, int passWidth, int noteWidth) {
-    cout << "+=" << string(namaWidth, '=') << "=+=" << string(userWidth, '=') << "=+=" << string(passWidth, '=') << "=+=" << string(noteWidth, '=') << "=+" << endl;
-}
+// Terjadi kendala saat ingin memasukkan angka, sehingga tertimbun dengan informasi lain.
+void printListPassword(listPassword *list, int countLine) {
+    int numberWidth = 10;
+    int namaWidth = 18;
+    int userWidth = 18;
+    int passWidth = 18;
+    int noteWidth = 18;
 
-void printListPassword (listPassword *list, int countLine) {
-    int i, namaWidth, userWidth, passWidth, noteWidth;
-    cout << endl;
-    // Inisialisasi nilai minimal dari panjang tiap kolom
-    namaWidth = 15;
-    userWidth = 15;
-    passWidth = 15;
-    noteWidth = 30;
-    for (int i = 0; i < countLine; ++i) {
-        if (list[i].nama.length() > namaWidth)
-            namaWidth = list[i].nama.length();
-        if (list[i].username.length() > userWidth)
-            userWidth = list[i].username.length();
-        if (list[i].password.length() > passWidth)
-            passWidth = list[i].password.length();
-        if (list[i].note.length() > noteWidth)
-            noteWidth = list[i].note.length();
-    }
-
-    printHorizontalLine(namaWidth, userWidth, passWidth, noteWidth);
-    cout << "| " << setw(namaWidth) << left << "Nama" << " | " << setw(userWidth) << left << "Username" << " | " << setw(passWidth) << left << "Password" << " | " << setw(noteWidth) << left << "Note" << " |" << endl;
-    printHorizontalLine(namaWidth, userWidth, passWidth, noteWidth);
+    // Mencetak header tabel
+    cout << setfill('=') << setw(numberWidth + namaWidth + userWidth + passWidth + noteWidth + 16) << "" << endl;
+    cout << setw(0) << setfill(' ') << setw(numberWidth) << left << "Kendala" << " | "  << setw(namaWidth) << left << "Nama" << " | " << setw(userWidth) << left << "Username" << " | " << setw(passWidth) << left << "Password" << " | " << setw(1) << left << "Note" << endl;
+    cout << setfill('=') << setw(numberWidth + namaWidth + userWidth + passWidth + noteWidth + 16) << "" << endl;
 
     // Mencetak data dalam tabel
     for (int i = 0; i < countLine; ++i) {
-        cout << "| " << setw(namaWidth) << left << list[i].nama << " | " << setw(userWidth) << left << list[i].username << " | " << setw(passWidth) << left << list[i].password << " | " << setw(noteWidth) << left << list[i].note << " |" << endl;
+        cout << setw(0) << setfill(' ') << setw(numberWidth) << left << i+1 << " | " << setw(namaWidth) << left << list[i].nama << " | " << setw(userWidth) << left << list[i].username << " | " << setw(passWidth) << left << list[i].password << " | " << setw(noteWidth) << left << list[i].note << endl;
     }
 
-    // Mencetak garis pemisah setelah data
-    printHorizontalLine(namaWidth, userWidth, passWidth, noteWidth);
-    // cout << setfill('=') << setw(namaWidth + userWidth + passWidth + noteWidth + 20) << "" << endl;
-    // cout << setfill(' ') << "| " << setw(namaWidth) << left << "Nama" << " | " << setw(userWidth) << left << "Username" << " | " << setw(passWidth) << left << "Password" << " | " << setw(noteWidth) << left << "Note" << " |" << endl;
-    // cout << setfill('=') << setw(namaWidth + userWidth + passWidth + noteWidth + 20) << "" << endl;
-
-    // for (int i = 0; i < countLine; ++i) {
-    //     cout << setfill(' ') << "| " << setw(namaWidth) << left << list[i].nama << " | " << setw(userWidth) << left << list[i].username << " | " << setw(passWidth) << left << list[i].password << " | " << setw(noteWidth) << left << list[i].note << " |" << endl;
-    // }
-
-    // cout << setfill('=') << setw(namaWidth + userWidth + passWidth + noteWidth + 20) << "" << endl;
+    // Mencetak footer tabel
+    cout << setfill('=') << setw(numberWidth + namaWidth + userWidth + passWidth + noteWidth + 16) << "" << endl;
 }
 
 void menuSorting (listPassword *list, int countLine) {

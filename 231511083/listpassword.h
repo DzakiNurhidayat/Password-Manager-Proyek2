@@ -7,6 +7,7 @@
 #include <string>
 #include <cctype>
 #include <iomanip>
+#include <algorithm>
 
 using namespace std;
 #define MAX_PASS 100
