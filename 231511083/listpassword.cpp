@@ -1,6 +1,7 @@
 #include "listpassword.h"
 #include "../231511079/kelola.h"
 
+
 // Saat ini menggunakan Algoritma Bubblesort, algoritma sorting mungkin akan diganti
 void sorting (listPassword *list, int countLine, int sortBy) {
     listPassword temp;
@@ -225,40 +226,46 @@ void menuPassword (listPassword *list, int countLine, string loggedInUser) {
         cout << "Pilih hal yang ingin anda lakukan : ";
         cin >> menu;
 
-        switch(menu) {
-            case 1:
-                cout << "Anda memilih Tambah Password\n";
-                inputPassword(loggedInUser);
-                countLine = readListPassword(list, loggedInUser);
-                break;
-            case 2:
-                cout << "Anda memilih Ubah Password\n";
-                // Manggil .h Jihan
-                break;
-            case 3:
-                cout << "Anda memilih Hapus Password\n";
-                // Manggil .h Jihan
-                break;
-            case 4:
-                if (countLine < 1)
-                {
-                    cout << "List Kosong\n";
-                }
-                else
-                {
-                    cout << "Anda memilih Buka List Password\n";
-                    printListPassword(list, countLine);
-                    menuList(list, countLine);
-                }
-                break;
-            case 5:
-                cout << "Logout\n";
-                break;
-            default:
-                cout << "Pilihan tidak valid\n";
-        }
-    } while (menu!=5);
-}
+            switch(menu) {
+                case 1:
+                    cout << "Anda memilih Tambah Password\n";
+                    inputPassword(loggedInUser);
+                    countLine = readListPassword(list, loggedInUser);
+                    break;
+                case 2:
+                    cout << "Anda memilih Ubah Password\n";
+                    loadPasswordsFromFile(loggedInUser);
+                    modifyPassword(list, loggedInUser, countLine);
+                    countLine = readListPassword(list, loggedInUser);
+                    // Manggil .h Jihan
+                    break;
+                case 3:
+                    cout << "Anda memilih Hapus Password\n";
+                    loadPasswordsFromFile(loggedInUser);
+                    deletePassword(loggedInUser);
+                    countLine = readListPassword(list, loggedInUser);
+                    // Manggil .h Jihan
+                    break;
+                case 4:
+                    if (countLine < 1)
+                    {
+                        cout << "List Kosong\n";
+                    }
+                    else
+                    {
+                        cout << "Anda memilih Buka List Password\n";
+                        printListPassword(list, countLine);
+                        menuList(list, countLine);
+                    }
+                    break;
+                case 5:
+                    cout << "Logout\n";
+                    break;
+                default:
+                    cout << "Pilihan tidak valid\n";
+            }
+        } while (menu!=5);
+    }
 
 // int main(){
 //     listPassword list[MAX_PASS];

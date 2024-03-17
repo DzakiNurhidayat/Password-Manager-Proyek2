@@ -23,4 +23,5 @@ void gantiPassword();
 void ReadUserFile(const string& username);
 
 
+
 #endif
