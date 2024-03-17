@@ -11,9 +11,11 @@
 using namespace std;
 
 // Function prototypes
+void helpLogin();
+void helpIn();
 bool hasSymbol(char c);
 // bool hasSpecialChar(char c);
-int checkPasswordStrength(string password);
+void checkPasswordStrength(string password);
 
 // Function to check if password exists in the map
 // bool isPasswordUnique(const string& password, const map<string, string>& passwordMap);
