@@ -37,19 +37,26 @@ int main()
     {
         decrypted_text = dekripsi_playfair(ciphertext, playfair_table);
     }
+    for (int i = 0; i < 10; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            cout << playfair_table[i][j] << " | ";
+        }
+        cout << "\n";
+    }
 
-    
     cout << "Hasil Dekripsi: " << decrypted_text << endl;
 
     return 0;
 }
 void buatplayfairtable(string key, char playfair_table[10][10])
 {
-    string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` ~©ÜüØ ";
-    // Alternatif add_char = !@#$%^&*()cdefghijklmnopABCDEFGHIJKLMNOPQRSTUVWXYZabqrstuvwxyz0123456789_+-=[]{}|;:,.<>?/`~©ÜüØ; //(di shuffle dikit)
+    string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` ~©ÜüØö÷æ×Ø";
+    // Alternatif add_char = !@#&*()cdefLMSTUVWXYZghijkl$%^mn+NOPQR-=[]{}|op ABGHIJK1234abqrstuCDEFvwxyz056789_;:,.<>?/`~©ÜüØö÷æ×Ø; //(di shuffle dikit)
     int row = 0, col = 0;
 
-    // Menghapus duplikat karakter dalam key
+    // Menghapus duplikat karakter dalam key (agar Key nya )
     string uniqueKey;
     for (char c : key)
     {
@@ -92,7 +99,7 @@ void cekposisi(char playfairtable[10][10], char c, int &row, int &col)
 {
     for (int i = 0; i < 10; i++)
     {
-        for (int j = 0; j < 10; j++) // Perbaikan: Perulangan harus untuk iterasi kolom (j), bukan i
+        for (int j = 0; j < 10; j++) 
         {
             if (playfairtable[i][j] == c)
             {
