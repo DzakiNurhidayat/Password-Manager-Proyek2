@@ -7,6 +7,7 @@
 #include "kelola.h"
 #include "../231511083/listpassword.h"
 #include "../231511094/enkripsi_playfair/playfair.h"
+#include "../231511092/test.h"
 using namespace std;
 
 
@@ -55,6 +56,7 @@ void inputPassword(string loggedInUser) {
 	inputFile.open(loggedInUser + ".txt", ios::app);
 	//Menyimpan file
 	messagePassword = PasswordBaru.password;
+	checkPasswordStrength(messagePassword);
 	encrypPassword = encryption(loggedInUser, messagePassword);
 	inputFile << PasswordBaru.nama << ";" << PasswordBaru.username << ";" << encrypPassword << ";" << PasswordBaru.note << endl;
 	inputFile.close();

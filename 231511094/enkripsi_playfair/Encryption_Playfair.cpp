@@ -40,7 +40,7 @@ string encryption(string loggedInUser, string plainText) {
         encrypted_text = enkripsi_playfair(plainText, playfair_table);
     }
 
-    cout << "Hasil enkripsi: " << encrypted_text << endl;
+    cout << "| Hasil enkripsi : " << encrypted_text << endl;
 
     // Simpan hasil enkripsi ke dalam file txt
     // ofstream encrypted_file("encrypted_text.txt");
