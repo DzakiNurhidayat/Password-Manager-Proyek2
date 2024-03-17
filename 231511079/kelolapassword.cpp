@@ -5,6 +5,7 @@
 #include <fstream>
 
 #include "kelola.h"
+#include "../231511083/listpassword.h"
 using namespace std;
 
 
@@ -26,6 +27,7 @@ void loadPasswordsFromFile(string loggedInUser) {
     }
     inputFile.close();
 }
+
 
 void inputPassword(string loggedInUser) {
     listPassword PasswordBaru;
@@ -51,7 +53,7 @@ void inputPassword(string loggedInUser) {
 	inputFile << PasswordBaru.nama << ";" << PasswordBaru.username << ";" << PasswordBaru.password << ";" << PasswordBaru.note << endl;
 	inputFile.close();
 
-loadPasswordsFromFile(loggedInUser);
+    loadPasswordsFromFile(loggedInUser);
 
 }
 
@@ -59,8 +61,6 @@ loadPasswordsFromFile(loggedInUser);
 void modifyPassword(listPassword* list, string loggedInUser, int countLine ) {
     int index;
     countLine = readListPassword(list, loggedInUser);
-
-
     if (password.empty()) {
         cout << "List password kosong!" << endl;
         return;
@@ -128,7 +128,7 @@ void modifyPassword(listPassword* list, string loggedInUser, int countLine ) {
     outFile.close();
 
 
-loadPasswordsFromFile(loggedInUser);
+    loadPasswordsFromFile(loggedInUser);
 }
 
 

@@ -218,12 +218,14 @@ void menuList(listPassword *list, int countLine) {
                     break;
                 case 2:
                     cout << "Anda memilih Ubah Password\n";
+                    loadPasswordsFromFile(loggedInUser);
                     modifyPassword(list, loggedInUser, countLine);
                     countLine = readListPassword(list, loggedInUser);
                     // Manggil .h Jihan
                     break;
                 case 3:
                     cout << "Anda memilih Hapus Password\n";
+                    loadPasswordsFromFile(loggedInUser);
                     deletePassword(loggedInUser);
                     countLine = readListPassword(list, loggedInUser);
                     // Manggil .h Jihan
