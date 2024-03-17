@@ -17,13 +17,13 @@ int main()
   // Meminta input password
 	while (!valid) 
 	{
-    	cout << "Masukkan Password (minimal 5 karakter): ";
+    	cout << "Masukkan Password (minimal 6 karakter): ";
     	cin >> password;
 
     // Validasi panjang password
-    if (password.length() < 5)
+    if (password.length() < 6)
 	{
-      cout << "Password harus minimal 5 karakter!" << endl;
+      cout << "Password harus minimal 6 karakter!" << endl;
       continue;
     }
 

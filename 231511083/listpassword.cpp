@@ -1,6 +1,6 @@
 #include "listpassword.h"
 #include "../231511079/kelola.h"
-
+#include "../231511094/enkripsi_playfair/playfair.h"
 
 // Saat ini menggunakan Algoritma Bubblesort, algoritma sorting mungkin akan diganti
 void sorting (listPassword *list, int countLine, int sortBy) {
@@ -96,7 +96,8 @@ void searching(listPassword *list, int countLine, string keyword) {
 
 
 int readListPassword (listPassword *list, string loggedInUser){
-    string fileName = (loggedInUser + ".txt"); // Akan dijadikan Modul Terpisah
+    string messagePassword, decrypPassword;
+    string fileName = (loggedInUser + ".txt");
     ifstream inFile(fileName, ios::binary);
     if (inFile.fail())
     {
@@ -127,6 +128,10 @@ int readListPassword (listPassword *list, string loggedInUser){
         list[countLine].username = tokens[1];
         list[countLine].password = tokens[2];
         list[countLine].note = tokens[3];
+        
+        decrypPassword = list[countLine].password;
+        messagePassword = decryption(loggedInUser, decrypPassword);
+        list[countLine].password = messagePassword;
         countLine++;
     }
     inFile.close();

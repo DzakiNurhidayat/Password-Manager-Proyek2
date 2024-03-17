@@ -6,6 +6,7 @@
 
 #include "kelola.h"
 #include "../231511083/listpassword.h"
+#include "../231511094/enkripsi_playfair/playfair.h"
 using namespace std;
 
 
@@ -31,6 +32,7 @@ void loadPasswordsFromFile(string loggedInUser) {
 
 void inputPassword(string loggedInUser) {
     listPassword PasswordBaru;
+	string messagePassword, encrypPassword;
 
     cout << "| Masukkan Nama: ";
     cin >> PasswordBaru.nama;
@@ -52,7 +54,9 @@ void inputPassword(string loggedInUser) {
 	//Membuka file
 	inputFile.open(loggedInUser + ".txt", ios::app);
 	//Menyimpan file
-	inputFile << PasswordBaru.nama << ";" << PasswordBaru.username << ";" << PasswordBaru.password << ";" << PasswordBaru.note << endl;
+	messagePassword = PasswordBaru.password;
+	encrypPassword = encryption(loggedInUser, messagePassword);
+	inputFile << PasswordBaru.nama << ";" << PasswordBaru.username << ";" << encrypPassword << ";" << PasswordBaru.note << endl;
 	inputFile.close();
 
     loadPasswordsFromFile(loggedInUser);
