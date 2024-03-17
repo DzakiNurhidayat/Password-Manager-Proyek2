@@ -15,9 +15,11 @@ typedef struct
     char pertanyaan[30];
     char jawaban[30];
 } User;
+
 void Register()
 {
     User user;
+    string input;
     int i;
     i = 0;
     do
@@ -29,9 +31,12 @@ void Register()
             exit(1);
         }
 
-        cout << "Masukan Username: ";
+        cout << "| *Ketik Kembali Untuk Keluar Dari Registrasi ";
+        cout  << endl << "| Masukan Username : " ;
         cin >> user.username;
-
+        if (strcmp(user.username, "kembali") == 0) {
+        return;
+    }
         ifstream inputFile("user.txt", ios::binary);
         if (!inputFile)
         {
@@ -55,23 +60,24 @@ void Register()
         if (isLoginSuccess == false)
         {
             inputFile.close();
-            cout << "Masukan Password: ";
+            cout << "| Masukan Password : ";
             cin >> user.password;
-            cout << "Buat Pertanyaan Untuk Lupa Password: ";
+            cout << "| Buat Pertanyaan Untuk Lupa Password : ";
             cin >> user.pertanyaan;
-            cout << "Jawaban Untuk Lupa Password: ";
+            cout << "| Jawaban Untuk Pertanyaan Lupa Password : ";
             cin >> user.jawaban;
+
+
 
             ofstream outputFile("user.txt", ios::binary | ios::app);
             if (!outputFile)
             {
-                cerr << "Failed to open file for writing.\n";
+                cerr << "Gagal Membuka File Untuk Membacanya\n";
                 return;
             }
 
             fp.write(reinterpret_cast<const char *>(&user), sizeof(User));
             fp.close();
-            cout << "Registration successful!\n";
 
             // MEMBUAT FILE USER
             string fileName = string(user.username) + ".txt";
@@ -79,16 +85,29 @@ void Register()
 
             if (!outFile)
             {
-                cout << "User belum menambahkan password\n";
+                cout << "Pengguna Belum Menambahkan Password\n";
             }
+            cout << ".-----------------------------------------------." << endl;
+            cout << "|              Akun Berhasil Dibuat             |" << endl;
+            cout << "'-----------------------------------------------'" << endl << endl;
             break;
         }
         else
         {
-            cout << "Username Telah Digunakan, Harap Gunakan Username Lain \n \n";
+            cout << "| Username Telah Digunakan, Harap Gunakan Username Lain |" << endl;
+            cout << "|" << endl;
+            cout << ".-------------------------------------------------------." << endl;
             // cout << "Masa Percobaan " << (i + 1) << "x\n";
         }
+
+
         i++;
+
+    if (i == 3)
+    {
+        cout << "| Buat Akun Gagal, Cobalagi \n";
+    }
+
     } while (i < 3);
 }
 
@@ -107,9 +126,9 @@ string Login()
             exit(1);
         }
 
-        cout << "masukan username: ";
+        cout << "| Masukan Username : ";
         cin >> inputUser.username;
-        cout << "masukan password: ";
+        cout << "| Masukan Password : ";
         cin >> inputUser.password;
 
         bool isLoginSuccess = false;
@@ -117,23 +136,29 @@ string Login()
         {
             if (strcmp(user.username, inputUser.username) == 0 && strcmp(user.password, inputUser.password) == 0)
             {
-                cout << "Login successful!\n";
+            cout << ".-----------------------------------------------." << endl;
+            cout << "|              Berhasil Login                   |" << endl;
+            cout << "'-----------------------------------------------'" << endl << endl;
                 fp.close();
                 string pengguna = user.username;
                 return pengguna; // Mengembalikan username
             }
         }
 
-        cout << "===========================\n";
-        cout << "Username / Password Salah! (" << (i + 1) << "x)\n";
-        cout << "=============================\n";
-
+        cout << "|" << endl;
+        cout << "| *Username / Password Salah !"  << (i + 1) << "x |" << endl;
+        cout << ".-------------------------------------------------." << endl << endl;
         i = i + 1;
+
     } while (i < 3);
+
 
     if (i == 3)
     {
         cout << "Login gagal setelah 3 kali percobaan. Silakan coba lagi nanti.\n";
+        // return "FAILED";
+        string pengguna = "FAILED";
+        return pengguna; 
     }
 
     return ""; // Mengembalikan string kosong jika login gagal
@@ -144,13 +169,13 @@ string Login()
 void gantiPassword()
 {
     char username[30];
-    cout << "Masukkan username: ";
+    cout << "| Masukan Username : ";
     cin >> username;
 
     ifstream inputFile("user.txt", ios::binary);
     if (!inputFile)
     {
-        cerr << "Failed to open file for reading.\n";
+        cerr << "Gagal Membuka File Untuk Membacanya\n";
         return;
     }
 
@@ -168,23 +193,24 @@ void gantiPassword()
 
     if (!userFound)
     {
-        cout << "Username tidak ditemukan.\n";
+        cout << "Username Tidak Ditemukan\n";
         return;
     }
 
     char jawaban[30];
-    cout << "Pertanyaan keamanan: " << user.pertanyaan << endl;
-    cout << "Jawaban: ";
+    cout << "| Pertanyaan Lupa Password : " << user.pertanyaan << endl;
+    cout << "| Masukan Jawaban : ";
     cin >> jawaban;
 
     if (strcmp(user.jawaban, jawaban) != 0)
     {
-        cout << "Jawaban keamanan salah.\n";
+    cout << "| Jawaban Untuk Lupas Password Salah\n";
         return;
     }
 
-    cout << "Masukkan password baru: ";
+    cout << "| Masukan Jawaban Baru : ";
     cin >> user.password;
+    cout << "| Password Berhasil Diubah" << endl;
 
     // Update password user di file
     fstream file("user.txt", ios::in | ios::out | ios::binary);
@@ -193,6 +219,7 @@ void gantiPassword()
         cerr << "Failed to open file for updating.\n";
         return;
     }
+
 
     User tempUser;
     long pos = 0;
@@ -210,24 +237,24 @@ void gantiPassword()
 
 }
 
-void ReadUserFile(const string& username)
-{
-    string fileName = username + ".txt"; // Membentuk nama file dari username
-    ifstream userFile(fileName.c_str(), ios::in);
-    if (!userFile)
-    {
-        cerr << "Tidak dapat membuka file untuk user: " << username << "\n";
-        return;
-    }
+// void ReadUserFile(const string& username)
+// {
+//     string fileName = username + ".txt"; // Membentuk nama file dari username
+//     ifstream userFile(fileName.c_str(), ios::in);
+//     if (!userFile)
+//     {
+//         cerr << "Tidak dapat membuka file untuk user: " << username << "\n";
+//         return;
+//     }
 
-    string line;
-    while (getline(userFile, line)) // Membaca setiap baris dari file
-    {
-        cout << line << endl;
-    }
+//     string line;
+//     while (getline(userFile, line)) // Membaca setiap baris dari file
+//     {
+//         cout << line << endl;
+//     }
 
-    userFile.close();
-}
+//     userFile.close();
+// }
 
 
 #endif

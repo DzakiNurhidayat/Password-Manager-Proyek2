@@ -4,45 +4,59 @@
 int main()
 {
     int choice, countLine;
-    string loggedInUser;
+    string loggedInUser, loginResult;
     listPassword list[MAX_PASS];
 
     do
     {
-        cout << "1. Register\n";
-        cout << "2. Login\n";
-        cout << "3. Ganti Password\n"; // Opsi baru untuk membaca file user
-        cout << "4. Exit\n";
-        cout << "Enter your choice: ";
+        cout << ".-----------------------------------." << endl;
+        cout << "|     Aplikasi Password Manager     |" << endl;
+        cout << "'-----------------------------------'" << endl;
+        cout << "| 1. Buat Akun                      |" << endl;
+        cout << "| 2. Masuk                          |" << endl;
+        cout << "| 3. Ganti Password                 |" << endl;
+        cout << "| 4. Keluar Aplikasi                |" << endl;
+        cout << "| 5. Bantuan                        |" << endl;
+        cout << "'-----------------------------------'" << endl;
+        cout << "| Masukan Pilihan Anda : ";
         cin >> choice;
 
         switch (choice)
         {
             case 1:
-                cout << "Registering..." << endl;
+                cout << endl;
+                cout << ".-----------------------------------." << endl;
+                cout << "|             Membuat Akun          |" << endl;
+                cout << "'-----------------------------------'" << endl;
                 Register();
-                cout << "Registration complete." << endl;
+
                 break;
             case 2:
-                cout << "Logging in..." << endl;
-                loggedInUser = Login(); // Menyimpan username yang berhasil login
-                cout << "Login successful." << endl;
-                cout << "Reading list password..." << endl;
+                cout << endl;
+                cout << ".-----------------------------------." << endl;
+                cout << "|          Masuk Applikasi          |" << endl;
+                cout << "'-----------------------------------'" << endl;
+                loggedInUser = Login();
+                if (loggedInUser == "FAILED") {
+                break;
+                }
                 countLine = readListPassword(list, loggedInUser);
-                cout << "Menu password..." << endl;
                 menuPassword(list, countLine, loggedInUser);
                 break;
             case 3:
-                cout << "Changing password..." << endl;
+                cout << ".-----------------------------------." << endl;
+                cout << "|          Ganti Password           |" << endl;
+                cout << "'-----------------------------------'" << endl;
                 gantiPassword();
-                cout << "Password changed." << endl;
                 break;
             case 4:
-                cout << "Exiting..." << endl;
+                cout << "| Keluar..." << endl;
                 break;
-
+            case 5:
+                // Manggil Sifa;
+                break;
             default:
-                cout << "Invalid option! Please try again.\n";
+                cout << "Tolong Masukan Pilihan Yang Benar\n";
         }
     } while (choice != 4);
 

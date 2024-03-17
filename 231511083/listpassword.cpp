@@ -157,11 +157,11 @@ void printListPassword(listPassword *list, int countLine) {
 
 void menuSorting (listPassword *list, int countLine) {
     int sortBy;
-    cout << "Ascending/Descending\n";
-    cout << "(1) Asc\n";
-    cout << "(2) Desc\n";
-    cout << "(3) Keluar Menu Sort\n";
-    cout << "Pilihan = ";
+    cout << "| Ascending/Descending\n";
+    cout << "| (1) Asc\n";
+    cout << "| (2) Desc\n";
+    cout << "| (3) Keluar Menu Sort\n";
+    cout << "| Pilihan = ";
     cin >> sortBy;
     if (sortBy == 1 or sortBy == 2)
     {
@@ -184,11 +184,15 @@ void menuList(listPassword *list, int countLine) {
     string keyword;
     do {
         cout << "\n";
-        cout << "(1) Sorting\n";
-        cout << "(2) Searching\n";
-        cout << "(3) Keluar Menu List Password\n";
-
-        cout << "Pilih hal yang ingin anda lakukan : ";
+        cout << ".-----------------------------------." << endl;
+        cout << "|              Fitur                |" << endl;
+        cout << "'-----------------------------------'" << endl;
+        cout << "| 1. Sorting                        |" << endl;
+        cout << "| 2. Searching                      |" << endl;
+        cout << "| 3. Keluar Menu List Password      |" << endl;
+        cout << "| 3. Keluar Applikasi               |" << endl;
+        cout << "'-----------------------------------'" << endl;
+        cout << "| Pilih Hal Yang Ingin Anda Lakukan : ";
         cin >> menu;
 
         switch (menu) {
@@ -196,15 +200,15 @@ void menuList(listPassword *list, int countLine) {
                 menuSorting(list, countLine);
                 break;
             case 2:
-                cout << "Masukkan Kata Kunci = ";
+                cout << "| Masukkan Kata Kunci = ";
                 cin >> keyword;
                 searching(list, countLine, keyword);
                 break;
             case 3:
-                cout << "Kembali ke Halaman Utama\n";
+                cout << "| Kembali ke Halaman Utama\n";
                 return;
             default:
-                cout << "Pilihan tidak valid\n";
+                cout << "| Pilihan tidak valid\n";
         }
     } while (menu != 3);
 }
@@ -213,34 +217,44 @@ void menuPassword (listPassword *list, int countLine, string loggedInUser) {
     int menu;
     do
     {
-        cout << "\nPassword Manager v1";
-        cout << "\n====================\n";
-        cout << "1. Tambah Password\n";
-        cout << "2. Ubah Password\n";
-        cout << "3. Hapus Password\n";
-        cout << "4. Buka List Password \n";
-        cout << "5. Keluar \n";
-        cout << "====================\n";
-
-
-        cout << "Pilih hal yang ingin anda lakukan : ";
+        cout << endl;
+                cout << ".-----------------------------------------------." << endl;
+                cout << "|           Menu Utama Password Manager         |" << endl;
+                cout << "'-----------------------------------------------'" << endl;
+                cout << "| 1. Tambah Password                            |" << endl;
+                cout << "| 2. Ubah Password                              |" << endl;
+                cout << "| 3. Hapus Password                             |" << endl;
+                cout << "| 4. Buka List Password                         |" << endl;
+                cout << "| 5. Bantuan                                    |" << endl;
+                cout << "| 6. Keluar                                     |" << endl;
+                cout << "'-----------------------------------------------'" << endl;
+                cout << "| Pilih Hal Apa Yang Ingin Anda Lakukan : ";
         cin >> menu;
 
             switch(menu) {
                 case 1:
-                    cout << "Anda memilih Tambah Password\n";
+                cout << endl;
+                cout << ".-------------------------------------------." << endl;
+                cout << "|             Menu Tambah Password          |" << endl;
+                cout << "'-------------------------------------------'" << endl;
                     inputPassword(loggedInUser);
                     countLine = readListPassword(list, loggedInUser);
                     break;
                 case 2:
-                    cout << "Anda memilih Ubah Password\n";
+                cout << endl;
+                cout << ".-------------------------------------------." << endl;
+                cout << "|             Menu Ubah Password            |" << endl;
+                cout << "'-------------------------------------------'" << endl;
                     loadPasswordsFromFile(loggedInUser);
                     modifyPassword(list, loggedInUser, countLine);
                     countLine = readListPassword(list, loggedInUser);
                     // Manggil .h Jihan
                     break;
                 case 3:
-                    cout << "Anda memilih Hapus Password\n";
+                cout << endl;
+                cout << ".-------------------------------------------." << endl;
+                cout << "|             Menu Hapus Password           |" << endl;
+                cout << "'-------------------------------------------'" << endl; 
                     loadPasswordsFromFile(loggedInUser);
                     deletePassword(loggedInUser);
                     countLine = readListPassword(list, loggedInUser);
@@ -249,22 +263,32 @@ void menuPassword (listPassword *list, int countLine, string loggedInUser) {
                 case 4:
                     if (countLine < 1)
                     {
-                        cout << "List Kosong\n";
+                cout << endl;
+                cout << ".-------------------------------------------." << endl;
+                cout << "|             List Kosong                   |" << endl;
+                cout << "'-------------------------------------------'" << endl; 
                     }
                     else
                     {
-                        cout << "Anda memilih Buka List Password\n";
+                cout << endl;
+                cout << ".-------------------------------------------." << endl;
+                cout << "|             List Password                 |" << endl;
+                cout << "'-------------------------------------------'" << endl << endl; 
                         printListPassword(list, countLine);
                         menuList(list, countLine);
                     }
                     break;
+
                 case 5:
-                    cout << "Logout\n";
-                    break;
+                    // Manggil Sifa;
+                break;
+                case 6:
+                    cout << "| Logout" << endl;
+                break;
                 default:
                     cout << "Pilihan tidak valid\n";
             }
-        } while (menu!=5);
+        } while (menu!=6);
     }
 
 // int main(){

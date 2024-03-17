@@ -32,19 +32,21 @@ void loadPasswordsFromFile(string loggedInUser) {
 void inputPassword(string loggedInUser) {
     listPassword PasswordBaru;
 
-    cout << "Masukkan Nama: ";
+    cout << "| Masukkan Nama: ";
     cin >> PasswordBaru.nama;
-    cout << "Masukkan Username: ";
+    cout << "| Masukkan Username: ";
     cin >> PasswordBaru.username;
-    cout << "Masukkan Password: ";
+    cout << "| Masukkan Password: ";
     cin >> PasswordBaru.password;
-    cout << "Masukkan Catatan: ";
+    cout << "| Masukkan Catatan: ";
     cin >> PasswordBaru.note;
 
     // Menambahkan password baru ke dalam vector
     password.push_back(PasswordBaru);
-	
-	cout << "Password berhasil ditambahkan!" << endl;
+	cout << ".-----------------------------------------------." << endl;
+    cout << "| Password Berhasil Ditambahkan Ke Dalam List   |" << endl;
+    cout << "'-----------------------------------------------'" << endl << endl;
+
 
 	ofstream inputFile;
 	//Membuka file
@@ -65,13 +67,14 @@ void modifyPassword(listPassword* list, string loggedInUser, int countLine ) {
         cout << "List password kosong!" << endl;
         return;
     }
-
-    cout << "---- Daftar Password ----" << endl;
+    cout << "|          ---- Daftar Password ----        |" << endl;
+    cout << "|                                           |" << endl;
     for (size_t i = 0; i < password.size(); i++) {
-        cout << i + 1 << ". " << password[i].nama << endl;
+        cout << "| " << i + 1 << ". Dengan Nama : " << password[i].nama << endl;
     }
 
-    cout << "Pilih nomor password yang ingin diubah (1 - " << password.size() << "): ";
+    cout << ".------------------------------------------------." << endl;
+    cout << "| Pilih nomor password yang ingin diubah (1 - " << password.size() << "): ";
     cin >> index;
 
     if (index < 1 || index > password.size()) {
@@ -81,40 +84,61 @@ void modifyPassword(listPassword* list, string loggedInUser, int countLine ) {
 
     listPassword& PasswordLama = password[index - 1]; // Gunakan referensi untuk mengedit langsung
     int menu;
-    cout << "\nData Mana Yang Ingin Diubah";
-            cout << "\n====================\n";
-            cout << "1. Nama\n";
-            cout << "2. Username\n";
-            cout << "3. Password\n";
-            cout << "4. Note \n";
-            cout << "5. Keluar \n";
-            cout << "====================\n";
-            cout << "Pilih hal yang ingin anda lakukan : ";
+        cout << "|" << endl;
+        cout << "| Data Mana Yang Ingin Diubah :" << endl;
+        cout << "| 1. Nama                           |" << endl;
+        cout << "| 2. Username                       |" << endl;
+        cout << "| 3. Password                       |" << endl;
+        cout << "| 4. Note                           |" << endl;
+        cout << "| 5. keluar                         |" << endl;
+        cout << "'-----------------------------------'" << endl;
+        cout << "| Pilih hal yang ingin anda lakukan : ";
             cin >> menu;
 
             switch(menu) {
                 case 1:
-                    cout << "Anda memilih mengubah nama\n";
+                    cout << "|" << endl;
+                    cout << "| Anda Memilih Mengubah Nama";
+                    cout << endl << "| Masukan Nama Baru : ";
                     cin >> PasswordLama.nama;
+                    cout << ".-----------------------------------------------." << endl;
+                    cout << "|              Nama Berhasil Diubah             |" << endl;
+                    cout << "'-----------------------------------------------'" << endl;
                     break;
                 case 2:
-                    cout << "Anda memilih mengubah username\n";
+                    cout << "|" << endl;
+                    cout << "| Anda Memilih Mengubah Username";
+                    cout << endl << "| Masukan Username Baru : ";
                     cin >> PasswordLama.username;
+                    cout << ".-----------------------------------------------." << endl;
+                    cout << "|              Username Berhasil Diubah         |" << endl;
+                    cout << "'-----------------------------------------------'" << endl;
                     break;
                 case 3:
-                    cout << "Anda memilih mengubah password\n";
+                    cout << "|" << endl;
+                    cout << "| Anda Memilih Mengubah Password";
+                    cout << endl << "| Masukan Password Baru : ";
                     cin >> PasswordLama.password;
+                    cout << ".-----------------------------------------------." << endl;
+                    cout << "|              Password Berhasil Diubah         |" << endl;
+                    cout << "'-----------------------------------------------'" << endl;
                     break;
                 case 4:
-                    cout << "Anda memilih mengubah note\n";
+                    cout << "|" << endl;
+                    cout << "| Anda Memilih Mengubah Note";
+                    cout << endl << "| Masukan Note Baru : ";
                     cin.ignore();
                     getline(cin, PasswordLama.note);
+                    cout << ".-----------------------------------------------." << endl;
+                    cout << "|              Note Berhasil Diubah             |" << endl;
+                    cout << "'-----------------------------------------------'" << endl;
                     break;
                 case 5:
-                    cout << "Keluar\n";
+                    cout << "|" << endl;
+                    cout << "| Keluar\n";
                     break;
                 default:
-                    cout << "Pilihan tidak valid\n";
+                    cout << "| *Pilihan tidak valid\n";
             }
 
     ofstream outFile(loggedInUser + ".txt");
@@ -140,12 +164,14 @@ void deletePassword(string loggedInUser) {
         return;
     }
 
-    cout << "---- Daftar Password ----" << endl;
+    cout << "|          ---- Daftar Password ----        |" << endl;
+    cout << "|                                           |" << endl;
     for (size_t i = 0; i < password.size(); i++) {
-        cout << i + 1 << ". " << password[i].nama << endl;
+        cout << "| " << i + 1 << ". Dengan Nama : " << password[i].nama << endl;
     }
 
-    cout << "Pilih nomor password yang ingin diubah (1 - " << password.size() << "): ";
+    cout << ".------------------------------------------------." << endl;
+    cout << "| Pilih nomor password yang ingin diubah (1 - " << password.size() << "): ";
     cin >> index;
 
 	if (index < 1 || index > password.size()) {
@@ -155,7 +181,9 @@ void deletePassword(string loggedInUser) {
 
 	password.erase(password.begin() + index - 1);
 
-	cout << "Password berhasil dihapus!" << endl;
+    cout << ".-------------------------------------------------------." << endl;
+    cout << "|              Password Berhasil Dihapus                |" << endl;
+    cout << "'-------------------------------------------------------'" << endl;
 
 	ofstream outFile(loggedInUser + ".txt");
     if (!outFile.is_open()) {
