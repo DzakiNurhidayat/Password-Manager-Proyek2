@@ -11,6 +11,22 @@ using namespace std;
 
 vector<listPassword> password; // Deklarasi vector global
 
+void loadPasswordsFromFile(string loggedInUser) {
+    password.clear(); // Hapus isi vektor terlebih dahulu untuk mencegah duplikasi
+    ifstream inputFile(loggedInUser + ".txt");
+    string line;
+    while (getline(inputFile, line)) {
+        stringstream ss(line);
+        listPassword tempPassword;
+        getline(ss, tempPassword.nama, ';');
+        getline(ss, tempPassword.username, ';');
+        getline(ss, tempPassword.password, ';');
+        getline(ss, tempPassword.note);
+        password.push_back(tempPassword);
+    }
+    inputFile.close();
+}
+
 void inputPassword(string loggedInUser) {
     listPassword PasswordBaru;
 
@@ -35,6 +51,7 @@ void inputPassword(string loggedInUser) {
 	inputFile << PasswordBaru.nama << ";" << PasswordBaru.username << ";" << PasswordBaru.password << ";" << PasswordBaru.note << endl;
 	inputFile.close();
 
+loadPasswordsFromFile(loggedInUser);
 
 }
 
@@ -111,6 +128,7 @@ void modifyPassword(listPassword* list, string loggedInUser, int countLine ) {
     outFile.close();
 
 
+loadPasswordsFromFile(loggedInUser);
 }
 
 
@@ -151,6 +169,7 @@ void deletePassword(string loggedInUser) {
     }
     outFile.close();
     
+    loadPasswordsFromFile(loggedInUser);
 
 }
 
@@ -169,8 +188,8 @@ void deletePassword(string loggedInUser) {
 //	inputFile.close();
 //}
 
-int main() {
-	string pengguna = "Dzaki";
-    inputPassword(pengguna);  // Call the inputPassword function here
-    return 0;
-}
+// int main() {
+// 	string pengguna = "Dzaki";
+//     inputPassword(pengguna);  // Call the inputPassword function here
+//     return 0;
+// }
