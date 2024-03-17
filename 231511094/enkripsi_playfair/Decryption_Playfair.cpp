@@ -45,12 +45,22 @@ int main()
 }
 void buatplayfairtable(string key, char playfair_table[10][10])
 {
-
-    string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/`~©ÜüØ ";
+    string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` ~©ÜüØ ";
+    // Alternatif add_char = !@#$%^&*()cdefghijklmnopABCDEFGHIJKLMNOPQRSTUVWXYZabqrstuvwxyz0123456789_+-=[]{}|;:,.<>?/`~©ÜüØ; //(di shuffle dikit)
     int row = 0, col = 0;
 
-    // Memasukkan key ke dalam tabel Playfair
+    // Menghapus duplikat karakter dalam key
+    string uniqueKey;
     for (char c : key)
+    {
+        if (uniqueKey.find(c) == string::npos)
+        {
+            uniqueKey += c;
+        }
+    }
+
+    // Memasukkan key ke dalam tabel Playfair
+    for (char c : uniqueKey)
     {
         playfair_table[row][col] = c;
         col++;
@@ -62,11 +72,11 @@ void buatplayfairtable(string key, char playfair_table[10][10])
     }
 
     // Memasukkan karakter tambahan ke dalam tabel Playfair
-    for (char c : add_chars)
+    for (char c : add_chars) // Loop untuk setiap karakter tambahan
     {
         if (row == 10)
             break;
-        if (key.find(c) == string::npos)
+        if (key.find(c) == string::npos) // Jika karakter tambahan belum ada di key, masukkan ke dalam tabel
         {
             playfair_table[row][col] = c;
             col++;
