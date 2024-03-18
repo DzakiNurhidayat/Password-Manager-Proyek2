@@ -1,4 +1,5 @@
 #include "test.h"
+
 using namespace std;
 
 int main() 
@@ -7,7 +8,7 @@ int main()
 	bool valid = false;
 	int strength;
 	
-	// jika while belum true yaitu input min 6 karakter maka akan terus mengulang untuk meminta input pw
+	// Meminta input password
 	while (!valid) 
 	{
     	cout << "Masukkan Password (minimal 6 karakter): ";
@@ -17,12 +18,10 @@ int main()
     		cout << endl << "Password harus minimal 6 karakter!" << endl;
       		continue;
     	}
-		
     	valid = true;
     	bool hasAnySymbol = false;
     	bool hasLetter = false;
     	bool hasNumber = false;
-
     	for (int i = 0; i < password.length(); i++) 
 		{
     		if (hasSymbol(password[i])) 
