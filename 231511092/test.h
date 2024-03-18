@@ -4,24 +4,23 @@
 #include <iostream>
 #include <cctype>
 #include <string>
-#include <fstream>
+#include <fstream> // Untuk operasi file
 #include <vector>
-#include <map>
 
 using namespace std;
 
-// Function prototypes
+// Fungsi untuk memeriksa apakah karakter adalah simbol
+bool hasSymbol(char c);
+
+// Modul untuk menampilkan informasi lebih lanjut
 void helpLogin();
 void helpIn();
-bool hasSymbol(char c);
-// bool hasSpecialChar(char c);
+
+// Modul untuk memvalidasi dan mengevaluasi kekuatan password
+string testPassword();
 void checkPasswordStrength(string password);
 
-// Function to check if password exists in the map
-// bool isPasswordUnique(const string& password, const map<string, string>& passwordMap);
+// Modul untuk mengecek keunikan password
+void uniquePassword();
 
-// // Function to save password to a map
-// void savePassword(const string& password, map<string, string>& passwordMap);
-
-#endif
-
+#endif // TEST_H
