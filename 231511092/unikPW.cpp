@@ -1,60 +1,70 @@
 #include <iostream>
-#include <fstream>
-#include <vector>
+#include <fstream> 
+#include <vector> 
 
 using namespace std;
 
-int main() 
-{
-  string passwordInput;
-  vector<string> listPassword;
-  int countSama;
-  bool fileBaru = false;
+int main() {
+  	const int MAX_CHARACTERS = 18; 
+	char userArray[MAX_CHARACTERS]; 
+	
+  	ifstream inputFile("output.txt"); 
 
-  cout << "Masukkan password: ";
-  cin >> passwordInput;
+  // Vector untuk menyimpan semua input
+  	vector<string> allInputs;
 
-  // Membuka file yang berisi list password
-  ifstream filePassword("password.dat");
-  if (!filePassword.is_open()) {
-    // File tidak ada, buat file baru
-    fileBaru = true;
-  }
+	if (inputFile.is_open()) 
+	{
+    	string input;
+    	while (getline(inputFile, input)) 
+		{
+      		allInputs.push_back(input);
+    	}
 
-  // Membaca setiap password dari file dan menambahkannya ke list
-  while (getline(filePassword, passwordInput)) {
-    listPassword.push_back(passwordInput);
-  }
+    	while (true) 
+		{
+    		cout <<endl<< "Masukkan password (maksimum " << MAX_CHARACTERS << " karakter): ";
+      		cin.getline(userArray, MAX_CHARACTERS);
 
-  // Menutup file
-  filePassword.close();
+      		ofstream outputFile("output.txt", ios::app); 
+     	 	if (outputFile.is_open()) 
+			{
+        		outputFile << userArray << endl; 
+        		outputFile.close();
+      		} 
+			else 
+			{
+        		cout << "Gagal membuka file." << endl;
+      		}
 
-  // Menambahkan password baru ke list
-  listPassword.push_back(passwordInput);
+      		int count = 0;
+            int i=1;
+			for (i = 0; i < allInputs.size(); i++) 
+			{
+  				if (allInputs[i] == userArray) 
+				{
+    				count++;
+  				}
+			}
 
-  // Menulis list password ke file
-  ofstream fileOutput("password.dat");
- for (int i = 0; i < listPassword.size(); i++) {
-  fileOutput << listPassword[i] << endl;
-}
-  // Menutup file
-  fileOutput.close();
+      		cout <<endl<< "Jumlah input yang sama dengan sebelumnya: " << count << endl;
 
-  // Menginisialisasi variabel countSama
-  countSama = 0;
+      		char answer;
+      		cout <<endl<< "Masih ingin menyimpan password lain? (y/n): ";
+      		cin >> answer;
+      		cin.ignore(); 
 
-  // Melakukan perulangan untuk setiap password dalam list
-  for (int i = 0; i < listPassword.size(); i++) 
-  {
-    // Membandingkan password dengan password yang diinputkan user
-    if (listPassword[i] == passwordInput) {
-      // Meningkatkan nilai countSama
-      countSama++;
-    }
-  }
+      		if (answer == 'n') 
+			{
+        		break;
+      		}
+    	}
 
-  // Menampilkan hasil
-  cout << "Jumlah password yang sama dengan password yang Anda masukkan: " << countSama << endl;
-
+    	inputFile.close(); 
+  	} 
+	else 
+	{
+    	cout << "Gagal membuka file." << endl;
+  	}
   return 0;
 }
