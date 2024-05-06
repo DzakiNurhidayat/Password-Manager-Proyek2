@@ -30,8 +30,8 @@ string encryption(string loggedInUser, string plainText) {
 
 void buatplayfairtable(string key, char playfair_table[10][10])
 {
-    string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` ~©ÜüØö÷æ×Ø";
-    // Alternatif add_char = !@#&*()cdefLMSTUVWXYZghijkl$%^mn+NOPQR-=[]{}|op ABGHIJK1234abqrstuCDEFvwxyz056789_;:,.<>?/`~©ÜüØö÷æ×Ø; //(di shuffle dikit)
+    string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` '~✓®×¢€§×";
+
     int row = 0, col = 0; 
 
     //Menghapus duplikat karakter dalam key
