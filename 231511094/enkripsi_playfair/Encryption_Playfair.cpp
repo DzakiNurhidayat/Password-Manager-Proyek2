@@ -10,27 +10,11 @@ string encryption(string loggedInUser, string plainText) {
     char playfair_table[10][10];
     buatplayfairtable(loggedInUser, playfair_table);
     char lastchar;
-    
-    //Munculkan tabel
-    // for (int i = 0; i < 10; i++)
-    // {
-    //     for (int j = 0; j  < 10; j++)
-    //     {
-    //         cout << playfair_table[i][j] << " | ";
-    //     }
-    //     cout << "\n";
-    // }
-    
-    // string plaintext;
-    // cout << "Masukkan plaintext yang akan dienkripsi: "; // plainteks (nanti di ganti dengan password)
-    // cin >> plaintext;                                    // plainteks (nanti di ganti dengan password)
-
-    // mengambil char akhir jika total plaintext nya ganjil
+   
 
     if (plainText.length() % 2 != 0)
     {
         lastchar = plainText[plainText.length() - 1];
-        cout << "\nlast char = " << lastchar << "\n";                   // Menunjukan last char(boleh dihapus)
         plainText.pop_back();                                           // Menghapus char terakhir agar jumlahnya genap
         encrypted_text = enkripsi_playfair(plainText, playfair_table);  // Memasukan teks enkripsi ke variabel encrypted_text
         encrypted_text.push_back(lastchar);
@@ -41,19 +25,6 @@ string encryption(string loggedInUser, string plainText) {
     }
 
     cout << "| Hasil enkripsi : " << encrypted_text << endl;
-
-    // Simpan hasil enkripsi ke dalam file txt
-    // ofstream encrypted_file("encrypted_text.txt");
-    // if (encrypted_file.is_open())
-    // {
-    //     encrypted_file << encrypted_text;
-    //     encrypted_file.close();
-    //     cout << "Hasil enkripsi telah disimpan dalam file 'encrypted_text.txt'" << endl;
-    // }
-    // else
-    // {
-    //     cerr << "Gagal menyimpan hasil enkripsi ke dalam file." << endl;
-    // }
     return encrypted_text;
 }
 
