@@ -17,10 +17,10 @@ typedef struct
 } User;
 
 
-void Register();
+string Register();
 string Login();
 void gantiPassword();
-void ReadUserFile(const string& username);
+void loadPasswordsFromFile(string loggedInUser);
 
 
 

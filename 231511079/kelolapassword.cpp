@@ -4,10 +4,10 @@
 #include <sstream> // Untuk stringstream
 #include <fstream>
 
+#include "../231511066/akun.h"
 #include "kelola.h"
 #include "../231511083/listpassword.h"
 #include "../231511094/enkripsi_playfair/playfair.h"
-#include "../231511092/test.h"
 using namespace std;
 
 
@@ -36,19 +36,21 @@ void inputPassword(string loggedInUser) {
 	string messagePassword, encrypPassword;
 
     cout << "| Masukkan Nama: ";
+    // getline(cin, PasswordBaru.nama);
     cin >> PasswordBaru.nama;
     cout << "| Masukkan Username: ";
+    // getline(cin, PasswordBaru.username);
     cin >> PasswordBaru.username;
     cout << "| Masukkan Password: ";
+    // getline(cin, PasswordBaru.password);
     cin >> PasswordBaru.password;
     cout << "| Masukkan Catatan: ";
+    // getline(cin, PasswordBaru.note);
     cin >> PasswordBaru.note;
 
     // Menambahkan password baru ke dalam vector
     password.push_back(PasswordBaru);
-	cout << ".-----------------------------------------------." << endl;
-    cout << "| Password Berhasil Ditambahkan Ke Dalam List   |" << endl;
-    cout << "'-----------------------------------------------'" << endl << endl;
+
 
 
 	ofstream inputFile;
@@ -56,7 +58,6 @@ void inputPassword(string loggedInUser) {
 	inputFile.open(loggedInUser + ".txt", ios::app);
 	//Menyimpan file
 	messagePassword = PasswordBaru.password;
-	checkPasswordStrength(messagePassword);
 	encrypPassword = encryption(loggedInUser, messagePassword);
 	inputFile << PasswordBaru.nama << ";" << PasswordBaru.username << ";" << encrypPassword << ";" << PasswordBaru.note << endl;
 	inputFile.close();
@@ -186,10 +187,6 @@ void deletePassword(string loggedInUser) {
 	}
 
 	password.erase(password.begin() + index - 1);
-
-    cout << ".-------------------------------------------------------." << endl;
-    cout << "|              Password Berhasil Dihapus                |" << endl;
-    cout << "'-------------------------------------------------------'" << endl;
 
 	ofstream outFile(loggedInUser + ".txt");
     if (!outFile.is_open()) {

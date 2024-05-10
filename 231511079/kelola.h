@@ -13,6 +13,6 @@ using namespace std;
 void inputPassword(string loggedinUser);
 void modifyPassword(listPassword* list, string loggedInUser, int countLine );
 void deletePassword(string loggedInUser);
-void loadPasswordsFromFile(string loggedInUser);
+
 
 #endif
