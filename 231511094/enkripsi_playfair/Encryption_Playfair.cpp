@@ -26,13 +26,40 @@ string encryption(string loggedInUser, string plainText)
     return encrypted_text;
 }
 
+
+
+
+void buatplayfairtable(string key,address playfair_table)
+{
+
+    string add_chars ="";
+    address p = playfair_table;
+    
+    string temp;
+
+    for (char c : key) // Loop untuk setiap karakter key (dan element dari variabel key diambil lalu dimasukan ke variabel c)
+    {
+        if (temp.find(c) == string::npos) // Jika karakter tambahan belum ada di key, masukkan ke dalam tabel
+        {
+            temp += c;
+        }
+    }
+    
+    while (p->down != NULL)
+    {
+        
+        
+    }
+    
+}
+
 // aturan ketika enkripsi/dekripsi playfair
 // 1. jika di kolom yang sama maka
 // 2. jika di baris yang sama
 // 3. jika di tidak ada yang sama
 // 4. jika kolom dan baris nya sama
 
-string enkripsi_playfair(string message, char playfair_table[10][10])
+string enkripsi_playfair(string message, address playfair_table)
 {
     string encrypted_text;
     

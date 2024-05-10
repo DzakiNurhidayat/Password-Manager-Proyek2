@@ -5,11 +5,13 @@
 #include <fstream>
 #include <cstring>
 #include <string>
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace std;
 
 typedef char infotype;
-typedef struct address *address;
+typedef struct node *address;
 
 struct node
 {
@@ -18,6 +20,11 @@ struct node
     address down;
     address right;
     address left;
+};
+
+struct playfair
+{
+    /* data */
 };
 
 string encryption(string loggedInUser, string plainText);
