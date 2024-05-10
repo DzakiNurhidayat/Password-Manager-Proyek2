@@ -11,7 +11,7 @@ using namespace std;
 typedef char infotype;
 typedef struct address *address;
 
-struct playfair
+struct node
 {
     infotype text;
     address top;

@@ -3,10 +3,19 @@
 /*File ini adalah untuk proses yang ada di enkripsi dan dekripsi*/
 
 //kerangka playfair table (nanti panggil panggil fungsi/ yang di bawah nya)
-void buatplayfairtable(address lorem)
+void buatplayfairtable(node p,node q)
 {
     string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` '~✓®×¢€§×";
 
+    while (p.down != NULL)
+    {   
+        while (q.right != NULL)
+        {
+            
+        }
+        
+        
+    }
     
 }
 
@@ -14,7 +23,7 @@ void buatplayfairtable(address lorem)
 void unik(string key,address lorem /*masuk ke linked list*/)
 {
     string uniqueKey;
-    for (char c : key) // Loop untuk setiap karakter key (dan element dari variabel key diambil lalu dimasukan ke variabel c)
+    for (char c : key)
     {
         if (uniqueKey.find(c) == string::npos) // Jika karakter tambahan belum ada di key, masukkan ke dalam tabel
         {
@@ -23,6 +32,7 @@ void unik(string key,address lorem /*masuk ke linked list*/)
     }
 }
 
+//
 void deletecommon()
 {
 
