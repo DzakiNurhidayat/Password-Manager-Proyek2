@@ -110,6 +110,40 @@ address searchingNode(address Head, infotype nilai){
     return result;
 }
 
+void cek(char c);
+
+string encryption(address Head,string plaintext)
+{
+    string encrypted_text;
+    char c1, c2, c3, c4;
+    int j;
+    j = 0;
+    for (int i = 0; i < plaintext.length(); i++)
+    {
+        c1 = plaintext[j];
+        c2 = (i + 1 < plaintext.length()) ? plaintext[i + 1] : '\0'; // '\0' character kosong
+        // c3 = (i + 2 < plaintext.length()) ? plaintext[i + 2] : '\0';
+        // c4 = (i + 3 < plaintext.length()) ? plaintext[i + 3] : '\0';
+
+        if (c1 != c2)
+        {
+            cek(c1);
+            cek(c2);
+        }
+        else
+        {
+
+        }
+
+        if(c1 != c3)
+        {
+
+        }
+        
+
+    }
+    return encrypted_text;
+}
 
 /*Keperluan debugging*/
 void display_table(address Head, int size_board)
