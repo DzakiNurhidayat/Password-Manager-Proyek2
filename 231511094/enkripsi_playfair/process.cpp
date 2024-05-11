@@ -109,3 +109,37 @@ address searchingNode(address Head, infotype nilai){
     }
     return result;
 }
+
+
+/*Keperluan debugging*/
+void display_table(address Head, int size_board)
+{
+    address current = Head;
+
+    for (int i = 1; i <= size_board; i++)
+    {
+        for (int j = 1; j <= size_board; j++)
+        {
+            cout << current->text << " | ";
+            current = current->right;
+        }
+        cout << "\n";
+        current = Head;
+        for (int k = 0; k < i; k++)
+        {
+            current = current->down;
+        }
+    }
+}
+
+int main()
+{
+    int size = 10;
+    string pass = "Wakwaw1123 olo";
+    string hasil;
+    address head;
+    hasil = unik(pass);
+    head = createTable(size, hasil);
+
+    display_table(head, size);
+}
