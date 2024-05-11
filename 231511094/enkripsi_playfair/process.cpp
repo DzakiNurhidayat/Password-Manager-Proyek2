@@ -3,44 +3,48 @@
 /*File ini adalah untuk proses yang ada di enkripsi dan dekripsi*/
 
 //kerangka playfair table (nanti panggil panggil fungsi/ yang di bawah nya)
-void buatplayfairtable(node p,node q)
+void buatplayfairtable(string key,node table)
 {
-    string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` '~✓®×¢€§×";
+    string hasil;
+    node q = table;
 
-    while (p.down != NULL)
-    {   
-        while (q.right != NULL)
-        {
-            
-        }
-        
-        
-    }
+    hasil = unik(key);
+    insert(hasil, &q);
+
+}
+
+//Memasukan character ke tabel playfair
+void insert(string key,address lorem)
+{
     
 }
 
-//Memasukan character unik ke tabel playfair
-void unik(string key,address lorem /*masuk ke linked list*/)
+/*Menjadikan hasil yang unik karakter saja */
+string unik(string key)
 {
-    string uniqueKey;
-    for (char c : key)
+    string karakter;
+    string addchar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` '~✓®×¢€§×";
+
+    for (char c : key) 
     {
-        if (uniqueKey.find(c) == string::npos) // Jika karakter tambahan belum ada di key, masukkan ke dalam tabel
+        if (karakter.find(c) == string::npos) // Jika karakter tambahan belum ada di key, masukkan ke dalam tabel
         {
-            uniqueKey += c;
+            karakter += c;
         }
     }
+    for (char c : addchar)
+    {
+        if (karakter.find(c) == string::npos)
+        {
+            karakter += c;
+        }
+    }
+
+    return karakter;
 }
-
-//
-void deletecommon()
-{
-
-}
-
 
 //traversal dan mencari tahu posisi node 
-void cekposisi(char playfair_table[10][10], char c, int &row, int &col)
+void cekposisi(node p,node q)
 {
     
 }

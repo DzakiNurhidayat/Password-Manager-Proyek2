@@ -13,7 +13,7 @@ using namespace std;
 typedef char infotype;
 typedef struct node *address;
 
-struct node
+typedef struct node
 {
     infotype text;
     address top;
@@ -22,10 +22,6 @@ struct node
     address left;
 };
 
-struct playfair
-{
-    /* data */
-};
 
 string encryption(string loggedInUser, string plainText);
 string decryption(string loggedInUser, string cipherText);
