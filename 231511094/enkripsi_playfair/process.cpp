@@ -85,7 +85,27 @@ address createTable(int size_board, string karakter){
 
 
 //traversal dan mencari tahu posisi node 
-void cekposisi(node p,node q)
-{
-    
+address searchingNode(address Head, infotype nilai){
+    address rowStart = NULL;
+    address node = Head;
+    address result = NULL;
+
+    // loop down
+    while(node != NULL){
+        // loop right
+        while(node != NULL){
+            if (node -> text == nilai){
+                result = node;
+                return result;
+            }
+            
+            if (rowStart == NULL){
+                rowStart = node;
+            }
+            node = node -> right;
+        }
+        node = rowStart -> down;
+        rowStart = NULL;
+    }
+    return result;
 }

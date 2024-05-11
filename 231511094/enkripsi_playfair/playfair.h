@@ -31,6 +31,8 @@ string decryption(string loggedInUser, string cipherText);
 // string dekripsi_playfair(string ciphertext, char playfairtabel[10][10]);
 
 string unik(string key);
+
 address createTable(int size_board, string karakter);
+address searchingNode(address Head, infotype nilai);
 
 #endif
