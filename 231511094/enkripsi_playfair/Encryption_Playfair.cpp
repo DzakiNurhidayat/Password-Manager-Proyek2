@@ -7,9 +7,9 @@ string encryption(string loggedInUser, string plainText)
     string encrypted_text;
     int size = 100;
     string hasil;
-    address head;
+    address Head;
     hasil = unik(loggedInUser);
-    head = createTable(100,hasil);
+    Head = createTable(100,hasil);
     
     char lastchar;
    
@@ -18,12 +18,12 @@ string encryption(string loggedInUser, string plainText)
     {
         lastchar = plainText[plainText.length() - 1];
         plainText.pop_back();                                           // Menghapus char terakhir agar jumlahnya genap
-        encrypted_text = encryption_playfair(head, plainText);  // Memasukan teks enkripsi ke variabel encrypted_text
+        encrypted_text = encryption_playfair(Head, plainText);  // Memasukan teks enkripsi ke variabel encrypted_text
         encrypted_text.push_back(lastchar);
     }
     else
     {
-        encrypted_text = encryption_playfair(head, plainText);
+        encrypted_text = encryption_playfair(Head, plainText);
     }
 
     cout << "| Hasil enkripsi : " << encrypted_text << endl;
@@ -44,11 +44,9 @@ string encryption_playfair(address Head, string plaintext)
 
     bool col, row;
     char c1, c2;
-    int j;
-    j = 0;
     for (int i = 0; i < plaintext.length(); i++)
     {
-        c1 = plaintext[j];
+        c1 = plaintext[i];
         c2 = (i + 1 < plaintext.length()) ? plaintext[i + 1] : '\0'; // '\0' character kosong
         // c3 = (i + 2 < plaintext.length()) ? plaintext[i + 2] : '\0';
         // c4 = (i + 3 < plaintext.length()) ? plaintext[i + 3] : '\0';
@@ -63,16 +61,17 @@ string encryption_playfair(address Head, string plaintext)
 
             if (row = true) // same row
             {
-                encrypted_text.push_back(address1->right->text);
-                encrypted_text.push_back(address2->right->text);
+                encrypted_text.push_back(samerow(address1));
+                encrypted_text.push_back(samerow(address2));
             }
             else if (col = true) // same col
             {
-                encrypted_text.push_back(address1->down->text);
-                encrypted_text.push_back(address2->down->text);
+                encrypted_text.push_back(samecol(address1));
+                encrypted_text.push_back(samecol(address2));
             }
             else // no same
             {
+
             }
         }
         else

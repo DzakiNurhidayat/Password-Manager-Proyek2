@@ -29,6 +29,8 @@ bool cek_horizontal(address current, address current2);
 bool cek_vertikal(address current, address current2);
 address searchingNode(address Head, infotype nilai);
 address createTable(int size_board, string karakter);
+char samerow(address c1);
+char samecol(address c1);
 string unik(string key);
 address createTable(int size_board, string karakter);
 address searchingNode(address Head, infotype nilai);

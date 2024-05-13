@@ -115,7 +115,7 @@ bool cek_vertikal(address current, address current2)
 
     while (current != NULL)
     {
-        if (current->top != current2)
+        if (current->down != current2)
         {
             current = current->down;
         }
@@ -128,7 +128,7 @@ bool cek_vertikal(address current, address current2)
 
     while (current2 !=NULL)
     {
-        if (current2->top != current)
+        if (current2->down != current)
         {
             current2 = current2->down;
         }
@@ -171,11 +171,71 @@ bool cek_horizontal(address current, address current2)
     return false;
 }
 
+// char kotak(address c1,address c2)
+// {
+//     address temp,temp2;
+//     int langkah,jumlah;
+//     jumlah = 0;
+//     temp = c1;
 
+//     while (c1 != c2)
+//     {
+//         if (c1->right != NULL)
+//         {
+//             c1 = c1->right;
+//             temp2 = c1;
+//             c1 = c1->down;
+//             jumlah++;
+//             if (c1 == c2)
+//             {
+//                 jumlah == langkah;
+//             }
+            
+//         }
 
+        
+//         jumlah = 0;
+//     }
+    
+// }
 
-/*Keperluan debugging*/
-void display_table(address Head, int size_board)
+char samerow(address c1)
+{
+    char text;
+    if (c1->right = NULL)
+    {
+        while (c1->left != NULL)
+        {
+            c1 = c1->left;
+        }
+        text = c1->text;
+    }
+    else
+    {
+        text = c1->right->text;
+    }
+    return text;
+}
+
+char samecol(address c1)
+{
+    char text;
+    if (c1->down = NULL)
+    {
+        while (c1->top != NULL)
+        {
+            c1 = c1->top;
+        }
+        text = c1->text;
+    }
+    else
+    {
+        text = c1->down->text;
+    }
+}
+
+    /*Keperluan debugging*/
+    void display_table(address Head, int size_board)
 {
     address current = Head;
 
