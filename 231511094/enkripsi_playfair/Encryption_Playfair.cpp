@@ -1,30 +1,34 @@
-// #include "playfair.h"
+#include "playfair.h"
 
 
 // // nanti fungsi ini ganti nama jadi main_encrypt 
-// string encryption(string loggedInUser, string plainText) 
-// {
-//     string encrypted_text;
-//     char playfair_table[10][10];
-//     buatplayfairtable(loggedInUser, playfair_table);
-//     char lastchar;
+string encryption(string loggedInUser, string plainText) 
+{
+    string encrypted_text;
+    int size = 100;
+    string hasil;
+    address head;
+    hasil = unik(loggedInUser);
+    head = createTable(100,hasil);
+    
+    char lastchar;
    
 
-//     if (plainText.length() % 2 != 0)
-//     {
-//         lastchar = plainText[plainText.length() - 1];
-//         plainText.pop_back();                                           // Menghapus char terakhir agar jumlahnya genap
-//         encrypted_text = enkripsi_playfair(plainText, playfair_table);  // Memasukan teks enkripsi ke variabel encrypted_text
-//         encrypted_text.push_back(lastchar);
-//     }
-//     else
-//     {
-//         encrypted_text = enkripsi_playfair(plainText, playfair_table);
-//     }
+    if (plainText.length() % 2 != 0)
+    {
+        lastchar = plainText[plainText.length() - 1];
+        plainText.pop_back();                                           // Menghapus char terakhir agar jumlahnya genap
+        encrypted_text = encryption_playfair(head, plainText);  // Memasukan teks enkripsi ke variabel encrypted_text
+        encrypted_text.push_back(lastchar);
+    }
+    else
+    {
+        encrypted_text = encryption_playfair(head, plainText);
+    }
 
-//     cout << "| Hasil enkripsi : " << encrypted_text << endl;
-//     return encrypted_text;
-// }
+    cout << "| Hasil enkripsi : " << encrypted_text << endl;
+    return encrypted_text;
+}
 
 
 // // aturan ketika enkripsi/dekripsi playfair
@@ -33,9 +37,49 @@
 // // 3. jika di tidak ada yang sama
 // // 4. jika kolom dan baris nya sama
 
-// string enkripsi_playfair(string message, address playfair_table)
-// {
-//     string encrypted_text;
-    
-//     return encrypted_text;
-// }
+string encryption_playfair(address Head, string plaintext)
+{
+    string encrypted_text;
+    address address1, address2;
+
+    bool col, row;
+    char c1, c2;
+    int j;
+    j = 0;
+    for (int i = 0; i < plaintext.length(); i++)
+    {
+        c1 = plaintext[j];
+        c2 = (i + 1 < plaintext.length()) ? plaintext[i + 1] : '\0'; // '\0' character kosong
+        // c3 = (i + 2 < plaintext.length()) ? plaintext[i + 2] : '\0';
+        // c4 = (i + 3 < plaintext.length()) ? plaintext[i + 3] : '\0';
+
+        address1 = searchingNode(Head, c1); // dapet address c1
+        address2 = searchingNode(Head, c2);
+
+        if (c1 != c2)
+        {
+            row = cek_vertikal(address1, address2);
+            col = cek_horizontal(address1, address2);
+
+            if (row = true) // same row
+            {
+                encrypted_text.push_back(address1->right->text);
+                encrypted_text.push_back(address2->right->text);
+            }
+            else if (col = true) // same col
+            {
+                encrypted_text.push_back(address1->down->text);
+                encrypted_text.push_back(address2->down->text);
+            }
+            else // no same
+            {
+            }
+        }
+        else
+        {
+            encrypted_text.push_back(c1);
+            encrypted_text.push_back(c1);
+        }
+    }
+    return encrypted_text;
+}

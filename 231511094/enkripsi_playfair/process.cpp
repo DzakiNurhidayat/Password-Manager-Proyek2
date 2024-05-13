@@ -110,12 +110,75 @@ address searchingNode(address Head, infotype nilai){
     return result;
 }
 
-void cek(char c);
+bool cek_vertikal(address current, address current2)
+{
+
+    while (current != NULL)
+    {
+        if (current->top != current2)
+        {
+            current = current->down;
+        }
+        else
+        {
+            return true;
+        }
+        
+    }
+
+    while (current2 !=NULL)
+    {
+        if (current2->top != current)
+        {
+            current2 = current2->down;
+        }
+        else
+        {
+            return true;
+        }
+        
+    }
+    
+    return false;
+}
+
+bool cek_horizontal(address current, address current2)
+{
+    while (current != NULL)
+    {
+        if (current->top != current2)
+        {
+            current = current->right;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    while (current2 != NULL)
+    {
+        if (current2->top != current)
+        {
+            current2 = current2->right;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 
 string encryption(address Head,string plaintext)
 {
     string encrypted_text;
-    char c1, c2, c3, c4;
+    address address1,address2;
+
+    bool col, row;
+    char c1, c2;
     int j;
     j = 0;
     for (int i = 0; i < plaintext.length(); i++)
@@ -125,20 +188,36 @@ string encryption(address Head,string plaintext)
         // c3 = (i + 2 < plaintext.length()) ? plaintext[i + 2] : '\0';
         // c4 = (i + 3 < plaintext.length()) ? plaintext[i + 3] : '\0';
 
+        address1 = searchingNode(Head,c1);// dapet address c1
+        address2 = searchingNode(Head, c2);
+        
+
         if (c1 != c2)
         {
-            cek(c1);
-            cek(c2);
+            row = cek_vertikal(address1, address2);   
+            col = cek_horizontal(address1,address2);
+            
+            if (row = true)//same row
+            {
+                encrypted_text.push_back(address1->right->text);
+                encrypted_text.push_back(address2->right->text);
+            } 
+            else if (col = true)//same col
+            {
+                encrypted_text.push_back(address1->down->text);
+                encrypted_text.push_back(address2->down->text);
+            }
+            else // no same
+            {
+
+            }
         }
         else
         {
-
+            encrypted_text.push_back(c1);
+            encrypted_text.push_back(c1);
         }
 
-        if(c1 != c3)
-        {
-
-        }
         
 
     }
