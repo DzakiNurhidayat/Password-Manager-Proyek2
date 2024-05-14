@@ -122,47 +122,65 @@ char samecol(address c1)
 char kotak(address c1, address c2)
 {
     char text;
+    address tengah, temp;
+    bool kanan;
     int jumlah;
-    address tengah,temp;
+    kanan = true;
     temp = c1;
+
     while (c1 != c2)
     {
-        
-        c1 = c1->right;
-        tengah = c1;
-        while (c1 != c2 || c1 != NULL)
+        if (kanan == true)
         {
-            c1 = c1->down;
-            jumlah++;
-        }
-
-        if (c1 != c2)
-        {
-            c1 = tengah;
-            jumlah = 0;
-            while (c1 != c2 || c1 != NULL)
+            while (c1 != NULL)
             {
-                c1 = c1->top;
-                jumlah++;
+                c1 = c1->right;
+                tengah = c1;
+                while (c1 != NULL)
+                {
+                    c1 = c1->down;
+                    if (c1 == c2)
+                    {
+                        return tengah->text;
+                    }
+                }
+                c1 = tengah;
+                while (c1 != NULL)
+                {
+                    c1 = c1->top;
+                    if (c1 == c2)
+                    {
+                        return tengah->text;
+                    }
+                }
             }
-            if (c1 != c2)
-            {
-                jumlah = 0;
-            }
-            else
-            {
-                return tengah->text;
-            }
-            
+            kanan = false;
+            c1 = temp;
         }
         else
         {
-            return tengah->text;
+            while (c1 != NULL)
+            {
+                c1 = c1->left;
+                tengah = c1;
+                while (c1 != NULL)
+                {
+                    c1 = c1->down;
+                    if (c1 == c2)
+                    {
+                        return tengah->text;
+                    }
+                }
+                c1 = tengah;
+                while (c1 != NULL)
+                {
+                    c1 = c1->top;
+                    if (c1 == c2)
+                    {
+                        return tengah->text;
+                    }
+                }
+            }
         }
-        
     }
-    
-
-
-    return text;
 }
