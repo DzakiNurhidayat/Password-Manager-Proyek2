@@ -71,7 +71,8 @@ string encryption_playfair(address Head, string plaintext)
             }
             else // no same
             {
-
+                encrypted_text.push_back(kotak(address1, address2));
+                encrypted_text.push_back(kotak(address2, address1));
             }
         }
         else
@@ -81,4 +82,87 @@ string encryption_playfair(address Head, string plaintext)
         }
     }
     return encrypted_text;
+}
+
+char samerow(address c1)
+{
+    char text;
+    if (c1->right = NULL)
+    {
+        while (c1->left != NULL)
+        {
+            c1 = c1->left;
+        }
+        text = c1->text;
+    }
+    else
+    {
+        text = c1->right->text;
+    }
+    return text;
+}
+
+char samecol(address c1)
+{
+    char text;
+    if (c1->down = NULL)
+    {
+        while (c1->top != NULL)
+        {
+            c1 = c1->top;
+        }
+        text = c1->text;
+    }
+    else
+    {
+        text = c1->down->text;
+    }
+}
+
+char kotak(address c1, address c2)
+{
+    char text;
+    int jumlah;
+    address tengah,temp;
+    temp = c1;
+    while (c1 != c2)
+    {
+        
+        c1 = c1->right;
+        tengah = c1;
+        while (c1 != c2 || c1 != NULL)
+        {
+            c1 = c1->down;
+            jumlah++;
+        }
+
+        if (c1 != c2)
+        {
+            c1 = tengah;
+            jumlah = 0;
+            while (c1 != c2 || c1 != NULL)
+            {
+                c1 = c1->top;
+                jumlah++;
+            }
+            if (c1 != c2)
+            {
+                jumlah = 0;
+            }
+            else
+            {
+                return tengah->text;
+            }
+            
+        }
+        else
+        {
+            return tengah->text;
+        }
+        
+    }
+    
+
+
+    return text;
 }

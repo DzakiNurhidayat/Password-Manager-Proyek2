@@ -199,41 +199,6 @@ bool cek_horizontal(address current, address current2)
     
 // }
 
-char samerow(address c1)
-{
-    char text;
-    if (c1->right = NULL)
-    {
-        while (c1->left != NULL)
-        {
-            c1 = c1->left;
-        }
-        text = c1->text;
-    }
-    else
-    {
-        text = c1->right->text;
-    }
-    return text;
-}
-
-char samecol(address c1)
-{
-    char text;
-    if (c1->down = NULL)
-    {
-        while (c1->top != NULL)
-        {
-            c1 = c1->top;
-        }
-        text = c1->text;
-    }
-    else
-    {
-        text = c1->down->text;
-    }
-}
-
     /*Keperluan debugging*/
     void display_table(address Head, int size_board)
 {
