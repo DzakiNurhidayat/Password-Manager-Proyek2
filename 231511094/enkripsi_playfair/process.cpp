@@ -200,7 +200,7 @@ bool cek_horizontal(address current, address current2)
 // }
 
     /*Keperluan debugging*/
-    void display_table(address Head, int size_board)
+void display_table(address Head, int size_board)
 {
     address current = Head;
 
@@ -222,7 +222,7 @@ bool cek_horizontal(address current, address current2)
 
 int main()
 {
-    int size = 100;
+    int size = 10; // var x var
     string pass = "Wakwaw1123 olo";
     string hasil;
     address head;
