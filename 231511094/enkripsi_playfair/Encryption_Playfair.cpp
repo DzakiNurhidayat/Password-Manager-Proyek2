@@ -5,11 +5,11 @@
 string encryption(string loggedInUser, string plainText) 
 {
     string encrypted_text;
-    int size = 100;
+    int size = 10;
     string hasil;
     address Head;
     hasil = unik(loggedInUser);
-    Head = createTable(100,hasil);
+    Head = createTable(size,hasil);
     
     char lastchar;
    
