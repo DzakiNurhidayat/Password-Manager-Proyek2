@@ -196,7 +196,6 @@ void menuList(listPassword *list, int countLine) {
         cout << "| 1. Sorting                        |" << endl;
         cout << "| 2. Searching                      |" << endl;
         cout << "| 3. Keluar Menu List Password      |" << endl;
-        cout << "| 4. Keluar Aplikasi               |" << endl;
         cout << "'-----------------------------------'" << endl;
         cout << "| Pilih Hal Yang Ingin Anda Lakukan : ";
         cin >> menu;
@@ -254,7 +253,6 @@ void menuPassword (listPassword *list, int countLine, string loggedInUser) {
                     loadPasswordsFromFile(loggedInUser);
                     modifyPassword(list, loggedInUser, countLine);
                     countLine = readListPassword(list, loggedInUser);
-                    // Manggil .h Jihan
                     break;
                 case 3:
                 cout << endl;
@@ -264,7 +262,6 @@ void menuPassword (listPassword *list, int countLine, string loggedInUser) {
                     loadPasswordsFromFile(loggedInUser);
                     deletePassword(loggedInUser);
                     countLine = readListPassword(list, loggedInUser);
-                    // Manggil .h Jihan
                     break;
                 case 4:
                     if (countLine < 1)
@@ -294,8 +291,8 @@ void menuPassword (listPassword *list, int countLine, string loggedInUser) {
                 default:
                     cout << "Pilihan tidak valid\n";
             }
-        } while (menu!=6);
-    }
+    } while (menu!=6);
+}
 
 // int main(){
 //     listPassword list[MAX_PASS];

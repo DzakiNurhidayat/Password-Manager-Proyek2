@@ -5,9 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <cctype>
 #include <iomanip>
-#include <algorithm>
 
 using namespace std;
 #define MAX_PASS 100
@@ -20,7 +18,7 @@ struct listPassword {
 };
 
 // Fitur List Password
-void lowerCase(string *keyword);
+void lowerCase(string &keyword);
 void sorting (listPassword *list, int countLine, int sortBy);
 void searching (listPassword* list, int countLine, string keyword);
 
