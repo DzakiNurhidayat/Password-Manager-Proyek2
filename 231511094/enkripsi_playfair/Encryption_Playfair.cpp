@@ -18,7 +18,7 @@ string encryption(string loggedInUser, string plainText)
     {
         lastchar = plainText[plainText.length() - 1];
         plainText.pop_back();                                           // Menghapus char terakhir agar jumlahnya genap
-        encrypted_text = encryption_playfair(Head, plainText);  // Memasukan teks enkripsi ke variabel encrypted_text
+        encrypted_text = encryption_playfair(Head, plainText);          // Memasukan teks enkripsi ke variabel encrypted_text
         encrypted_text.push_back(lastchar);
     }
     else
@@ -44,12 +44,10 @@ string encryption_playfair(address Head, string plaintext)
 
     bool col, row;
     char c1, c2;
-    for (int i = 0; i < plaintext.length(); i++)
+    for (int i = 0; i < plaintext.length(); i+= 2)
     {
         c1 = plaintext[i];
         c2 = (i + 1 < plaintext.length()) ? plaintext[i + 1] : '\0'; // '\0' character kosong
-        // c3 = (i + 2 < plaintext.length()) ? plaintext[i + 2] : '\0';
-        // c4 = (i + 3 < plaintext.length()) ? plaintext[i + 3] : '\0';
 
         address1 = searchingNode(Head, c1); // dapet address c1
         address2 = searchingNode(Head, c2);
@@ -87,17 +85,18 @@ string encryption_playfair(address Head, string plaintext)
 char samerow(address c1)
 {
     char text;
-    if (c1->right = NULL)
+    address temp = c1;
+    if (temp->right == NULL)
     {
-        while (c1->left != NULL)
+        while (temp->left != NULL)
         {
-            c1 = c1->left;
+            c1 = temp->left;
         }
-        text = c1->text;
+        text = temp->text;
     }
     else
     {
-        text = c1->right->text;
+        text = temp->right->text;
     }
     return text;
 }
@@ -105,82 +104,18 @@ char samerow(address c1)
 char samecol(address c1)
 {
     char text;
-    if (c1->down = NULL)
+    address temp = c1;
+    if (temp->down == NULL)
     {
-        while (c1->top != NULL)
+        while (temp->top != NULL)
         {
-            c1 = c1->top;
+            temp = temp->top;
         }
-        text = c1->text;
+        text = temp->text;
     }
     else
     {
-        text = c1->down->text;
+        text = temp->down->text;
     }
-}
-
-char kotak(address c1, address c2)
-{
-    char text;
-    address tengah, temp;
-    bool kanan;
-    int jumlah;
-    kanan = true;
-    temp = c1;
-
-    while (c1 != c2)
-    {
-        if (kanan == true)
-        {
-            while (c1 != NULL)
-            {
-                c1 = c1->right;
-                tengah = c1;
-                while (c1 != NULL)
-                {
-                    c1 = c1->down;
-                    if (c1 == c2)
-                    {
-                        return tengah->text;
-                    }
-                }
-                c1 = tengah;
-                while (c1 != NULL)
-                {
-                    c1 = c1->top;
-                    if (c1 == c2)
-                    {
-                        return tengah->text;
-                    }
-                }
-            }
-            kanan = false;
-            c1 = temp;
-        }
-        else
-        {
-            while (c1 != NULL)
-            {
-                c1 = c1->left;
-                tengah = c1;
-                while (c1 != NULL)
-                {
-                    c1 = c1->down;
-                    if (c1 == c2)
-                    {
-                        return tengah->text;
-                    }
-                }
-                c1 = tengah;
-                while (c1 != NULL)
-                {
-                    c1 = c1->top;
-                    if (c1 == c2)
-                    {
-                        return tengah->text;
-                    }
-                }
-            }
-        }
-    }
+    return text;
 }

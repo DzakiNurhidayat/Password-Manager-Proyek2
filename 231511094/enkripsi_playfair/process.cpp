@@ -113,91 +113,82 @@ address searchingNode(address Head, infotype nilai){
 bool cek_vertikal(address current, address current2)
 {
 
-    while (current != NULL)
+    address temp;
+    temp = current;
+
+    while (temp != NULL)
     {
-        if (current->down != current2)
-        {
-            current = current->down;
-        }
-        else
+        if (temp == current2)
         {
             return true;
         }
-        
+        temp = temp->down;
+    }
+    temp = current2;
+    while (temp != NULL)
+    {
+        if (temp == current)
+        {
+            return true;
+        }
+        temp = temp->down;
     }
 
-    while (current2 !=NULL)
-    {
-        if (current2->down != current)
-        {
-            current2 = current2->down;
-        }
-        else
-        {
-            return true;
-        }
-        
-    }
-    
     return false;
 }
 
 bool cek_horizontal(address current, address current2)
 {
-    while (current != NULL)
-    {
-        if (current->top != current2)
-        {
-            current = current->right;
-        }
-        else
-        {
-            return true;
-        }
-    }
+    address temp;
+    temp = current;
 
-    while (current2 != NULL)
+    while (temp != NULL)
     {
-        if (current2->top != current)
-        {
-            current2 = current2->right;
-        }
-        else
+        if (temp == current2)
         {
             return true;
         }
+        temp = temp->right;
+    }
+    temp = current2;
+    while (temp != NULL)
+    {
+        if (temp == current)
+        {
+            return true;
+        }
+        temp = temp->right;
     }
 
     return false;
 }
 
-// char kotak(address c1,address c2)
-// {
-//     address temp,temp2;
-//     int langkah,jumlah;
-//     jumlah = 0;
-//     temp = c1;
+/*Kalau yang di ambil tengah nya waktu dekripsi juga sama aja ya kan?*/
+char kotak(address c1, address c2)
+{
+    address temp1, temp2;
+    temp1 = c1;
+    temp2 = c2;
 
-//     while (c1 != c2)
-//     {
-//         if (c1->right != NULL)
-//         {
-//             c1 = c1->right;
-//             temp2 = c1;
-//             c1 = c1->down;
-//             jumlah++;
-//             if (c1 == c2)
-//             {
-//                 jumlah == langkah;
-//             }
-            
-//         }
+    while (temp1 != NULL)
+    {
+        if (temp1->text == c2->text)
+        {
+            return temp1->text;
+        }
+        temp1 = temp1->right;
+    }
 
-        
-//         jumlah = 0;
-//     }
-    
-// }
+    while (temp2 != NULL)
+    {
+        if (temp2->text == c1->text)
+        {
+            return temp2->text;
+        }
+        temp2 = temp2->down;
+    }
+    return '\0';
+}
 
     /*Keperluan debugging*/
 void display_table(address Head, int size_board)
