@@ -62,13 +62,13 @@ string encryption_playfair(address Head, string plaintext)
             if (row == true) // same row
             {
 
-                encrypted_text += samerow(address1);
-                encrypted_text += samerow(address2);
+                encrypted_text += samerow_enc(address1);
+                encrypted_text += samerow_enc(address2);
             }
             else if (col == true) // same col
             {
-                encrypted_text += samecol(address1);
-                encrypted_text += samecol(address2);
+                encrypted_text += samecol_enc(address1);
+                encrypted_text += samecol_enc(address2);
             }
             else // no same
             {
@@ -85,7 +85,7 @@ string encryption_playfair(address Head, string plaintext)
     return encrypted_text;
 }
 
-char samerow(address c1)
+char samerow_enc(address c1)
 {
     char text;
     address temp = c1;
@@ -104,7 +104,7 @@ char samerow(address c1)
     return text;
 }
 
-char samecol(address c1)
+char samecol_enc(address c1)
 {
     char text;
     address temp = c1;
