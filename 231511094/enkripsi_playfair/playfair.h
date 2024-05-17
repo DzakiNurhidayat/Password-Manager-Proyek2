@@ -31,9 +31,11 @@ address searchingNode(address Head, infotype nilai);
 address createTable(int size_board, string karakter);
 char samerow(address c1);
 char samecol(address c1);
-char kotak(address c1, address c2);
 string unik(string key);
 address createTable(int size_board, string karakter);
 address searchingNode(address Head, infotype nilai);
+char kotakgeserkanan(address current, int kotaks);
+char kotakgeserkiri(address current, int kotaks);
+int kotak(address current, address current2);
 
 #endif

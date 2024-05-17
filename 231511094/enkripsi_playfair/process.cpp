@@ -181,34 +181,6 @@ bool cek_horizontal(address c1, address c2)
         }
     }
 }
-
-/*Kalau yang di ambil tengah nya waktu dekripsi juga sama aja ya kan?*/
-char kotak(address c1, address c2)
-{
-    address temp1, temp2;
-    temp1 = c1;
-    temp2 = c2;
-
-    while (temp1 != NULL)
-    {
-        if (temp1->text == c2->text)
-        {
-            return temp1->text;
-        }
-        temp1 = temp1->right;
-    }
-
-    while (temp2 != NULL)
-    {
-        if (temp2->text == c1->text)
-        {
-            return temp2->text;
-        }
-        temp2 = temp2->down;
-    }
-    return '\0';
-}
-
     /*Keperluan debugging*/
 void display_table(address Head, int size_board)
 {
@@ -229,6 +201,96 @@ void display_table(address Head, int size_board)
         }
     }
 }
+
+/*Kalau yang di ambil tengah nya waktu dekripsi juga sama aja ya kan?*/
+int kotak(address current, address current2)
+{
+    char char1, char2;
+    int x;
+    string result;
+    address rowStart = NULL;
+    address temp_last = NULL;
+    address head = current;
+    address head2 = current2;
+    address pembanding;
+
+    int x = 0;
+
+    rowStart = head;
+    while (current != current2)
+    {
+        while (rowStart->right != NULL)
+        {
+            rowStart = rowStart->right;
+            temp_last = rowStart;
+            x = x + 1;
+            while (rowStart->down != NULL)
+            {
+                rowStart = rowStart->down;
+                if (rowStart = current2)
+                {
+                    return x;
+                }
+            }
+
+            rowStart = temp_last;
+            while (rowStart->top != NULL)
+            {
+                rowStart = rowStart->top;
+                if (rowStart = current2)
+                {
+                    char1 = temp_last->text;
+                    if (current2->left != NULL)
+                        return x;
+                    // for (int i = 1; i <= x; i++)
+                    // {
+                    //     current2 = current2->left;
+                    // }
+                    // char2 = current2->text;
+
+                    // // return result = string(1, char1) + char2;
+                    // // return to_string(char1) + to_string(char2);
+                }
+            }
+            rowStart = temp_last;
+            temp_last = NULL;
+        }
+    }
+}
+
+char kotakgeserkanan(address current, int kotaks)
+{
+    char text;
+    int i = 1;
+        while (current->right != NULL)
+        {
+            while (i <= kotaks)
+            {
+                current = current->right;
+            }
+            text = current->text;
+            
+        }
+
+    }
+
+char kotakgeserkiri(address current, int kotaks)
+{
+    char text;
+    int i = 1;
+        while (current->left != NULL)
+        {
+            while (i <= kotaks)
+            {
+                current = current->left;
+            }
+            text = current->text;
+            
+        }
+
+}
+
+
 
 int main()
 {
