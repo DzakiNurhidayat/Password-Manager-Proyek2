@@ -110,57 +110,76 @@ address searchingNode(address Head, infotype nilai){
     return result;
 }
 
-bool cek_vertikal(address current, address current2)
+bool cek_vertikal(address c1, address c2)
 {
-
     address temp;
-    temp = current;
-
+    bool first;
+    temp = c1;
+    first = true;
     while (temp != NULL)
     {
-        if (temp == current2)
+        while (temp != NULL)
         {
-            return true;
+            if (temp == c2 && first)
+            {
+                return true;
+            }
+            else if (temp == c1 && !first)
+            {
+                return true;
+            }
+            else
+            {
+                temp = temp->down;
+            }
         }
-        temp = temp->down;
-    }
-    temp = current2;
-    while (temp != NULL)
-    {
-        if (temp == current)
+        if (first == true)
         {
-            return true;
+            cout << endl;
+            temp = c2;
+            first = false;
         }
-        temp = temp->down;
+        else
+        {
+            return false;
+        }
     }
-
-    return false;
 }
 
-bool cek_horizontal(address current, address current2)
+bool cek_horizontal(address c1, address c2)
 {
     address temp;
-    temp = current;
-
+    bool first;
+    temp = c1;
+    first = true;
     while (temp != NULL)
     {
-        if (temp == current2)
+        while (temp != NULL)
         {
-            return true;
+            if (temp == c2 && first)
+            {
+                return true;
+            }
+            else if (temp == c1 && !first)
+            {
+                return true;
+            }
+            else
+            {
+                cout << temp->text;
+                temp = temp->right;
+            }
         }
-        temp = temp->right;
-    }
-    temp = current2;
-    while (temp != NULL)
-    {
-        if (temp == current)
+        if (first == true)
         {
-            return true;
+            temp = c2;
+            first = false;
         }
-        temp = temp->right;
+        else
+        {
+            return false;
+        }
     }
-
-    return false;
 }
 
 /*Kalau yang di ambil tengah nya waktu dekripsi juga sama aja ya kan?*/

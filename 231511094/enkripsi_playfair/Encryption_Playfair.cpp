@@ -44,39 +44,42 @@ string encryption_playfair(address Head, string plaintext)
 
     bool col, row;
     char c1, c2;
-    for (int i = 0; i < plaintext.length(); i+= 2)
+
+    for (int i = 0; i < plaintext.length(); i += 2)
     {
         c1 = plaintext[i];
-        c2 = (i + 1 < plaintext.length()) ? plaintext[i + 1] : '\0'; // '\0' character kosong
+        c2 = plaintext[i + 1];
 
         address1 = searchingNode(Head, c1); // dapet address c1
         address2 = searchingNode(Head, c2);
 
         if (c1 != c2)
         {
-            row = cek_vertikal(address1, address2);
-            col = cek_horizontal(address1, address2);
+            col = cek_vertikal(address1, address2);
+            row = cek_horizontal(address1, address2);
+            cout << " col = " << col << endl;
+            cout << " row = " << row << endl;
+            if (row == true) // same row
+            {
 
-            if (row = true) // same row
-            {
-                encrypted_text.push_back(samerow(address1));
-                encrypted_text.push_back(samerow(address2));
+                encrypted_text += samerow(address1);
+                encrypted_text += samerow(address2);
             }
-            else if (col = true) // same col
+            else if (col == true) // same col
             {
-                encrypted_text.push_back(samecol(address1));
-                encrypted_text.push_back(samecol(address2));
+                encrypted_text += samecol(address1);
+                encrypted_text += samecol(address2);
             }
             else // no same
             {
-                encrypted_text.push_back(kotak(address1, address2));
-                encrypted_text.push_back(kotak(address2, address1));
+                encrypted_text += kotak(address1, address2);
+                encrypted_text += kotak(address2, address1);
             }
         }
         else
         {
-            encrypted_text.push_back(c1);
-            encrypted_text.push_back(c1);
+            encrypted_text += c1;
+            encrypted_text += c2;
         }
     }
     return encrypted_text;
