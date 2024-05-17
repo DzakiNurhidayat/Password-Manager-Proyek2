@@ -8,12 +8,13 @@ int main()
 	bool valid = false;
 	int strength;
 	
+	cout << "Masukkan Password (minimal 6 karakter): ";
+    cin >> password;
 	// Meminta input password
 	while (!valid) 
 	{
-    	cout << "Masukkan Password (minimal 6 karakter): ";
-    	cin >> password;
-    	if (password.length() < 6)
+    	
+    	if (password.length() <= 6)
 		{
     		cout << endl << "Password harus minimal 6 karakter!" << endl;
       		continue;
