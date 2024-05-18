@@ -2,32 +2,32 @@
 
 /*File ini adalah untuk proses yang ada di enkripsi dan dekripsi*/
 
-string unik(string key)
+string unique(string key)
 {
-    string karakter;
+    string character;
     string addchar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` '~✓®×¢€§×";
 
     for (char c : key) 
     {
-        if (karakter.find(c) == string::npos) // Jika karakter tambahan belum ada di key, masukkan ke dalam tabel
+        if (character.find(c) == string::npos) // Jika character tambahan belum ada di key, masukkan ke dalam tabel
         {
-            karakter += c;
+            character += c;
         }
     }
     for (char c : addchar)
     {
-        if (karakter.find(c) == string::npos)
+        if (character.find(c) == string::npos)
         {
-            karakter += c;
+            character += c;
         }
     }
 
-    return karakter;
+    return character;
 }
 
 
 // Membuat tabel sekaligus menginputkan karakter
-address createTable(int size_board, string karakter){
+address createTable(int size_board, string character){
     address Head = NULL;
     address rowStart = NULL;
     address upNode = NULL;
@@ -44,8 +44,8 @@ address createTable(int size_board, string karakter){
                 return NULL; // Exiting if memory allocation fails
             }
             else {
-                if(index < karakter.length()){
-                newNode->text = karakter[index];  // Use modulo to cycle through add_chars if necessary
+                if(index < character.length()){
+                newNode->text = character[index];  // Use modulo to cycle through add_chars if necessary
                 index++;
 
                 newNode->right = NULL;
@@ -84,7 +84,7 @@ address createTable(int size_board, string karakter){
 
 
 //traversal dan mencari tahu posisi node 
-address searchingNode(address Head, infotype nilai){
+address searchingNode(address Head, infotype plainText){
     address rowStart = NULL;
     address node = Head;
     address result = NULL;
@@ -93,7 +93,7 @@ address searchingNode(address Head, infotype nilai){
     while(node != NULL){
         // loop right
         while(node != NULL){
-            if (node -> text == nilai){
+            if (node -> text == plainText){
                 result = node;
                 return result;
             }
@@ -109,7 +109,7 @@ address searchingNode(address Head, infotype nilai){
     return result;
 }
 
-bool cek_vertikal(address c1, address c2)
+bool checkVertical(address c1, address c2)
 {
     address temp;
     bool first;
@@ -145,7 +145,7 @@ bool cek_vertikal(address c1, address c2)
     }
 }
 
-bool cek_horizontal(address c1, address c2)
+bool checkHorizontal(address c1, address c2)
 {
     address temp;
     bool first;
@@ -182,94 +182,7 @@ bool cek_horizontal(address c1, address c2)
 }
 
 /*Kalau yang di ambil tengah nya waktu dekripsi juga sama aja ya kan?*/
-// int kotak(address current, address current2)
-// {
-//     char char1, char2;
-//     int x;
-//     string result;
-//     address rowStart = NULL;
-//     address temp_last = NULL;
-//     address head = current;
-//     address head2 = current2;
-//     address pembanding;
-
-//     int x = 0;
-
-//     rowStart = head;
-//     while (current != current2)
-//     {
-//         while (rowStart->right != NULL)
-//         {
-//             rowStart = rowStart->right;
-//             temp_last = rowStart;
-//             x = x + 1;
-//             while (rowStart->down != NULL)
-//             {
-//                 rowStart = rowStart->down;
-//                 if (rowStart = current2)
-//                 {
-//                     return x;
-//                 }
-//             }
-
-//             rowStart = temp_last;
-//             while (rowStart->top != NULL)
-//             {
-//                 rowStart = rowStart->top;
-//                 if (rowStart = current2)
-//                 {
-//                     char1 = temp_last->text;
-//                     if (current2->left != NULL)
-//                         return x;
-//                     // for (int i = 1; i <= x; i++)
-//                     // {
-//                     //     current2 = current2->left;
-//                     // }
-//                     // char2 = current2->text;
-
-//                     // // return result = string(1, char1) + char2;
-//                     // // return to_string(char1) + to_string(char2);
-//                 }
-//             }
-//             rowStart = temp_last;
-//             temp_last = NULL;
-//         }
-//     }
-// }
-
-// char kotakgeserkanan(address current, int kotaks)
-// {
-//     char text;
-//     int i = 1;
-//         while (current->right != NULL)
-//         {
-//             while (i <= kotaks)
-//             {
-//                 current = current->right;
-//             }
-//             text = current->text;
-            
-//         }
-
-//     }
-
-// char kotakgeserkiri(address current, int kotaks)
-// {
-//     char text;
-//     int i = 1;
-//         while (current->left != NULL)
-//         {
-//             while (i <= kotaks)
-//             {
-//                 current = current->left;
-//             }
-//             text = current->text;
-            
-//         }
-
-// }
-
-char kotak(address c1, address c2)
+char differentColRow(address c1, address c2)
 {
     address temp;
     address tengah;

@@ -22,20 +22,24 @@ typedef struct node
     address left;
 };
 
-
+// SULTHAN
 string encryption(string loggedInUser, string plainText);
+string encryptionPlayfair(address Head, string plainText);
+char sameRowEncrypt(address addressC);
+char sameColEncrypt(address addressC);
+
 string decryption(string loggedInUser, string cipherText);
-bool cek_horizontal(address current, address current2);
-bool cek_vertikal(address current, address current2);
-address searchingNode(address Head, infotype nilai);
-address createTable(int size_board, string karakter);
-char samerow_enc(address c1);
-char samecol_enc(address c1);
-string unik(string key);
-address createTable(int size_board, string karakter);
-address searchingNode(address Head, infotype nilai);
-// char kotakgeserkanan(address current, int kotaks);
-// char kotakgeserkiri(address current, int kotaks);
-char kotak(address c1, address c2);
+string decryptionPlayfair(address Head, string cipherText);
+char sameRowDecrypt(address addressC);
+char sameColDecrypt(address addressC);
+
+string unique(string key);
+bool checkHorizontal(address current, address current2);
+bool checkVertical(address current, address current2);
+char differentColRow(address c1, address c2);
+
+// AFRIZA
+address searchingNode(address Head, infotype plainText);
+address createTable(int size_board, string character);
 
 #endif

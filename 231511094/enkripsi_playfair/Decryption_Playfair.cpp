@@ -4,11 +4,11 @@ string decryption(string loggedInUser, string cipherText)
 {
 
     string decrypted_text;
-    string hasil;
+    string character;
     address head;
     int size = 10;
-    hasil = unik(loggedInUser);
-    head = createTable(size, hasil);
+    character = unique(loggedInUser);
+    head = createTable(size, character);
 
     char lastchar;
 
@@ -16,12 +16,12 @@ string decryption(string loggedInUser, string cipherText)
     {
         lastchar = cipherText[cipherText.length() - 1];
         cipherText.pop_back();
-        decrypted_text = decryption_playfair(head, cipherText);
+        decrypted_text = decryptionPlayfair(head, cipherText);
         decrypted_text.push_back(lastchar);
     }
     else
     {
-        decrypted_text = decryption_playfair(head, cipherText);
+        decrypted_text = decryptionPlayfair(head, cipherText);
     }
 
     return decrypted_text;
@@ -34,41 +34,41 @@ string decryption(string loggedInUser, string cipherText)
 // // 4. jika kolom dan baris nya sama
 
 /*tempat dimana kata kata di ubah*/
-string decryption_playfair(address Head, string ciphertext)
+string decryptionPlayfair(address Head, string cipherText)
 {
     string decrypted_text;
-    address address1, address2;
+    address addressC1, addressC2;
 
     bool col, row;
     char c1, c2;
 
-    for (int i = 0; i < ciphertext.length(); i += 2)
+    for (int i = 0; i < cipherText.length(); i += 2)
     {
-        c1 = ciphertext[i];
-        c2 = ciphertext[i + 1];
+        c1 = cipherText[i];
+        c2 = cipherText[i + 1];
 
-        address1 = searchingNode(Head, c1); // dapet address c1
-        address2 = searchingNode(Head, c2);
+        addressC1 = searchingNode(Head, c1); // dapet address c1
+        addressC2 = searchingNode(Head, c2);
 
         if (c1 != c2)
         {
-            col = cek_vertikal(address1, address2);
-            row = cek_horizontal(address1, address2);
+            col = checkVertical(addressC1, addressC2);
+            row = checkHorizontal(addressC1, addressC2);
             if (row == true) // same row
             {
 
-                decrypted_text += samerow_dec(address1);
-                decrypted_text += samerow_dec(address2);
+                decrypted_text += sameRowDecrypt(addressC1);
+                decrypted_text += sameRowDecrypt(addressC2);
             }
             else if (col == true) // same col
             {
-                decrypted_text += samecol_dec(address1);
-                decrypted_text += samecol_dec(address2);
+                decrypted_text += sameColDecrypt(addressC1);
+                decrypted_text += sameColDecrypt(addressC2);
             }
             else // no same
             {
-                decrypted_text += kotak(address1, address2);
-                decrypted_text += kotak(address2, address1);
+                decrypted_text += differentColRow(addressC1, addressC2);
+                decrypted_text += differentColRow(addressC2, addressC1);
             }
         }
         else
@@ -80,10 +80,10 @@ string decryption_playfair(address Head, string ciphertext)
     return decrypted_text;
 }
 
-char samerow_dec(address c1)
+char sameRowDecrypt(address addressC)
 {
     char text;
-    address temp = c1;
+    address temp = addressC;
     if (temp->left == NULL)
     {
         while (temp->right != NULL)
@@ -99,10 +99,10 @@ char samerow_dec(address c1)
     return text;
 }
 
-char samecol_dec(address c1)
+char sameColDecrypt(address addressC)
 {
     char text;
-    address temp = c1;
+    address temp = addressC;
     if (temp->top == NULL)
     {
         while (temp->down != NULL)
