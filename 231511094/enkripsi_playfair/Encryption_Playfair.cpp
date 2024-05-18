@@ -1,134 +1,120 @@
-#include <iostream>
-#include <fstream>
-#include <cstring>
-using namespace std;
 #include "playfair.h"
 
-string encryption(string loggedInUser, string plainText) {
-    // string key = "WakWaw!123"; // KEY (nanti di ganti dengan userlogin)
-    string encrypted_text;
-    char playfair_table[10][10];
-    buatplayfairtable(loggedInUser, playfair_table);
-    char lastchar;
-   
 
+// // nanti fungsi ini ganti nama jadi main_encrypt 
+string encryption(string loggedInUser, string plainText) 
+{
+    string encrypted_text;
+    int size_table = 10;
+    string character;
+    address Head;
+    character = unique(loggedInUser);
+    Head = createTable(size_table,character);
+    
+    char lastchar;
     if (plainText.length() % 2 != 0)
     {
         lastchar = plainText[plainText.length() - 1];
-        plainText.pop_back();                                           // Menghapus char terakhir agar jumlahnya genap
-        encrypted_text = enkripsi_playfair(plainText, playfair_table);  // Memasukan teks enkripsi ke variabel encrypted_text
+        plainText.pop_back();                                           
+        encrypted_text = encryptionPlayfair(Head, plainText);          
         encrypted_text.push_back(lastchar);
     }
     else
     {
-        encrypted_text = enkripsi_playfair(plainText, playfair_table);
+        encrypted_text = encryptionPlayfair(Head, plainText);
     }
 
-    cout << "| Hasil enkripsi : " << encrypted_text << endl;
     return encrypted_text;
 }
 
-void buatplayfairtable(string key, char playfair_table[10][10])
-{
-    string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` '~✓®×¢€§×";
 
-    int row = 0, col = 0; 
+// // aturan ketika enkripsi/dekripsi playfair
+// // 1. jika di kolom yang sama maka
+// // 2. jika di baris yang sama
+// // 3. jika di tidak ada yang sama
+// // 4. jika kolom dan baris nya sama
 
-    //Menghapus duplikat karakter dalam key
-    string uniqueKey;
-    for (char c : key)              // Loop untuk setiap karakter key (dan element dari variabel key diambil lalu dimasukan ke variabel c)
-    {
-        if (uniqueKey.find(c) == string::npos) // Jika karakter tambahan belum ada di key, masukkan ke dalam tabel
-        {
-            uniqueKey += c;
-        }
-    }
-
-    // Memasukkan key ke dalam tabel Playfair
-    for (char c : uniqueKey)
-    {
-        playfair_table[row][col] = c;
-        col++;
-        if (col == 10)
-        {
-            col = 0;
-            row++;
-        }
-    }
-
-    // Memasukkan karakter tambahan ke dalam tabel Playfair
-    for (char c : add_chars) // Loop untuk setiap karakter tambahan
-    {
-        if (row == 10)
-            break;
-        if (key.find(c) == string::npos) // Jika karakter tambahan belum ada di key, masukkan ke dalam tabel
-        {
-            playfair_table[row][col] = c;
-            col++;
-            if (col == 10)
-            {
-                col = 0;
-                row++;
-            }
-        }
-    }
-}
-
-void cekposisi(char playfair_table[10][10], char c, int &row, int &col)
-{
-    for (int i = 0; i < 10; i++)
-    {
-        for (int j = 0; j < 10; j++)
-        {
-            if (playfair_table[i][j] == c)
-            {
-                row = i;
-                col = j;
-                return;
-            }
-        }
-    }
-}
-
-string enkripsi_playfair(string message, char playfair_table[10][10])
+/*tempat dimana kata kata di ubah*/
+string encryptionPlayfair(address Head, string plainText)
 {
     string encrypted_text;
-    for (size_t i = 0; i < message.length(); i += 2)// Loop untuk setiap dua karakter dalam message
+    address addressC1, addressC2;
+
+    bool col, row;
+    char c1, c2;
+
+    for (int i = 0; i < plainText.length(); i += 2)
     {
-        char c1 = message[i];                                          // karakter kesatu
-        char c2 = (i + 1 < message.length()) ? message[i + 1] : ' '; // Karakter kedua atau spasi jika tidak ada karakter kedua
+        c1 = plainText[i];
+        c2 = plainText[i + 1];
+
+        addressC1 = searchingNode(Head, c1);
+        addressC2 = searchingNode(Head, c2);
 
         if (c1 != c2)
         {
-            int row1, col1, row2, col2;
-            cekposisi(playfair_table, message[i], row1, col1);        // cek dimana karakter ke satu
-            cekposisi(playfair_table, message[i + 1], row2, col2);    // cek dimana karakter ke dua
+            col = checkVertical(addressC1, addressC2);
+            row = checkHorizontal(addressC1, addressC2);
+            if (row == true) // same row
+            {
 
-            // Jika huruf-huruf berada di baris yang sama, ganti dengan huruf di sebelah kanannya
-            if (row1 == row2)
-            {
-                encrypted_text.push_back(playfair_table[row1][(col1 + 1) % 10]); 
-                encrypted_text.push_back(playfair_table[row2][(col2 + 1) % 10]);
+                encrypted_text += sameRowEncrypt(addressC1);
+                encrypted_text += sameRowEncrypt(addressC2);
             }
-            // Jika huruf-huruf berada di kolom yang sama, ganti dengan huruf di bawahnya
-            else if (col1 == col2)
+            else if (col == true) // same col
             {
-                encrypted_text.push_back(playfair_table[(row1 + 1) % 10][col1]);
-                encrypted_text.push_back(playfair_table[(row2 + 1) % 10][col2]);
+                encrypted_text += sameColEncrypt(addressC1);
+                encrypted_text += sameColEncrypt(addressC2);
             }
-            // Jika keduanya berbeda baris dan kolom(dapat membentuk persegi) tukar kiri kanan
-            else
+            else // no same
             {
-                encrypted_text.push_back(playfair_table[row1][col2]);
-                encrypted_text.push_back(playfair_table[row2][col1]);
+                encrypted_text += differentColRow(addressC1, addressC2);
+                encrypted_text += differentColRow(addressC2, addressC1);
             }
         }
-        // Jika dua karakter berturut-turut sama
         else
         {
-            encrypted_text.push_back(c1); // masukan karakter pertama
-            encrypted_text.push_back(c1); // masukan karakter pertama
+            encrypted_text += c1;
+            encrypted_text += c2;
         }
-        }
+    }
     return encrypted_text;
+}
+
+char sameRowEncrypt(address addressC)
+{
+    char text;
+    address temp = addressC;
+    if (temp->right == NULL)
+    {
+        while (temp->left != NULL)
+        {
+            temp = temp->left;
+        }
+        text = temp->text;
+    }
+    else
+    {
+        text = temp->right->text;
+    }
+    return text;
+}
+
+char sameColEncrypt(address addressC)
+{
+    char text;
+    address temp = addressC;
+    if (temp->down == NULL)
+    {
+        while (temp->top != NULL)
+        {
+            temp = temp->top;
+        }
+        text = temp->text;
+    }
+    else
+    {
+        text = temp->down->text;
+    }
+    return text;
 }

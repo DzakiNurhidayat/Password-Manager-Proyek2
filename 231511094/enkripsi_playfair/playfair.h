@@ -1,14 +1,45 @@
 #ifndef PLAYFAIR_H
 #define PLAYFAIR
+
+#include <iostream>
+#include <fstream>
+#include <cstring>
 #include <string>
+#include <stdio.h>
+#include <stdlib.h>
+
 using namespace std;
 
+typedef char infotype;
+typedef struct node *address;
 
+typedef struct node
+{
+    infotype text;
+    address top;
+    address down;
+    address right;
+    address left;
+};
+
+// SULTHAN
 string encryption(string loggedInUser, string plainText);
+string encryptionPlayfair(address Head, string plainText);
+char sameRowEncrypt(address addressC);
+char sameColEncrypt(address addressC);
+
 string decryption(string loggedInUser, string cipherText);
-void buatplayfairtable(string key, char playfairtable[10][10]);
-void cekposisi(char playfairtable[10][10], char c, int &row, int &col);
-string enkripsi_playfair(string plaintext, char playfairtabel[10][10]);
-string dekripsi_playfair(string ciphertext, char playfairtabel[10][10]);
+string decryptionPlayfair(address Head, string cipherText);
+char sameRowDecrypt(address addressC);
+char sameColDecrypt(address addressC);
+
+string unique(string key);
+bool checkHorizontal(address current, address current2);
+bool checkVertical(address current, address current2);
+char differentColRow(address c1, address c2);
+
+// AFRIZA
+address searchingNode(address Head, infotype plainText);
+address createTable(int size_board, string character);
 
 #endif
