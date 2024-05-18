@@ -21,7 +21,7 @@ void helpIn();
 
 // Modul untuk memvalidasi dan mengevaluasi kekuatan password
 string testPassword();
-void checkPasswordStrength(string password);
+int checkPasswordStrength(string messagePassword);
 
 // Modul untuk mengecek keunikan password
 void uniquePassword();

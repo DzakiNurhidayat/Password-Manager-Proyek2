@@ -138,7 +138,7 @@ void helpIn() {
   }
 }
 
-int checkPasswordStrength(string password) 
+int checkPasswordStrength(string messagePassword) 
 {
 	string kekuatan;
 	bool valid = false;
@@ -211,7 +211,7 @@ void uniquePassword()
   const int MAX_CHARACTERS = 18; 
 	char userArray[MAX_CHARACTERS]; 
 	
-  ifstream inputFile("output.txt"); 
+  ifstream inputFile("dzaki.txt"); 
 
   // Vector untuk menyimpan semua input
   vector<string> allInputs;
@@ -229,7 +229,7 @@ void uniquePassword()
   		cout <<endl<< "Masukkan password (maksimum " << MAX_CHARACTERS << " karakter): ";
     	cin.getline(userArray, MAX_CHARACTERS);
 
-    	ofstream outputFile("output.txt", ios::app); 
+    	ofstream outputFile("dzaki.txt", ios::app); 
    	 	if (outputFile.is_open()) 
 		  {
       	outputFile << userArray << endl; 

@@ -5,6 +5,7 @@ using namespace std;
 int main() 
 {
 	string password;
+	string kekuatan;
 	bool valid = false;
 	int strength;
 	
@@ -43,14 +44,17 @@ int main()
     	if (hasAnySymbol && hasLetter && hasNumber) 
 		{
     		strength = 3;
+			kekuatan = "Kuat";
     	} 
 		else if (hasLetter && hasNumber) 
 		{
 			strength = 2;
+			kekuatan = "Standar";
     	} 
 		else if (hasLetter || hasNumber) 
 		{
 			strength = 1;
+			kekuatan = "Lemah";
     	} 
 		else 
 		{
@@ -58,8 +62,9 @@ int main()
     	}
   	}
   	
-  	cout << "Password: " << password << endl;
-  	cout << "Level kekuatan: " << strength << endl;
+  cout << "| Password : " << password << endl;
+  cout << "| Level Kekuatan Password : " << strength << endl;
+  cout << "| Tipe Kekuatan : " << kekuatan << endl;
 
   	return 0;
 }
