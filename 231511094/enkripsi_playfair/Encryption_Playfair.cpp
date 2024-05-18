@@ -24,7 +24,6 @@ string encryption(string loggedInUser, string plainText)
         encrypted_text = encryptionPlayfair(Head, plainText);
     }
 
-    cout << "| Hasil enkripsi : " << encrypted_text << endl;
     return encrypted_text;
 }
 
