@@ -27,6 +27,13 @@ string decryption(string loggedInUser, string cipherText)
     return decrypted_text;
 }
 
+// // aturan ketika enkripsi/dekripsi playfair
+// // 1. jika di kolom yang sama maka
+// // 2. jika di baris yang sama
+// // 3. jika di tidak ada yang sama
+// // 4. jika kolom dan baris nya sama
+
+/*tempat dimana kata kata di ubah*/
 string decryption_playfair(address Head, string ciphertext)
 {
     string decrypted_text;
@@ -47,8 +54,6 @@ string decryption_playfair(address Head, string ciphertext)
         {
             col = cek_vertikal(address1, address2);
             row = cek_horizontal(address1, address2);
-            cout << " col = " << col << endl;
-            cout << " row = " << row << endl;
             if (row == true) // same row
             {
 
@@ -83,7 +88,7 @@ char samerow_dec(address c1)
     {
         while (temp->right != NULL)
         {
-            c1 = temp->right;
+            temp = temp->right;
         }
         text = temp->text;
     }

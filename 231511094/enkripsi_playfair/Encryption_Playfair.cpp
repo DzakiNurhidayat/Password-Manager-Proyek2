@@ -17,8 +17,8 @@ string encryption(string loggedInUser, string plainText)
     if (plainText.length() % 2 != 0)
     {
         lastchar = plainText[plainText.length() - 1];
-        plainText.pop_back();                                           // Menghapus char terakhir agar jumlahnya genap
-        encrypted_text = encryption_playfair(Head, plainText);          // Memasukan teks enkripsi ke variabel encrypted_text
+        plainText.pop_back();                                           
+        encrypted_text = encryption_playfair(Head, plainText);          
         encrypted_text.push_back(lastchar);
     }
     else
@@ -37,6 +37,7 @@ string encryption(string loggedInUser, string plainText)
 // // 3. jika di tidak ada yang sama
 // // 4. jika kolom dan baris nya sama
 
+/*tempat dimana kata kata di ubah*/
 string encryption_playfair(address Head, string plaintext)
 {
     string encrypted_text;
@@ -50,15 +51,13 @@ string encryption_playfair(address Head, string plaintext)
         c1 = plaintext[i];
         c2 = plaintext[i + 1];
 
-        address1 = searchingNode(Head, c1); // dapet address c1
+        address1 = searchingNode(Head, c1);
         address2 = searchingNode(Head, c2);
 
         if (c1 != c2)
         {
             col = cek_vertikal(address1, address2);
             row = cek_horizontal(address1, address2);
-            cout << " col = " << col << endl;
-            cout << " row = " << row << endl;
             if (row == true) // same row
             {
 
@@ -93,7 +92,7 @@ char samerow_enc(address c1)
     {
         while (temp->left != NULL)
         {
-            c1 = temp->left;
+            temp = temp->left;
         }
         text = temp->text;
     }

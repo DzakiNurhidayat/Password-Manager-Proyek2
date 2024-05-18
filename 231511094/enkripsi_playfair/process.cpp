@@ -2,7 +2,6 @@
 
 /*File ini adalah untuk proses yang ada di enkripsi dan dekripsi*/
 
-/*Menjadikan hasil yang unik karakter saja */
 string unik(string key)
 {
     string karakter;
@@ -178,26 +177,6 @@ bool cek_horizontal(address c1, address c2)
         else
         {
             return false;
-        }
-    }
-}
-    /*Keperluan debugging*/
-void display_table(address Head, int size_board)
-{
-    address current = Head;
-
-    for (int i = 1; i <= size_board; i++)
-    {
-        for (int j = 1; j <= size_board; j++)
-        {
-            cout << current->text << " | ";
-            current = current->right;
-        }
-        cout << "\n";
-        current = Head;
-        for (int k = 0; k < i; k++)
-        {
-            current = current->down;
         }
     }
 }
