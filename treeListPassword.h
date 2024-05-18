@@ -23,6 +23,7 @@ struct listPassword {
 
 listPassword *entry_data_to_tree(listPassword *root, infotype nama, infotype username, infotype password, infotype note);
 listPassword *load_data_from_file(listPassword *root);
+listPassword *delete_data_from_tree(listPassword *root, infotype nama);
 void print_tree(listPassword *root);
 
 
