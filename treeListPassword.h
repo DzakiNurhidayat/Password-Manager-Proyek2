@@ -7,6 +7,7 @@
 #include <string>
 #include <cstring>
 #include <iomanip>
+#include <chrono>
 
 using namespace std;
 #define MAX_PASS 100
@@ -17,6 +18,7 @@ struct listPassword {
     string username;
     string password;
     string note;
+    string dateCreated;
     listPassword *left;
     listPassword *right;
 };
