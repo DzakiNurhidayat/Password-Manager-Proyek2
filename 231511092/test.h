@@ -9,6 +9,9 @@
 
 using namespace std;
 
+bool hasSymbol(char c) {
+  return !isalnum(c) && !isspace(c);
+}
 // Fungsi untuk memeriksa apakah karakter adalah simbol
 bool hasSymbol(char c);
 
@@ -18,7 +21,7 @@ void helpIn();
 
 // Modul untuk memvalidasi dan mengevaluasi kekuatan password
 string testPassword();
-void checkPasswordStrength(string password);
+int checkPasswordStrength(string messagePassword);
 
 // Modul untuk mengecek keunikan password
 void uniquePassword();
