@@ -23,7 +23,7 @@ struct listPassword {
 
 listPassword *entry_data_to_tree(listPassword *root, string nama, string username, string password, string note);
 listPassword *load_data_from_file(listPassword *root);
-// bool print_tree(listPassword *root);
+// void print_tree(listPassword *root);
 
 
 #endif // TREELISTPASSWORD_H
