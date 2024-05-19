@@ -83,8 +83,11 @@ void helpIn() {
         cout << "'----------------------------------------------'" << endl;
         cout << "| 1. Apakah anda ingin menyimpan password baru?|" << endl;
         cout << "| 2. Ingin Mengubah Password Yang Telah Ada?   |" << endl;
-        cout << "| 3. Ingin menghapus password?                 |" << endl;
-        cout << "| 4. Bagaimana Cara Melihat List Password?     |" << endl;
+        cout << "| 3. Ingin Mengubah Username Pada List Anda?   |" << endl;
+        cout << "| 4. Apakah Anda Mau Mengubah Note nya Juga?   |" << endl;
+        cout << "| 5. Kenapa? Nama Aplikasinya juga mau diubah? |" << endl;
+        cout << "| 6. Ingin menghapus password?                 |" << endl;
+        cout << "| 7. Bagaimana Cara Melihat List Password?     |" << endl;
         cout << "'----------------------------------------------'" << endl;
     cout << "|" ;
     cin >> no;
@@ -104,12 +107,48 @@ void helpIn() {
         cout << endl << "| Input No. 2 pada MENU aplikasi jika anda ingin MENGUBAH password yang sudah di simpan. " ; 
         cout << endl << "| Pastikan anda sudah memiliki password yang sudah di input pada List" ;
         cout << endl << "| Setelah memilih no. 2 pada menu aplikasi anda akan diberikan list semua password yang pernah anda simpan" ;
+        cout << endl << "| Kemudian anda akan diberikan 3 pilihan kembali untuk meng-Edit List" ;
+        cout << endl << "| Pilih menu EDIT Password yaitu nomor 1 untuk mengubah password yang sudah anda simpan pada List" ;
         cout << endl << "| Selanjutnya pilih password pada list yang ingin anda UBAH " ;
         cout << endl << "| Sesuaikan nomor yang anda input dengan nomor password pada list yang ingin anda ubah " ; 
+        cout << endl << "| Pastikan tidak ada yang salah lalu Simpan perubahan password anda" ;
         cout << endl << "| " ;
         cout << endl << "| Untuk kembali ke menu aplikasi takan ENTER" ;
         break;
       case 3:
+        cout << endl << "| Kembali ke MENU Aplikasi dan Input No. 2  jika anda ingin MENGUBAH Username dari password yang sudah di simpan pada list. " ; 
+        cout << endl << "| Pastikan anda sudah memiliki Username dari password yang sudah di input pada List" ;
+        cout << endl << "| Setelah memilih no. 2 pada menu aplikasi anda akan diberikan list semua Username dari password yang pernah anda simpan" ;
+        cout << endl << "| Kemudian anda akan diberikan 3 pilihan kembali untuk meng-Edit List" ;
+        cout << endl << "| Pilih menu EDIT USERNAME yaitu nomor 2 untuk mengubah username yang sudah anda simpan pada List" ;
+        cout << endl << "| Selanjutnya pilih Username pada list yang ingin anda UBAH " ;
+        cout << endl << "| Sesuaikan nomor yang anda input dengan nomor Username pada list yang ingin anda ubah " ; 
+        cout << endl << "| Setelah Username di ubah jangan lupa untuk di simpan kembali dengan benar :)) " ;
+        cout << endl << "| " ;
+        cout << endl << "| Untuk kembali ke MENU Aplikasi tekan ENTER" ;
+        break;
+      case 4:
+        cout << endl << "| Untuk Mengubah Note anda harus kembali ke MENU Aplikasi dan mengInput-kan No. 2  " ; 
+        cout << endl << "| Pastikan anda sudah memiliki password yang sudah di input pada List" ;
+        cout << endl << "| Setelah memilih no. 2 pada menu aplikasi anda akan diberikan list semua password beserta note yang pernah anda simpan" ;
+        cout << endl << "| Kemudian anda akan diberikan 3 pilihan kembali untuk meng-Edit List" ;
+        cout << endl << "| Pilih menu EDIT NOTE yaitu nomor 3 untuk mengubah Note yang sudah anda simpan pada List" ;
+        cout << endl << "| Selanjutnya pilih nomor dari Note password pada list yang ingin anda UBAH " ;
+        cout << endl << "| Sesuaikan nomor yang anda input dengan nomor password pada list yang ingin anda ubah " ; 
+        cout << endl << "| " ;
+        cout << endl << "| Untuk kembali ke menu aplikasi takan ENTER" ;
+        break;
+      case 5:
+        cout << endl << "| Mohon maaf anda tidak bisa meng-Ubah NAMA Aplikasinya " ; 
+        cout << endl << "| SARAN: Jika anda ingin tetap mengubah nama aplikasinya disarankan untuk menghapus passwordnya terlebih dahulu" ;
+        cout << endl << "| kemudian anda meng-Inputkan kembali password baru dengan Benar dan Sesuai" ;
+        cout << endl << "| Jika anda tidak tahu cara Menghapus Password maka Kembali ke MENU HELP dan Pilih nomor 6" ;
+        cout << endl << "| Pada Menu Nomor 6 Help anda akan diberikan langkah-langkah untuk menghapus password anda" ;
+        cout << endl << "| Terimakasih Kembali :))" ;
+        cout << endl << "| " ;
+        cout << endl << "| Untuk kembali ke menu aplikasi tekan ENTER" ;
+        break;
+      case 6:
         cout << endl << "| Input No. 3 pada MENU aplikasi jika anda ingin MENGHAPUS password yang sudah di simpan. " ; 
         cout << endl << "| Pastikan anda sudah memiliki password yang sudah di input pada List" ;
         cout << endl << "| Setelah memilih no. 3 pada menu aplikasi anda akan diberikan list semua password yang pernah anda simpan" ;
@@ -118,12 +157,12 @@ void helpIn() {
         cout << endl << "| " ;
         cout << endl << "| Untuk kembali ke menu aplikasi tekan ENTER" ;
         break;
-      case 4:
+      case 7:
         cout << endl << "| Untuk Menampilkan List Password Anda Cukup Inputkan No. 4 pada MENU Aplikasi" ;
         cout << endl << "| Semua pasword yang pernah anda simpan pada list akan ditampilkan" ;
         cout << endl << "| NOTE: Anda akan diberikan pilihan untuk mengurutkan password anda atau ingin mencari password pada list" ;
-        cout << endl << "| 1. Jika anda ingin mengurutkan list password agar sesuai dengan yang anda inputkan pilih Ya" ;
-        cout << endl << "| 2. Jika anda ingin mencari password anda pada list maka pilih Tidak" ;
+        cout << endl << "| 1. Peng-Urutan password akan secara Ascending dan Descending" ;
+        cout << endl << "| 2. Anda juga dapat melihat dan mencari Password yang pernah ada simpan" ;
         cout << endl << "| " ;
         cout << endl << "| Untuk kembali ke Menu Aplikasi tekan ENTER" ;
         break;
