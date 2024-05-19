@@ -61,24 +61,32 @@ listPassword *delete_data_from_tree(listPassword *root, string nama) {
     root -> nama = child -> nama;
 
     // Hapus penerus inorder
-    if (nextSibling -> left == child) {
-        nextSibling -> left = child -> right;
-    }
-    else {
-        nextSibling -> right = child -> right;
-    }
+    //if (nextSibling -> left == child) {
+    //    nextSibling -> left = child -> right;
+    //}
+    //else {
+    //   nextSibling -> right = child -> right;
+    //}
     
-    delete child;
-    return root;
+    //delete child;
+    //return root;
 
 }
 
-listPassword *edit_data_from_tree(listPassword *root, string nama) {
-    // Cetak BST secara inorder traversal
+void print_InOrder_Tree(listPassword *root, int &nomor, string nama) {
+    if (root == NULL) {
+        return;
+    }
+    // Cetak BST secara inorder traversal   
     cout << "|          ---- Daftar Password ----        |" << endl;
-    cout << "|                                           |" << endl;
-    // print_tree(root);
+    cout << "|-------------------------------------------|" << endl;
+    cout << "| " << nomor << ". " << nama << "           |" << endl;
+    print_InOrder_Tree (root -> left);
+    cout << "Nama: " << root -> nama << endl;
+    print_InOrder_Tree (root -> right);
+}
 
+listPassword *edit_data_from_tree(listPassword *root, string nama) {
     //Cari node dengan nama yang diberikan
     listPassword *targetNode = search_node(root, nama);
     if (targetNode == NULL) {
