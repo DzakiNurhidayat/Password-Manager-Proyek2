@@ -33,12 +33,12 @@ string decryptionPlayfair(address Head, string cipherText);
 char sameRowDecrypt(address addressC);
 char sameColDecrypt(address addressC);
 
-string unique(string key);
 bool checkHorizontal(address current, address current2);
 bool checkVertical(address current, address current2);
 char differentColRow(address c1, address c2);
 
 // AFRIZA
+string unique(string key);
 address searchingNode(address Head, infotype plainText);
 address createTable(int size_board, string character);
 

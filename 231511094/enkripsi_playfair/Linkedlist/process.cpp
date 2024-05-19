@@ -5,7 +5,7 @@
 string unique(string key)
 {
     string character;
-    string addchar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` '\"\\~✓®×¢€";
+    string addchar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{};:,.<>? '\"";
 
     for (char c : key) 
     {
@@ -36,7 +36,7 @@ address createTable(int size_board, string character){
     // string add_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/` '~✓®×¢€§×";
     int index = 0;  // Index to iterate over add_chars
 
-    for(int i = 1; i <= size_board; i++) {
+    for(int i = 1; i <= size_board - 1; i++) {
         for(int j = 1; j <= size_board; j++) {
             address newNode = (address) malloc(sizeof(node));
             if (newNode == NULL) {

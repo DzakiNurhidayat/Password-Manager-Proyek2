@@ -308,7 +308,7 @@ void uniquePassword()
   {
   	cout << "Gagal membuka file." << endl;
 	}
-  return 0;
+  return;
 }
 
 

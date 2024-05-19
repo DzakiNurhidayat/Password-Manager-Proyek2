@@ -9,9 +9,9 @@
 
 using namespace std;
 
-bool hasSymbol(char c) {
-  return !isalnum(c) && !isspace(c);
-}
+// bool hasSymbol(char c) {
+//   return !isalnum(c) && !isspace(c);
+// }
 // Fungsi untuk memeriksa apakah karakter adalah simbol
 bool hasSymbol(char c);
 
