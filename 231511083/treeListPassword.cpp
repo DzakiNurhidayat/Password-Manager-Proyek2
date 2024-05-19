@@ -1,8 +1,25 @@
-#include "treeListPassword.h"
+#include "../treeListPassword.h"
 
-listPassword *entry_data_to_tree(listPassword *root, infotype nama, infotype username, infotype password, infotype note) {
+void cekAlokasi(string nama, string username, string password, string note, listPassword **newNode) {
+    *newNode = new listPassword;
+    if (*newNode == NULL) {
+        cout << "Memory Sudah Full" << endl;
+    } else {
+        // cout << "Alokasi berhasil" << endl;
+        (*newNode)->nama = nama;
+        (*newNode)->username = username;
+        (*newNode)->password = password;
+        (*newNode)->note = note;
+        (*newNode)->left = NULL;
+        (*newNode)->right = NULL;
+        // cout << (*newNode)->username << " p" << endl;
+    }
+}
+
+listPassword *entry_data_to_tree(listPassword *root, string nama, string username, string password, string note) {
     listPassword *parent = NULL;
     listPassword *current = root;
+    listPassword *newNode;
     // cout << "test2" << endl;
     while (current != NULL) {
         parent = current;
@@ -14,17 +31,8 @@ listPassword *entry_data_to_tree(listPassword *root, infotype nama, infotype use
             return root;
         }
     }
-    
-    listPassword *newNode = (listPassword *) malloc(sizeof(listPassword));
-    // cout << "test3" << endl;
-    newNode->nama = nama;
-    newNode->username = username;
-    newNode->password = password;
-    newNode->note = note;
-    newNode->left = NULL;
-    newNode->right = NULL;
     // cout << newNode->username << " p" << endl;
-    
+    cekAlokasi(nama, username, password, note, &newNode);
     if (parent == NULL) {
         root = newNode;
     } else if (nama < parent->nama) {
@@ -46,7 +54,7 @@ listPassword *load_data_from_file(listPassword *root) {
     // cout << "test5" << endl;
     int countLine, count_token;
     string line, token, tokens[4];
-    infotype nama, username, password, note;
+    string nama, username, password, note;
     countLine = 0;
 
     while (getline(inFile, line)) {        
@@ -66,6 +74,7 @@ listPassword *load_data_from_file(listPassword *root) {
         username = tokens[1];
         password = tokens[2];
         note = tokens[3];
+        // cout << nama << ", " << username << ", " << password << ", " << note;
         root = entry_data_to_tree(root, nama, username, password, note);
         // decrypPassword = list[countLine].password;
         // messagePassword = decryption(loggedInUser, decrypPassword);
@@ -76,7 +85,7 @@ listPassword *load_data_from_file(listPassword *root) {
     return root;
 }
 
-listPassword *search_node(listPassword *root, infotype nilaiCari) {
+listPassword *search_node(listPassword *root, string nilaiCari) {
     if (root == NULL or root->nama == nilaiCari) {
         return root;
     }
@@ -97,7 +106,7 @@ void lowerCase(string &keyword) {
     }
 }
 
-bool searching(listPassword *root, infotype keyword) {
+bool searching(listPassword *root, string keyword) {
     string lowerKeyword, lowerNama, lowerUsername, lowerPassword, lowerNote;
     bool found = false;
     lowerKeyword = keyword;
@@ -128,17 +137,39 @@ bool searching(listPassword *root, infotype keyword) {
     return found;
 }
 
-void print_tree(listPassword *root) {
-    listPassword *temp = root;
-    // cout << "test" << endl;
-    if (temp != NULL) {
-        print_tree(temp->left);
-        cout << temp->nama << endl;
-        print_tree(temp->right);
+void find_max_widths(listPassword *node, int &namaWidth, int &userWidth, int &passWidth, int &noteWidth) {
+    listPassword *temp = node;
+    if (temp == NULL) {
+        return;
     }
+    namaWidth = max(namaWidth, static_cast<int>(temp->nama.length()));
+    userWidth = max(userWidth, static_cast<int>(temp->username.length()));
+    passWidth = max(passWidth, static_cast<int>(temp->password.length()));
+    noteWidth = max(noteWidth, static_cast<int>(temp->note.length()));
+    find_max_widths(temp->left, namaWidth, userWidth, passWidth, noteWidth);
+    find_max_widths(temp->right, namaWidth, userWidth, passWidth, noteWidth);
+}
+
+void print_tree(listPassword *root, int &nomor, int namaWidth, int userWidth, int passWidth, int noteWidth) {
+    listPassword *temp = root;
+    string coba = "    ";
+    if (temp == NULL) {
+        return;
+    }
+    print_tree(temp->left, nomor, namaWidth, userWidth, passWidth, noteWidth);
+    // cout << temp->nama << endl;
+    cout << setw(0) << setfill(' ') << setw(10) << left << coba
+        << setw(2) << left << nomor << " | "
+        << setw(namaWidth) << left << temp->nama << " | "
+        << setw(userWidth) << left << temp->username << " | " 
+        << setw(passWidth) << left << temp->password << " | " 
+        << setw(noteWidth) << left << temp->note << endl;
+    nomor++;
+    print_tree(temp->right, nomor, namaWidth, userWidth, passWidth, noteWidth);
 }
 
 void print_tree_reverse(listPassword *root) {
+    bool check;
     listPassword *temp = root;
     // cout << "test" << endl;
     if (temp != NULL) {
@@ -149,11 +180,34 @@ void print_tree_reverse(listPassword *root) {
 }
 
 int main() {
-    infotype keyword = "coc";
+    int namaWidth = 4;
+    int userWidth = 4;
+    int passWidth = 4;
+    int noteWidth = 4;
+    int nomor = 1;
+    string keyword = "coc";
     listPassword *root = NULL;
     root = load_data_from_file(root);
-    print_tree(root); 
-    searching(root, keyword);
-    print_tree_reverse(root); 
+    find_max_widths(root, namaWidth, userWidth, passWidth, noteWidth);
+    // Mencetak header
+    cout << setw(9) << "          " << left
+         << setw(2) << left << "No" << " | "
+         << setw(namaWidth) << left << "Nama" << " | "
+         << setw(userWidth) << left << "Username" << " | "
+         << setw(passWidth) << left << "Password" << " | "
+         << setw(noteWidth) << left << "Note" << endl;
+
+    // Mencetak garis pemisah
+    cout << string(7, ' ') << " +-"
+         << string(2, '-') << "-+-"
+         << string(namaWidth, '-') << "-+-"
+         << string(userWidth, '-') << "-+-"
+         << string(passWidth, '-') << "-+-"
+         << string(noteWidth, '-') << endl;
+
+    print_tree(root, nomor, namaWidth, userWidth, passWidth, noteWidth); 
+    // searching(root, keyword);
+    // print_tree_reverse(root);
+    // find_max_widths(root, namaWidth, userWidth, passWidth, noteWidth);
     return 0;
 }
