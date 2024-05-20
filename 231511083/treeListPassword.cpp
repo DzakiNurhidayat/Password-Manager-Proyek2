@@ -210,6 +210,33 @@ void print_tree_reverse(listPassword *root, int &nomor, int namaWidth, int userW
     }
 }
 
+void entry_data_to_file(listPassword* root, string loggedInUser) {
+    ofstream inputFile;
+    string messagePassword, encrypPassword;
+    if (root == NULL) {
+        return;
+    }
+    
+	//Membuka file
+	inputFile.open(loggedInUser + ".txt", ios::app);
+	//Menyimpan file
+	messagePassword = root->password;
+	encrypPassword = encryption(loggedInUser, messagePassword);
+	inputFile << root->nama << ";" <<root->username << ";" << encrypPassword << ";" << root->note << ";" << root->dateCreated << endl;
+	inputFile.close();
+    entry_data_to_file(root->left, loggedInUser);
+    entry_data_to_file(root->right, loggedInUser);
+}
+
+void dealokasi_tree(listPassword* root) {
+    if (root == NULL) {
+        return;
+    }
+    dealokasi_tree(root->left);
+    dealokasi_tree(root->right);
+    delete root;
+}
+
 // int main() {
 //     int namaWidth = 4;
 //     int userWidth = 4;

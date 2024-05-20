@@ -11,7 +11,7 @@ int main()
     char temp;
     string registInUser, loggedInUser, loginResult, isLoginSuccess, kondisi;
     string nama, username, password, note, dateCreated, keyword;
-    listPassword *root = NULL;
+    listPassword *root;
     namaWidth = 4;
     userWidth = 4;
     passWidth = 4;
@@ -19,6 +19,8 @@ int main()
     nomor = 1;
     do
     {
+        system("cls");
+        root = NULL;
         cout << ".-----------------------------------." << endl;
         cout << "|     Aplikasi Password Manager     |" << endl;
         cout << "'-----------------------------------'" << endl;
@@ -89,6 +91,7 @@ int main()
                     int menu, pilihan;
                     do
                     {
+                        system("cls");
                         cout << endl;
                         cout << ".-----------------------------------------------." << endl;
                         cout << "|           Menu Utama Password Manager         |" << endl;
@@ -189,9 +192,9 @@ int main()
                                     case 1:
                                         if (sort == false)
                                         {
-                                            cout << "Print Descended (Y or N)";
+                                            cout << "Print Descended (Y or N) = ";
                                             cin >> temp;
-                                            if (temp == 'Y')
+                                            if (temp == 'Y' or temp == 'y')
                                             {
                                                 find_max_widths(root, namaWidth, userWidth, passWidth, noteWidth);
                                                 print_table(namaWidth, userWidth, passWidth, noteWidth);
@@ -201,14 +204,14 @@ int main()
                                             }
                                             else
                                             {
-                                                return 0;
+                                                break;
                                             }
                                         }
                                         else if (sort == true)
                                         {
                                             cout << "Print Ascended (Y or N) = ";
                                             cin >> temp;
-                                            if (temp == 'Y')
+                                            if (temp == 'Y' or temp == 'y')
                                             {
                                                 find_max_widths(root, namaWidth, userWidth, passWidth, noteWidth);
                                                 print_table(namaWidth, userWidth, passWidth, noteWidth);
@@ -218,7 +221,7 @@ int main()
                                             }
                                             else
                                             {
-                                                return 0;
+                                                break;
                                             }
                                         }
                                         break;
@@ -226,7 +229,6 @@ int main()
                                         cin.ignore();
                                         cout << "| Masukkan Kata Kunci = ";
                                         getline(cin, keyword);
-                                        cin.ignore();
                                         cout << endl;
                                         find_max_widths(root, namaWidth, userWidth, passWidth, noteWidth);
                                         print_table(namaWidth, userWidth, passWidth, noteWidth);
@@ -249,6 +251,8 @@ int main()
                                 break;
                             case 6:
                                 cout << "| Logout" << endl;
+                                entry_data_to_file(root, loggedInUser);
+                                dealokasi_tree(root);
                                 break;
                             default:
                                 cout << "Pilihan tidak valid\n";

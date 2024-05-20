@@ -35,7 +35,9 @@ void find_max_widths(listPassword *node, int &namaWidth, int &userWidth, int &pa
 void print_table(int namaWidth, int userWidth, int passWidth, int noteWidth);
 void print_tree(listPassword *root, int &nomor, int namaWidth, int userWidth, int passWidth, int noteWidth);
 void print_tree_reverse(listPassword *root, int &nomor, int namaWidth, int userWidth, int passWidth, int noteWidth);
+void dealokasi_tree(listPassword* root);
 
+void entry_data_to_file(listPassword* root, string loggedInUser);
 // JIHAN
 void print_nama_tree(listPassword *root, int &nomor);
 listPassword *search_node(listPassword *root, string nilaiCari);
