@@ -1,22 +1,14 @@
 #include "231511066/akun.h"
-// #include "231511083/listpassword.h"
-#include "treeListPassword.h"
-// #include "231511079/kelola.h"
+#include "231511083/listpassword.h"
+#include "231511079/kelola.h"
 #include "231511092/test.h"
 
 int main()
 {
-    int choice, countLine, i, namaWidth, userWidth, passWidth, noteWidth, nomor;
-    bool sort = false;
-    char temp;
+    int choice, countLine, i;
     string registInUser, loggedInUser, loginResult, isLoginSuccess, kondisi;
-    string nama, username, password, note, dateCreated, keyword;
-    listPassword *root = NULL;
-    namaWidth = 4;
-    userWidth = 4;
-    passWidth = 4;
-    noteWidth = 4;
-    nomor = 1;
+    listPassword list[MAX_PASS];
+
     do
     {
         cout << ".-----------------------------------." << endl;
@@ -74,7 +66,7 @@ int main()
             i = 0;
             cout << endl;
             cout << ".-----------------------------------." << endl;
-            cout << "|          Login Aplikasi          |" << endl;
+            cout << "|          Login Applikasi          |" << endl;
             cout << "'-----------------------------------'" << endl;
             do
             {
@@ -85,7 +77,7 @@ int main()
                     cout << "|              Berhasil Login                   |" << endl;
                     cout << "'-----------------------------------------------'" << endl
                          << endl;
-                    root = load_data_from_file(root, loggedInUser);
+                    countLine = readListPassword(list, loggedInUser);
                     int menu, pilihan;
                     do
                     {
@@ -104,78 +96,64 @@ int main()
                         cin >> menu;
                         switch (menu)
                         {
-                            case 1:
+                        case 1:
+                            cout << endl;
+                            cout << ".-------------------------------------------." << endl;
+                            cout << "|             Menu Tambah Password          |" << endl;
+                            cout << "'-------------------------------------------'" << endl;
+                            inputPassword(loggedInUser);
+                            countLine = readListPassword(list, loggedInUser);
+                            cout << ".-----------------------------------------------." << endl;
+                            cout << "| Password Berhasil Ditambahkan Ke Dalam List   |" << endl;
+                            cout << "'-----------------------------------------------'" << endl << endl;
+                            break;
+                        case 2:
+                            cout << endl;
+                            cout << ".-------------------------------------------." << endl;
+                            cout << "|             Menu Ubah Password            |" << endl;
+                            cout << "'-------------------------------------------'" << endl;
+                            loadPasswordsFromFile(loggedInUser);
+                            modifyPassword(list, loggedInUser, countLine);
+                            countLine = readListPassword(list, loggedInUser);
+                            // Manggil .h Jihan
+                            break;
+                        case 3:
+                            cout << endl;
+                            cout << ".-------------------------------------------." << endl;
+                            cout << "|             Menu Hapus Password           |" << endl;
+                            cout << "'-------------------------------------------'" << endl;
+                            loadPasswordsFromFile(loggedInUser);
+                            deletePassword(loggedInUser);
+                            countLine = readListPassword(list, loggedInUser);
+                            cout << ".-------------------------------------------------------." << endl;
+                            cout << "|              Password Berhasil Dihapus                |" << endl;
+                            cout << "'-------------------------------------------------------'" << endl;
+                            // Manggil .h Jihan
+                            break;
+                        case 4:
+                            if (countLine < 1)
+                            {
                                 cout << endl;
                                 cout << ".-------------------------------------------." << endl;
-                                cout << "|             Menu Tambah Password          |" << endl;
+                                cout << "|             List Kosong                   |" << endl;
                                 cout << "'-------------------------------------------'" << endl;
-                                cin.ignore();
-                                cout << "| Masukkan Nama : ";
-                                getline(cin, nama);
-                                cin.ignore();
-                                cout << "| Masukkan Username : ";
-                                getline(cin, username);
-                                cin.ignore();
-                                cout << "| Masukkan Password : ";
-                                getline(cin, password);
-                                cin.ignore();
-                                cout << "| Masukkan Catatan : ";
-                                getline(cin, note);
-                                cin.ignore();
-                                entry_data_to_tree(&root, nama, username, password, note, dateCreated);
-                                cout << ".-----------------------------------------------." << endl;
-                                cout << "| Password Berhasil Ditambahkan Ke Dalam List   |" << endl;
-                                cout << "'-----------------------------------------------'" << endl << endl;
-                                break;
-                            case 2:
+                            }
+                            else
+                            {
                                 cout << endl;
                                 cout << ".-------------------------------------------." << endl;
-                                cout << "|             Menu Ubah Password            |" << endl;
-                                cout << "'-------------------------------------------'" << endl;
-
-                                cout << "|          ---- Daftar Password ----        |" << endl;
-                                cout << "|-------------------------------------------|" << endl;
-                                print_nama_tree(root, nomor);
-                                nomor = 1;
-                                cout << endl << "Masukkan Nama yang akan di edit (Ketikkan Namanya) = ";
-                                cin.ignore();
-                                getline(cin, nama);
-                                edit_data_from_tree(root, nama, loggedInUser);
-                                // Manggil .h Jihan
-                                break;
-                            case 3:
-                                cout << endl;
-                                cout << ".-------------------------------------------." << endl;
-                                cout << "|             Menu Hapus Password           |" << endl;
-                                cout << "'-------------------------------------------'" << endl;
-                                print_nama_tree(root, nomor);
-                                nomor = 1;
-                                cout << endl << "Masukkan Nama yang akan di edit (Ketikkan Namanya) = ";
-                                cin.ignore();
-                                getline(cin, nama);
-                                delete_data_from_tree(root, nama);
-                                cout << ".-------------------------------------------------------." << endl;
-                                cout << "|              Password Berhasil Dihapus                |" << endl;
-                                cout << "'-------------------------------------------------------'" << endl;
-                                // Manggil .h Jihan
-                                break;
-                            case 4:
-                                cout << endl;
-                                cout << "       .-------------------------------------------." << endl;
-                                cout << "       |             List Password                 |" << endl;
-                                cout << "       '-------------------------------------------'" << endl
-                                        << endl;
-                                find_max_widths(root, namaWidth, userWidth, passWidth, noteWidth);
-                                print_table(namaWidth, userWidth, passWidth, noteWidth);
-                                print_tree(root, nomor, namaWidth, userWidth, passWidth, noteWidth);
-                                nomor = 1; 
+                                cout << "|             List Password                 |" << endl;
+                                cout << "'-------------------------------------------'" << endl
+                                     << endl;
+                                printListPassword(list, countLine);
                                 int menu, sortBy;
+                                string keyword;
                                 do
                                 {
                                     cout << "\n";
                                     cout << ".-----------------------------------." << endl;
                                     cout << "|              Fitur                |" << endl;
-                                    cout << "'-----------------------------------'" << endl;                                 
+                                    cout << "'-----------------------------------'" << endl;
                                     cout << "| 1. Sorting                        |" << endl;
                                     cout << "| 2. Searching                      |" << endl;
                                     cout << "| 3. Keluar Menu List Password      |" << endl;
@@ -187,51 +165,30 @@ int main()
                                     switch (menu)
                                     {
                                     case 1:
-                                        if (sort == false)
+                                        cout << "| Ascending/Descending\n";
+                                        cout << "| (1) Asc\n";
+                                        cout << "| (2) Desc\n";
+                                        cout << "| (3) Keluar Menu Sort\n";
+                                        cout << "| Pilihan = ";
+                                        cin >> sortBy;
+                                        if (sortBy == 1 or sortBy == 2)
                                         {
-                                            cout << "Print Descended (Y or N)";
-                                            cin >> temp;
-                                            if (temp == 'Y')
-                                            {
-                                                find_max_widths(root, namaWidth, userWidth, passWidth, noteWidth);
-                                                print_table(namaWidth, userWidth, passWidth, noteWidth);
-                                                print_tree_reverse(root, nomor, namaWidth, userWidth, passWidth, noteWidth);
-                                                nomor = 1;
-                                                sort = true;
-                                            }
-                                            else
-                                            {
-                                                return 0;
-                                            }
+                                            sorting(list, countLine, sortBy);
+                                            printListPassword(list, countLine);
                                         }
-                                        else if (sort == true)
+                                        else if (sortBy == 3)
                                         {
-                                            cout << "Print Ascended (Y or N) = ";
-                                            cin >> temp;
-                                            if (temp == 'Y')
-                                            {
-                                                find_max_widths(root, namaWidth, userWidth, passWidth, noteWidth);
-                                                print_table(namaWidth, userWidth, passWidth, noteWidth);
-                                                print_tree(root, nomor, namaWidth, userWidth, passWidth, noteWidth);
-                                                nomor = 1;
-                                                sort = false;
-                                            }
-                                            else
-                                            {
-                                                return 0;
-                                            }
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            cout << "Gagal melakukan sorting, Tolong Masukkan Angka yang Tersedia\n";
                                         }
                                         break;
                                     case 2:
-                                        cin.ignore();
                                         cout << "| Masukkan Kata Kunci = ";
-                                        getline(cin, keyword);
-                                        cin.ignore();
-                                        cout << endl;
-                                        find_max_widths(root, namaWidth, userWidth, passWidth, noteWidth);
-                                        print_table(namaWidth, userWidth, passWidth, noteWidth);
-                                        searching(root, keyword, namaWidth, userWidth, passWidth, noteWidth);
-                                        nomor = 1;
+                                        cin >> keyword;
+                                        searching(list, countLine, keyword);
                                         break;
                                     case 3:
                                         cout << "| Kembali ke Halaman Utama\n";
@@ -241,20 +198,20 @@ int main()
                                         cout << "| Pilihan tidak valid\n";
                                     }
                                 } while (menu != 3);
-
-                                break;
-
-                            case 5:
-                                helpIn();
-                                break;
-                            case 6:
-                                cout << "| Logout" << endl;
-                                break;
-                            default:
-                                cout << "Pilihan tidak valid\n";
                             }
-                        } while (menu != 6);
-                        break;
+                            break;
+
+                        case 5:
+                            helpIn();
+                            break;
+                        case 6:
+                            cout << "| Logout" << endl;
+                            break;
+                        default:
+                            cout << "Pilihan tidak valid\n";
+                        }
+                    } while (menu != 6);
+                    break;
                 }
                 else
                 {

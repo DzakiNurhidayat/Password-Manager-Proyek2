@@ -12,7 +12,7 @@ typedef struct
 {
     char username[30];
     char password[30];
-    string pertanyaan;
+    char pertanyaan[30];
     char jawaban[30];
 } User;
 
@@ -62,9 +62,8 @@ string Register()
             inputFile.close();
             cout << "| Masukan Password : ";
             cin >> user.password;
-            cin.ignore();
             cout << "| Buat Pertanyaan Untuk Lupa Password : ";
-            getline(cin, user.pertanyaan);
+            cin >> user.pertanyaan;
             cout << "| Jawaban Untuk Pertanyaan Lupa Password : ";
             cin >> user.jawaban;
 

@@ -1,4 +1,16 @@
+#include "../231511094/enkripsi_playfair/Linkedlist/playfair.h"
 #include "../treeListPassword.h"
+
+void print_nama_tree(listPassword *root, int &nomor) {
+    if (root == NULL) {
+        return;
+    }
+    // Cetak BST secara inorder traversal   
+    print_nama_tree (root -> left, nomor);
+    cout << "| " << nomor <<". Nama : " << root->nama << endl;
+    nomor++;
+    print_nama_tree (root -> right, nomor);
+}
 
 listPassword *search_node(listPassword *root, string nilaiCari) {
     if (root == NULL) {
@@ -73,7 +85,7 @@ listPassword *delete_data_from_tree(listPassword *root, string nama) {
 
 }
 
-listPassword *edit_data_from_tree(listPassword *root, string nama) {
+listPassword *edit_data_from_tree(listPassword *root, string nama, string loggedInUser) {
     // Cetak BST secara inorder traversal
     cout << "|          ---- Daftar Password ----        |" << endl;
     cout << "|                                           |" << endl;
@@ -88,7 +100,7 @@ listPassword *edit_data_from_tree(listPassword *root, string nama) {
     
     //Pilih informasi yang ingin diubah
     int pilihan;
-    string usernameBaru, passwordBaru, noteBaru;
+    string usernameBaru, passwordBaru, noteBaru, encrypPassword, messagePassword;
     cout << "tes" << targetNode->username << endl;
     cout << "|" << endl;
     cout << "| Data Mana Yang Ingin Diubah :" << endl;
@@ -121,7 +133,8 @@ listPassword *edit_data_from_tree(listPassword *root, string nama) {
             cout << "| Anda Memilih Mengubah Password";
             cout << endl << "| Masukan Password Baru : ";
             getline(cin, passwordBaru);
-            targetNode -> password = passwordBaru;
+	        // encrypPassword = encryption(loggedInUser, passwordBaru);
+            // targetNode -> password = encrypPassword;
             cout << ".-----------------------------------------------." << endl;
             cout << "|            Password Berhasil Diubah           |" << endl;
             cout << "'-----------------------------------------------'" << endl;

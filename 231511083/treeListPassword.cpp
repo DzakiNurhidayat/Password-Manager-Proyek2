@@ -1,5 +1,27 @@
 #include "../231511094/enkripsi_playfair/Linkedlist/playfair.h"
+#include "../231511092/test.h"
 #include "../treeListPassword.h"
+
+void cek_alokasi(string nama, string username, string password, string note, string dateCreated, listPassword **newNode) {
+    *newNode = new listPassword;
+    if (*newNode == NULL) {
+        cout << "Memory Sudah Full" << endl;
+    } else {
+        // cout << "Alokasi berhasil" << endl;
+        (*newNode)->nama = nama;
+        (*newNode)->username = username;
+        (*newNode)->password = password;
+        (*newNode)->note = note;
+        if (dateCreated.empty()) {
+            (*newNode)->dateCreated = getCurrentTimestamp();
+        } else {
+            (*newNode)->dateCreated = dateCreated;
+        }
+        (*newNode)->left = NULL;
+        (*newNode)->right = NULL;
+        // cout << (*newNode)->dateCreated << endl;
+    }
+}
 
 string getCurrentTimestamp() {
     // Get the current time point from the system clock
@@ -18,33 +40,10 @@ string getCurrentTimestamp() {
     return oss.str();
 }
 
-void cekAlokasi(string nama, string username, string password, string note, string dateCreated, listPassword **newNode) {
-    *newNode = new listPassword;
-    if (*newNode == NULL) {
-        cout << "Memory Sudah Full" << endl;
-    } else {
-        // cout << "Alokasi berhasil" << endl;
-        string tes = "a";
-        (*newNode)->nama = nama;
-        (*newNode)->username = username;
-        (*newNode)->password = password;
-        (*newNode)->note = note;
-        if (dateCreated.empty()) {
-            (*newNode)->dateCreated = getCurrentTimestamp();
-        } else {
-            (*newNode)->dateCreated = dateCreated;
-        }
-        (*newNode)->left = NULL;
-        (*newNode)->right = NULL;
-        cout << (*newNode)->dateCreated << endl;
-    }
-}
-
-listPassword *entry_data_to_tree(listPassword *root, string nama, string username, string password, string note, string dateCreated) {
+listPassword *entry_data_to_tree(listPassword **root, string nama, string username, string password, string note, string dateCreated) {
     listPassword *parent = NULL;
-    listPassword *current = root;
+    listPassword *current = *root;
     listPassword *newNode;
-    // cout << "test2" << endl;
     while (current != NULL) {
         parent = current;
         if (nama < current->nama) {
@@ -52,31 +51,29 @@ listPassword *entry_data_to_tree(listPassword *root, string nama, string usernam
         } else if (nama > current->nama) {
             current = current->right;
         } else {
-            return root;
+            return *root;
         }
     }
-    // cout << newNode->username << " p" << endl;
-    cekAlokasi(nama, username, password, note, dateCreated, &newNode);
+    cek_alokasi(nama, username, password, note, dateCreated, &newNode);
     if (parent == NULL) {
-        root = newNode;
+        *root = newNode;
     } else if (nama < parent->nama) {
         parent->left = newNode;
     } else {
         parent->right = newNode;
     }
-    return root;
+    return *root;
 }
 
 listPassword *load_data_from_file(listPassword *root, string loggedInUser) {
-    string messagePassword, decrypPassword;
+    string messagePassword, decrypPassword, nama, username, note, dateCreated;
     string fileName = (loggedInUser + ".txt");
-    // cout << "test4" << endl;
     ifstream inFile(fileName, ios::binary);
     if (!inFile.is_open()) {
         cout << "User belum menambahkan password\n"; 
         // return root;
     }
-    // cout << "test5" << endl;
+    cout << "test5" << endl;
     int countLine, count_token;
     string line, token, tokens[5];
     countLine = 0;
@@ -94,17 +91,20 @@ listPassword *load_data_from_file(listPassword *root, string loggedInUser) {
         if (count_token != 5) {
             continue;
         }
+        nama = tokens[0];
+        username = tokens[1];
         decrypPassword = tokens[2];
         messagePassword = decryption(loggedInUser, decrypPassword);
-        // cout << nama << ", " << username << ", " << password << ", " << note;
-        root = entry_data_to_tree(root, tokens[0], tokens[1], messagePassword, tokens[3], tokens[4]);
+        note = tokens[3];
+        dateCreated = tokens[4];
+        root = entry_data_to_tree(&root, nama, username, messagePassword, note, dateCreated);
         countLine++;
     }
     inFile.close(); 
     return root;
 }
 
-void lowerCase(string &keyword) {
+void lower_case(string &keyword) {
     for (char &c : keyword) {
         c = tolower(c);
     }
@@ -116,7 +116,7 @@ bool searching(listPassword *root, string keyword, int namaWidth, int userWidth,
     bool found = false;
     int nomor = 1;
     lowerKeyword = keyword;
-    lowerCase(lowerKeyword);
+    lower_case(lowerKeyword);
     if (root != NULL) {
         searching(root->left, keyword, namaWidth, userWidth, passWidth, noteWidth);
 
@@ -125,10 +125,10 @@ bool searching(listPassword *root, string keyword, int namaWidth, int userWidth,
         lowerPassword = root->password;
         lowerNote = root->note;
 
-        lowerCase(lowerNama);
-        lowerCase(lowerUsername);
-        lowerCase(lowerPassword);
-        lowerCase(lowerNote);
+        lower_case(lowerNama);
+        lower_case(lowerUsername);
+        lower_case(lowerPassword);
+        lower_case(lowerNote);
 
         if (lowerNama.find(lowerKeyword) != string::npos ||
             lowerUsername.find(lowerKeyword) != string::npos ||
@@ -162,7 +162,6 @@ void find_max_widths(listPassword *node, int &namaWidth, int &userWidth, int &pa
 }
 
 void print_table(int namaWidth, int userWidth, int passWidth, int noteWidth) {
-    // Mencetak header
     cout << setw(9) << "          " << left
          << setw(2) << left << "No" << " | "
          << setw(namaWidth) << left << "Nama" << " | "
@@ -170,7 +169,6 @@ void print_table(int namaWidth, int userWidth, int passWidth, int noteWidth) {
          << setw(passWidth) << left << "Password" << " | "
          << setw(noteWidth) << left << "Note" << endl;
 
-    // Mencetak garis pemisah
     cout << string(7, ' ') << " +-"
          << string(2, '-') << "-+-"
          << string(namaWidth, '-') << "-+-"
@@ -182,20 +180,17 @@ void print_table(int namaWidth, int userWidth, int passWidth, int noteWidth) {
 void print_tree(listPassword *root, int &nomor, int namaWidth, int userWidth, int passWidth, int noteWidth) {
     listPassword *temp = root;
     string space = "    ";
-    if (temp == NULL) {
-        return;
+    if (temp != NULL) {
+        print_tree(temp->left, nomor, namaWidth, userWidth, passWidth, noteWidth);
+        cout << setw(0) << setfill(' ') << setw(10) << left << space
+            << setw(2) << left << nomor << " | "
+            << setw(namaWidth) << left << temp->nama << " | "
+            << setw(userWidth) << left << temp->username << " | " 
+            << setw(passWidth) << left << temp->password << " | " 
+            << setw(noteWidth) << left << temp->note << endl;
+        nomor++;
+        print_tree(temp->right, nomor, namaWidth, userWidth, passWidth, noteWidth);
     }
-    print_tree(temp->left, nomor, namaWidth, userWidth, passWidth, noteWidth);
-    // cout << temp->nama << endl;
-    cout << setw(0) << setfill(' ') << setw(10) << left << space
-        << setw(2) << left << nomor << " | "
-        << setw(namaWidth) << left << temp->nama << " | "
-        << setw(userWidth) << left << temp->username << " | " 
-        << setw(passWidth) << left << temp->password << " | " 
-        << setw(noteWidth) << left << temp->note << endl;
-        cout << "| " << nomor <<  
-    nomor++;
-    print_tree(temp->right, nomor, namaWidth, userWidth, passWidth, noteWidth);
 }
 
 void print_tree_reverse(listPassword *root, int &nomor, int namaWidth, int userWidth, int passWidth, int noteWidth) {

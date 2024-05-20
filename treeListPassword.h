@@ -25,11 +25,11 @@ struct listPassword {
 
 
 // DZAKI
+void cek_alokasi(string nama, string username, string password, string note, string dateCreated, listPassword **newNode);
 string getCurrentTimestamp();
-void cekAlokasi(string nama, string username, string password, string note, string dateCreated, listPassword **newNode);
-listPassword *entry_data_to_tree(listPassword *root, string nama, string username, string password, string note, string dateCreated);
+listPassword *entry_data_to_tree(listPassword **root, string nama, string username, string password, string note, string dateCreated);
 listPassword *load_data_from_file(listPassword *root, string loggedInUser);
-void lowerCase(string &keyword);
+void lower_case(string &keyword);
 bool searching(listPassword *root, string keyword, int namaWidth, int userWidth, int passWidth, int noteWidth);
 void find_max_widths(listPassword *node, int &namaWidth, int &userWidth, int &passWidth, int &noteWidth);
 void print_table(int namaWidth, int userWidth, int passWidth, int noteWidth);
@@ -37,8 +37,9 @@ void print_tree(listPassword *root, int &nomor, int namaWidth, int userWidth, in
 void print_tree_reverse(listPassword *root, int &nomor, int namaWidth, int userWidth, int passWidth, int noteWidth);
 
 // JIHAN
+void print_nama_tree(listPassword *root, int &nomor);
 listPassword *search_node(listPassword *root, string nilaiCari);
 listPassword *delete_data_from_tree(listPassword *root, string nama);
-listPassword *edit_data_from_tree(listPassword *root, string nama);
+listPassword *edit_data_from_tree(listPassword *root, string nama, string loggedInUser);
 
 #endif // TREELISTPASSWORD_H
