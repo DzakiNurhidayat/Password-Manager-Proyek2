@@ -38,6 +38,7 @@ void print_tree_reverse(listPassword *root, int &nomor, int namaWidth, int userW
 void dealokasi_tree(listPassword* root);
 
 void entry_data_to_file(listPassword* root, string loggedInUser);
+void delete_list_infile(string loggedInUser);
 // JIHAN
 void print_nama_tree(listPassword *root, int &nomor);
 listPassword *search_node(listPassword *root, string nilaiCari);

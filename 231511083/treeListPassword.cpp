@@ -19,7 +19,6 @@ void cek_alokasi(string nama, string username, string password, string note, str
         }
         (*newNode)->left = NULL;
         (*newNode)->right = NULL;
-        // cout << (*newNode)->dateCreated << endl;
     }
 }
 
@@ -210,6 +209,11 @@ void print_tree_reverse(listPassword *root, int &nomor, int namaWidth, int userW
     }
 }
 
+void delete_list_infile(string loggedInUser) {
+    ofstream inputFile;
+    inputFile.open(loggedInUser + ".txt", ios::ate);
+}
+
 void entry_data_to_file(listPassword* root, string loggedInUser) {
     ofstream inputFile;
     string messagePassword, encrypPassword;
@@ -222,7 +226,7 @@ void entry_data_to_file(listPassword* root, string loggedInUser) {
 	//Menyimpan file
 	messagePassword = root->password;
 	encrypPassword = encryption(loggedInUser, messagePassword);
-	inputFile << root->nama << ";" <<root->username << ";" << encrypPassword << ";" << root->note << ";" << root->dateCreated << endl;
+	inputFile << root->nama << ";" <<root->username << ";" << encrypPassword << ";" << root->note << ";" << root->dateCreated;
 	inputFile.close();
     entry_data_to_file(root->left, loggedInUser);
     entry_data_to_file(root->right, loggedInUser);

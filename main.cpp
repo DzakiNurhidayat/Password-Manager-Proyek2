@@ -251,6 +251,7 @@ int main()
                                 break;
                             case 6:
                                 cout << "| Logout" << endl;
+                                delete_list_infile(loggedInUser);
                                 entry_data_to_file(root, loggedInUser);
                                 dealokasi_tree(root);
                                 break;
