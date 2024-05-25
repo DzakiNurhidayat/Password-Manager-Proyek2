@@ -135,8 +135,9 @@ listPassword *edit_data_from_tree(listPassword *root, string nama, string logged
             cout << endl << "| Masukan Password Baru : ";
             getline(cin, passwordBaru);
             checkPasswordStrength(passwordBaru);
-	        encrypPassword = encryption(loggedInUser, passwordBaru);
-            targetNode -> password = encrypPassword;
+	        targetNode -> password = passwordBaru;
+            // encrypPassword = encryption(loggedInUser, passwordBaru);
+            // targetNode -> password = encrypPassword;
             cout << ".-----------------------------------------------." << endl;
             cout << "|            Password Berhasil Diubah           |" << endl;
             cout << "'-----------------------------------------------'" << endl;
