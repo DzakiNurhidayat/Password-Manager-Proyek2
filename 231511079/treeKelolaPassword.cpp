@@ -1,5 +1,6 @@
 #include "../231511094/enkripsi_playfair/Linkedlist/playfair.h"
 #include "../treeListPassword.h"
+#include "../231511092/test.h"
 
 void print_nama_tree(listPassword *root, int &nomor) {
     if (root == NULL) {
@@ -133,8 +134,9 @@ listPassword *edit_data_from_tree(listPassword *root, string nama, string logged
             cout << "| Anda Memilih Mengubah Password";
             cout << endl << "| Masukan Password Baru : ";
             getline(cin, passwordBaru);
-	        // encrypPassword = encryption(loggedInUser, passwordBaru);
-            // targetNode -> password = encrypPassword;
+            checkPasswordStrength(passwordBaru);
+	        encrypPassword = encryption(loggedInUser, passwordBaru);
+            targetNode -> password = encrypPassword;
             cout << ".-----------------------------------------------." << endl;
             cout << "|            Password Berhasil Diubah           |" << endl;
             cout << "'-----------------------------------------------'" << endl;

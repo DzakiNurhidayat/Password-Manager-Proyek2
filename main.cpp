@@ -121,6 +121,7 @@ int main()
                                 cin.ignore();
                                 cout << "| Masukkan Password : ";
                                 getline(cin, password);
+                                checkPasswordStrength(password);
                                 cin.ignore();
                                 cout << "| Masukkan Catatan : ";
                                 getline(cin, note);
