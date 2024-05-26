@@ -1,6 +1,8 @@
 #ifndef AKUN_H
 #define AKUN_H
 
+#include "../231511092/test.h"
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -19,114 +21,119 @@ typedef struct
 string Register()
 {
     User user;
-    string input;
-
+    string input, userPassword;
+    int length;
 
     int i;
     i = 0;
-        ofstream fp("user.txt", ios::out | ios::app | ios::binary);
-        if (!fp)
+    ofstream fp("user.txt", ios::out | ios::app | ios::binary);
+    if (!fp)
+    {
+        perror("Error opening file");
+        exit(1);
+    }
+
+    cout << "| *Ketik Kembali Untuk Keluar Dari Registrasi ";
+    cout << endl
+         << "| Masukan Username : ";
+    cin >> user.username;
+    if (strcmp(user.username, "kembali") == 0)
+    {
+        return "kembali";
+    }
+
+    ifstream inputFile("user.txt", ios::binary);
+    if (!inputFile)
+    {
+        cerr << "Failed to open file for reading.\n";
+        return "";
+    }
+
+    User existingUser;
+    bool isLoginSuccess = false;
+    while (inputFile.read(reinterpret_cast<char *>(&existingUser), sizeof(User)))
+    {
+        if (strcmp(existingUser.username, user.username) == 0)
         {
-            perror("Error opening file");
-            exit(1);
+            inputFile.close();
+            isLoginSuccess = true;
+            break;
         }
+    }
 
-        cout << "| *Ketik Kembali Untuk Keluar Dari Registrasi ";
-        cout  << endl << "| Masukan Username : " ;
-        cin >> user.username;
-        if (strcmp(user.username, "kembali") == 0) {
-        return"kembali";
-        }
-
-        ifstream inputFile("user.txt", ios::binary);
-        if (!inputFile)
-        {
-            cerr << "Failed to open file for reading.\n";
-            return"";
-        }
-
-        User existingUser;
-        bool isLoginSuccess = false;
-        while (inputFile.read(reinterpret_cast<char *>(&existingUser), sizeof(User)))
-        {
-            if (strcmp(existingUser.username, user.username) == 0)
-            {
-                inputFile.close();
-                isLoginSuccess = true;
-                break;
-            }
-        }
-
-        if (isLoginSuccess == false)
+    if (isLoginSuccess == false)
+    {
+        do
         {
             inputFile.close();
             cout << "| Masukan Password : ";
             cin >> user.password;
-            cout << "| Buat Pertanyaan Untuk Lupa Password : ";
-            cin >> user.pertanyaan;
-            cout << "| Jawaban Untuk Pertanyaan Lupa Password : ";
-            cin >> user.jawaban;
-
-
-
-            ofstream outputFile("user.txt", ios::binary | ios::app);
-            if (!outputFile)
+            userPassword = user.password;
+            length = userPassword.length();
+            if (length < 6)
             {
-                cout << "Gagal Membuka File Untuk Membacanya\n";
-                return "";
+                cout << "* Password harus minimal 6 karakter!" << endl;
             }
+        } while (length < 6);
+        checkPasswordStrength(userPassword);
+        cout << "| Buat Pertanyaan Untuk Lupa Password : ";
+        cin >> user.pertanyaan;
+        cout << "| Jawaban Untuk Pertanyaan Lupa Password : ";
+        cin >> user.jawaban;
 
-            fp.write(reinterpret_cast<const char *>(&user), sizeof(User));
-            fp.close();
-
-            // MEMBUAT FILE USER
-            string fileName = string(user.username) + ".txt";
-            ofstream outFile(fileName.c_str(), ios::out | ios::app | ios::binary);
-
-            if (!outFile)
-            {
-                cout << "Pengguna Belum Menambahkan Password\n";
-            }
-
-            return "true";
+        ofstream outputFile("user.txt", ios::binary | ios::app);
+        if (!outputFile)
+        {
+            cout << "Gagal Membuka File Untuk Membacanya\n";
+            return "";
         }
 
-        return "";
+        fp.write(reinterpret_cast<const char *>(&user), sizeof(User));
+        fp.close();
 
+        // MEMBUAT FILE USER
+        string fileName = string(user.username) + ".txt";
+        ofstream outFile(fileName.c_str(), ios::out | ios::app | ios::binary);
 
+        if (!outFile)
+        {
+            cout << "Pengguna Belum Menambahkan Password\n";
+        }
+
+        return "true";
+    }
+
+    return "";
 }
 
 string Login()
 {
     User user, inputUser;
 
-        ifstream fp("user.txt", ios::binary);
+    ifstream fp("user.txt", ios::binary);
 
-        if (!fp)
+    if (!fp)
+    {
+        perror("Error opening file");
+        exit(1);
+    }
+    cout << "| Masukan Username : ";
+    cin >> inputUser.username;
+    cout << "| Masukan Password : ";
+    cin >> inputUser.password;
+
+    while (fp.read(reinterpret_cast<char *>(&user), sizeof(User)))
+    {
+        if (strcmp(user.username, inputUser.username) == 0 && strcmp(user.password, inputUser.password) == 0)
         {
-            perror("Error opening file");
-            exit(1);
+            fp.close();
+            string pengguna = user.username;
+            return pengguna; // Mengembalikan username
         }
-        cout << "| Masukan Username : ";
-        cin >> inputUser.username;
-        cout << "| Masukan Password : ";
-        cin >> inputUser.password;
-
-
-        while (fp.read(reinterpret_cast<char *>(&user), sizeof(User)))
-        {
-            if (strcmp(user.username, inputUser.username) == 0 && strcmp(user.password, inputUser.password) == 0)
-            {
-                fp.close();
-                string pengguna = user.username;
-                return pengguna; // Mengembalikan username
-            }
-        }
+    }
 
     return ""; // Mengembalikan string kosong jika login gagal
 }
-
-
 
 void gantiPassword()
 {
@@ -166,13 +173,14 @@ void gantiPassword()
 
     if (strcmp(user.jawaban, jawaban) != 0)
     {
-    cout << "| Jawaban Untuk Lupas Password Salah\n";
+        cout << "| Jawaban Untuk Lupas Password Salah\n";
         return;
     }
 
     cout << "| Masukan Jawaban Baru : ";
     cin >> user.password;
     cout << "| Password Berhasil Diubah" << endl;
+    checkPasswordStrength(user.password);
 
     // Update password user di file
     fstream file("user.txt", ios::in | ios::out | ios::binary);
@@ -181,7 +189,6 @@ void gantiPassword()
         cerr << "Failed to open file for updating.\n";
         return;
     }
-
 
     User tempUser;
     long pos = 0;
@@ -196,9 +203,6 @@ void gantiPassword()
         pos += sizeof(User);
     }
     file.close();
-
 }
-
-
 
 #endif

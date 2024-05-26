@@ -121,6 +121,8 @@ int main()
                                 getline(cin, username);
                                 cout << "| Masukkan Password : ";
                                 getline(cin, password);
+                                checkPasswordStrength(password);
+                                cin.ignore();
                                 cout << "| Masukkan Catatan : ";
                                 getline(cin, note);
                                 entry_data_to_tree(&root, nama, username, password, note, dateCreated);

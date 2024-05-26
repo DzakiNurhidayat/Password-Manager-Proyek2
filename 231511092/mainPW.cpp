@@ -190,10 +190,11 @@ int checkPasswordStrength(string messagePassword)
     // 	cin >> password;
 
     // Validasi panjang password
-    if (messagePassword.length() <= 6)
-	  {
-      cout << "Password harus minimal 6 karakter!" << endl;
-    }
+    // if (messagePassword.length() <= 6)
+	  // {
+    //   cout << "*Password harus minimal 6 karakter!" << endl;
+    //   length = messagePassword.length();
+    // }
 
     valid = true;
     bool hasAnySymbol = false;
@@ -240,9 +241,9 @@ int checkPasswordStrength(string messagePassword)
   }
 
   // Menampilkan hasil
-  cout << "| Password : " << messagePassword << endl;
-  cout << "| Level Kekuatan Password : " << strength << endl;
-  cout << "| Tipe Kekuatan : " << kekuatan << endl;
+  // cout << "| Password : " << messagePassword << endl;
+  cout << "* Level Kekuatan Password : " << strength << endl;
+  cout << "* Tipe Kekuatan : " << kekuatan << endl;
 }
 
 void uniquePassword()
