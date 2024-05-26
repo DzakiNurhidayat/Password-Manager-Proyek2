@@ -161,3 +161,31 @@ listPassword *edit_data_from_tree(listPassword *root, string nama, string logged
     }
     return root;
 }
+
+//Alokasi memori pada linked list
+void alloc_listPassword (string nama, string username, string password, string note, string dateCreated, listPassword **newNode) {
+    *newNode = (listPassword *) malloc(sizeof(listPassword));
+    if (*newNode == NULL) {
+        cout << "Memory Sudah Full" << endl;
+    }
+    else {
+        (*newNode) -> nama = nama;
+        (*newNode) -> username = username;
+        (*newNode) -> password = password;
+        (*newNode) -> note = note;
+        (*newNode) -> dateCreated = dateCreated;
+        (*newNode) -> next = NULL;
+    }
+}
+
+//Dealokasi memori pada linked  list
+void dealloc_listPassword () {
+    listPassword *temp = head;
+    listPassword *prev = NULL;
+    while (temp != NULL) {
+        prev = temp;
+        temp = temp -> next;
+        delete prev;
+    }
+    head = NULL; //Mengatur head menjadi NULL setelah dealokasi
+}
