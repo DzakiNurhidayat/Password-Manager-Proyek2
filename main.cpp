@@ -1,11 +1,14 @@
+#include "231511094/enkripsi_playfair/Linkedlist/playfair.h"
 #include "231511066/akun.h"
 // #include "231511083/listpassword.h"
 #include "treeListPassword.h"
 // #include "231511079/kelola.h"
 #include "231511092/test.h"
 
+
 int main()
 {
+    address Head;
     int choice, countLine, i, namaWidth, userWidth, passWidth, noteWidth, nomor;
     bool sort = false;
     bool found = false;
@@ -291,6 +294,7 @@ int main()
             cout << "Tolong Masukan Pilihan Yang Benar\n";
         }
     } while (choice != 4);
-
+    
+    deleteBoard(Head);
     return 0;
 }

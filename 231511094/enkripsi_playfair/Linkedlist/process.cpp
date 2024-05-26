@@ -264,3 +264,24 @@ char differentColRow(address c1, address c2)
         temp = tengah;
     }
 }
+
+void deleteBoard(address Head)
+{
+    address rowStart = Head;
+    address node = rowStart;
+    address temp;
+
+    // loop down
+    while (rowStart != NULL)
+    {
+        // loop right
+        node = rowStart;
+        while (node != NULL)
+        {
+            temp = node;
+            node = node->right;
+            free(temp);
+        }
+        rowStart = rowStart->down;
+    }
+}

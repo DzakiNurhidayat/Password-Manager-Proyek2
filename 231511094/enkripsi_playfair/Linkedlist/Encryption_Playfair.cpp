@@ -24,6 +24,7 @@ string encryption(string loggedInUser, string plainText)
         encrypted_text = encryptionPlayfair(Head, plainText);
     }
 
+    deleteBoard(Head);
     return encrypted_text;
 }
 

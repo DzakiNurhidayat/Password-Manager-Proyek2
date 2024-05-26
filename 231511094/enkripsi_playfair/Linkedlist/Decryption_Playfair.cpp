@@ -5,10 +5,10 @@ string decryption(string loggedInUser, string cipherText)
 
     string decrypted_text;
     string character;
-    address head;
+    address Head;
     int size = 10;
     character = unique(loggedInUser);
-    head = createTable(size, character);
+    Head = createTable(size, character);
 
     char lastchar;
 
@@ -16,14 +16,15 @@ string decryption(string loggedInUser, string cipherText)
     {
         lastchar = cipherText[cipherText.length() - 1];
         cipherText.pop_back();
-        decrypted_text = decryptionPlayfair(head, cipherText);
+        decrypted_text = decryptionPlayfair(Head, cipherText);
         decrypted_text.push_back(lastchar);
     }
     else
     {
-        decrypted_text = decryptionPlayfair(head, cipherText);
+        decrypted_text = decryptionPlayfair(Head, cipherText);
     }
 
+    deleteBoard(Head);
     return decrypted_text;
 }
 

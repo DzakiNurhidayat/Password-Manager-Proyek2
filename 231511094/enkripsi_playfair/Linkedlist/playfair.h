@@ -41,5 +41,6 @@ char differentColRow(address c1, address c2);
 string unique(string key);
 address searchingNode(address Head, infotype plainText);
 address createTable(int size_board, string character);
+void deleteBoard(address Head);
 
 #endif
