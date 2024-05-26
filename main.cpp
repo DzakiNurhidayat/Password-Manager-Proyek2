@@ -225,7 +225,7 @@ int main()
                                         found = searching(root, keyword, namaWidth, userWidth, passWidth, noteWidth);
                                         if (found == false)
                                         {
-                                            cout << setw(0) << setfill(' ') << setw(10) << left << space << "Nilai yang Dicari Tidak Ada";
+                                            cout << setw(0) << setfill(' ') << setw(10) << left << space << " ";
                                         }
                                         
                                         nomor = 1;
