@@ -315,7 +315,7 @@ void uniquePassword()
 
 #include "test.h"
 
-void insert_last(pointPassword *llPassword, listPassword *newNode)
+void insert_last(pointPassword *llPassword, fileListPassword *newNode)
 {
     if (llPassword->tail != NULL) 
     {
@@ -344,7 +344,7 @@ long get_timestamp()
   return timestamp;
 }
 
-void insert_order(pointPassword *llPassword, listPassword *newNode)
+void insert_order(pointPassword *llPassword, fileListPassword *newNode)
 {
     newNode->timestamp = get_timestamp();
     //kasus linked list kosong
@@ -379,7 +379,7 @@ void insert_order(pointPassword *llPassword, listPassword *newNode)
         insert_last(llPassword, newNode); // Menambahkan di akhir
     } else {
         // Menambahkan newNode di tengah-tengah list
-        listPassword *temp = llPassword->head;
+        fileListPassword *temp = llPassword->head;
         while (temp->next != NULL && temp->next->timestamp < newNode->timestamp) {
             temp = temp->next;
         }
@@ -388,13 +388,13 @@ void insert_order(pointPassword *llPassword, listPassword *newNode)
         temp->next = newNode;
     }
 }
-void trav_preorder(pointPassword *llPreorder, listPassword *root) 
+void trav_preorder(pointPassword *llPreorder, fileListPassword *root) 
 {
     if (root == NULL) 
     {
         return;  
     }
-    listPassword *newNode = new listPassword(*root);  // Deep copy
+    fileListPassword *newNode = new fileListPassword(*root);  // Deep copy
     newNode->left = NULL;
     newNode->right = NULL;
     newNode->next = NULL;
@@ -406,7 +406,7 @@ void trav_preorder(pointPassword *llPreorder, listPassword *root)
 }
 
 // Fungsi untuk menyimpan linked list ke dalam file
-void save_to_file(listPassword *head, string loggedInUser) 
+void save_to_file(fileListPassword *head, string loggedInUser) 
 {
     ofstream outputFile;
     string encrypPassword;
@@ -418,7 +418,7 @@ void save_to_file(listPassword *head, string loggedInUser)
     }
 
     while (head != NULL) {
-        encrypPassword = encryption(loggedInUser, head->password);
+        // encrypPassword = encryption(loggedInUser, head->password);
         outputFile << head->nama << ";" << head->username << ";" << encrypPassword << ";" << head->note << ";" << head->dateCreated << endl;
         head = head->next;
     }

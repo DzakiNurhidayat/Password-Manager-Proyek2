@@ -14,22 +14,22 @@
 using namespace std;
 
 
-struct listPassword {
+struct fileListPassword {
     string nama;
     string username;
     string password;
     string note;
     string dateCreated;
-    listPassword *left;
-    listPassword *right;
-    listPassword *next; 
+    fileListPassword *left;
+    fileListPassword *right;
+    fileListPassword *next; 
     long timestamp;  
 };
 
 typedef struct pointPassword 
 {
-  listPassword *head;
-  listPassword *tail;
+  fileListPassword *head;
+  fileListPassword *tail;
 } pointPassword;
 
 
@@ -42,9 +42,9 @@ typedef struct pointPassword
 
 
 
-bool hasSymbol(char c) {
-  return !isalnum(c) && !isspace(c);
-}
+// bool hasSymbol(char c) {
+//   return !isalnum(c) && !isspace(c);
+// }
 // Fungsi untuk memeriksa apakah karakter adalah simbol
 bool hasSymbol(char c);
 
@@ -59,10 +59,10 @@ int checkPasswordStrength(string messagePassword);
 // Modul untuk mengecek keunikan password
 void uniquePassword();
 
-void insert_last(pointPassword *llPassword, listPassword *newNode);
+void insert_last(pointPassword *llPassword, fileListPassword *newNode);
 long get_timestamp();
-void insert_order(pointPassword *llPassword, listPassword *newNode);
-void trav_preorder(pointPassword *llPreorder, listPassword *root);
-void save_to_file(listPassword *head, string loggedInUser);
+void insert_order(pointPassword *llPassword, fileListPassword *newNode);
+void trav_preorder(pointPassword *llPreorder, fileListPassword *root);
+void save_to_file(fileListPassword *head, string loggedInUser);
 
 #endif // TEST_H
