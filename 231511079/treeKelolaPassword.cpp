@@ -32,57 +32,58 @@ listPassword *search_node(listPassword *root, string nilaiCari) {
 }
 
 listPassword *delete_data_from_tree(listPassword *root, string nama) {
-    // Kasus dasar
+    // Base case
     if (root == NULL) {
         return root;
     }
     
-    // Jika nama yang akan dihapus lebih kecil dari nama root, maka ia berada di subtree kiri
-    if (nama < root -> nama) {  
+    // If the name to be deleted is smaller than the root's name, it lies in the left subtree
+    if (nama < root -> nama) {
         root -> left = delete_data_from_tree(root -> left, nama);
     }
-
-    // Jika nama yang akan dihapus lebih besar dari nama root, maka ia berada di subtree kanan
-    else if (nama > root -> nama) {
+    // If the name to be deleted is greater than the root's name, it lies in the right subtree
+    else if (nama > root->nama) {
         root -> right = delete_data_from_tree(root -> right, nama);
-        return root;
     }
-
-    // Jika nama sama dengan nama root, maka ini adalah node yang akan dihapus
-    // Node dengan hanya satu anak atau tidak memiliki anak
-    if (root -> left == NULL) {
-        listPassword *temp = root -> right;
-        delete root;
-        return temp;
-    }
-    else if (root -> right == NULL) {
-        listPassword *temp = root -> left;
-        delete root;
-        return temp;
-    }
-
-    // Node dengan dua anak: Dapatkan penerus inorder (terkecil di subtree kanan)
-    listPassword *nextSibling = root;
-    listPassword *child = root ->right;
-    while (child -> left != NULL) {
-        nextSibling = child;
-        child = child -> left;
-    }
-
-    // Salin konten penerus inorder ke node ini
-    root -> nama = child -> nama;
-
-    // Hapus penerus inorder
-    if (nextSibling -> left == child) {
-        nextSibling -> left = child -> right;
-    }
+    // If the name is the same as the root's name, this is the node to be deleted
     else {
-        nextSibling -> right = child -> right;
-    }
-    
-    delete child;
-    return root;
+        // Node with only one child or no child
+        if (root -> left == NULL) {
+            listPassword *temp = root -> right;
+            delete root;
+            return temp;
+        }
+        else if (root -> right == NULL) {
+            listPassword *temp = root -> left;
+            delete root;
+            return temp;
+        }
 
+        // Node with two children: Get the inorder successor (smallest in the right subtree)
+        listPassword *nextSibling = root;
+        listPassword *child = root -> right;
+        while (child -> left != NULL) {
+            nextSibling = child;
+            child = child -> left;
+        }
+
+        // Copy the inorder successor's data to this node
+        root -> nama = child -> nama;
+        root -> username = child -> username;
+        root -> password = child -> password;
+        root -> note = child -> note;
+        root -> dateCreated = child -> dateCreated;
+
+        // Delete the inorder successor
+        if (nextSibling != root) {
+            nextSibling -> left = child -> right;
+        } else {
+            root -> right = child -> right;
+        }
+
+        delete child;
+    }
+    return root;
 }
 
 listPassword *edit_data_from_tree(listPassword *root, string nama, string loggedInUser) {

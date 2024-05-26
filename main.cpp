@@ -8,18 +8,20 @@ int main()
 {
     int choice, countLine, i, namaWidth, userWidth, passWidth, noteWidth, nomor;
     bool sort = false;
+    bool found = false;
     char temp;
     string registInUser, loggedInUser, loginResult, isLoginSuccess, kondisi;
     string nama, username, password, note, dateCreated, keyword;
     listPassword *root;
-    namaWidth = 4;
-    userWidth = 4;
-    passWidth = 4;
-    noteWidth = 4;
+    string space = "    "; // nilai pembantu ketika niali search tidak ada
+    namaWidth = 2;
+    userWidth = 2;
+    passWidth = 2;
+    noteWidth = 2;
     nomor = 1;
     do
     {
-        system("cls");
+        // system("cls");
         root = NULL;
         cout << ".-----------------------------------." << endl;
         cout << "|     Aplikasi Password Manager     |" << endl;
@@ -115,16 +117,12 @@ int main()
                                 cin.ignore();
                                 cout << "| Masukkan Nama : ";
                                 getline(cin, nama);
-                                cin.ignore();
                                 cout << "| Masukkan Username : ";
                                 getline(cin, username);
-                                cin.ignore();
                                 cout << "| Masukkan Password : ";
                                 getline(cin, password);
-                                cin.ignore();
                                 cout << "| Masukkan Catatan : ";
                                 getline(cin, note);
-                                cin.ignore();
                                 entry_data_to_tree(&root, nama, username, password, note, dateCreated);
                                 cout << ".-----------------------------------------------." << endl;
                                 cout << "| Password Berhasil Ditambahkan Ke Dalam List   |" << endl;
@@ -144,7 +142,6 @@ int main()
                                 cin.ignore();
                                 getline(cin, nama);
                                 edit_data_from_tree(root, nama, loggedInUser);
-                                // Manggil .h Jihan
                                 break;
                             case 3:
                                 cout << endl;
@@ -160,7 +157,6 @@ int main()
                                 cout << ".-------------------------------------------------------." << endl;
                                 cout << "|              Password Berhasil Dihapus                |" << endl;
                                 cout << "'-------------------------------------------------------'" << endl;
-                                // Manggil .h Jihan
                                 break;
                             case 4:
                                 cout << endl;
@@ -178,11 +174,16 @@ int main()
                                     cout << "\n";
                                     cout << ".-----------------------------------." << endl;
                                     cout << "|              Fitur                |" << endl;
-                                    cout << "'-----------------------------------'" << endl;                                 
-                                    cout << "| 1. Sorting                        |" << endl;
+                                    cout << "'-----------------------------------'" << endl;
+                                    if (sort == false)
+                                    {
+                                        cout << "| 1. Sorting Descended              |" << endl;
+                                    }
+                                    else {
+                                        cout << "| 1. Sorting Ascended               |" << endl;
+                                    }                    
                                     cout << "| 2. Searching                      |" << endl;
                                     cout << "| 3. Keluar Menu List Password      |" << endl;
-                                    // cout << "| 4. Keluar Aplikasi               |" << endl;
                                     cout << "'-----------------------------------'" << endl;
                                     cout << "| Pilih Hal Yang Ingin Anda Lakukan : ";
                                     cin >> menu;
@@ -192,37 +193,21 @@ int main()
                                     case 1:
                                         if (sort == false)
                                         {
-                                            cout << "Print Descended (Y or N) = ";
-                                            cin >> temp;
-                                            if (temp == 'Y' or temp == 'y')
-                                            {
-                                                find_max_widths(root, namaWidth, userWidth, passWidth, noteWidth);
-                                                print_table(namaWidth, userWidth, passWidth, noteWidth);
-                                                print_tree_reverse(root, nomor, namaWidth, userWidth, passWidth, noteWidth);
-                                                nomor = 1;
-                                                sort = true;
-                                            }
-                                            else
-                                            {
-                                                break;
-                                            }
+                                            cout << endl;
+                                            find_max_widths(root, namaWidth, userWidth, passWidth, noteWidth);
+                                            print_table(namaWidth, userWidth, passWidth, noteWidth);
+                                            print_tree_reverse(root, nomor, namaWidth, userWidth, passWidth, noteWidth);
+                                            nomor = 1;
+                                            sort = true;
                                         }
                                         else if (sort == true)
                                         {
-                                            cout << "Print Ascended (Y or N) = ";
-                                            cin >> temp;
-                                            if (temp == 'Y' or temp == 'y')
-                                            {
-                                                find_max_widths(root, namaWidth, userWidth, passWidth, noteWidth);
-                                                print_table(namaWidth, userWidth, passWidth, noteWidth);
-                                                print_tree(root, nomor, namaWidth, userWidth, passWidth, noteWidth);
-                                                nomor = 1;
-                                                sort = false;
-                                            }
-                                            else
-                                            {
-                                                break;
-                                            }
+                                            cout << endl;
+                                            find_max_widths(root, namaWidth, userWidth, passWidth, noteWidth);
+                                            print_table(namaWidth, userWidth, passWidth, noteWidth);
+                                            print_tree(root, nomor, namaWidth, userWidth, passWidth, noteWidth);
+                                            nomor = 1;
+                                            sort = false;
                                         }
                                         break;
                                     case 2:
@@ -232,7 +217,12 @@ int main()
                                         cout << endl;
                                         find_max_widths(root, namaWidth, userWidth, passWidth, noteWidth);
                                         print_table(namaWidth, userWidth, passWidth, noteWidth);
-                                        searching(root, keyword, namaWidth, userWidth, passWidth, noteWidth);
+                                        found = searching(root, keyword, namaWidth, userWidth, passWidth, noteWidth);
+                                        if (found == false)
+                                        {
+                                            cout << setw(0) << setfill(' ') << setw(10) << left << space << "Nilai yang Dicari Tidak Ada";
+                                        }
+                                        
                                         nomor = 1;
                                         break;
                                     case 3:

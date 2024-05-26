@@ -3,11 +3,12 @@
 #include "../treeListPassword.h"
 
 void cek_alokasi(string nama, string username, string password, string note, string dateCreated, listPassword **newNode) {
+    // *newNode = (listPassword *) malloc(sizeof(listPassword));
     *newNode = new listPassword;
     if (*newNode == NULL) {
         cout << "Memory Sudah Full" << endl;
     } else {
-        // cout << "Alokasi berhasil" << endl;
+        cout << "Alokasi berhasil" << endl;
         (*newNode)->nama = nama;
         (*newNode)->username = username;
         (*newNode)->password = password;
@@ -53,7 +54,7 @@ listPassword *entry_data_to_tree(listPassword **root, string nama, string userna
             return *root;
         }
     }
-    cek_alokasi(nama, username, password, note, dateCreated, &newNode);
+    cek_alokasi(nama, username, password, note, dateCreated, &newNode); 
     if (parent == NULL) {
         *root = newNode;
     } else if (nama < parent->nama) {
@@ -70,9 +71,7 @@ listPassword *load_data_from_file(listPassword *root, string loggedInUser) {
     ifstream inFile(fileName, ios::binary);
     if (!inFile.is_open()) {
         cout << "User belum menambahkan password\n"; 
-        // return root;
     }
-    cout << "test5" << endl;
     int countLine, count_token;
     string line, token, tokens[5];
     countLine = 0;
@@ -90,13 +89,10 @@ listPassword *load_data_from_file(listPassword *root, string loggedInUser) {
         if (count_token != 5) {
             continue;
         }
-        nama = tokens[0];
-        username = tokens[1];
+        // cout << "Tes2";
         decrypPassword = tokens[2];
         messagePassword = decryption(loggedInUser, decrypPassword);
-        note = tokens[3];
-        dateCreated = tokens[4];
-        root = entry_data_to_tree(&root, nama, username, messagePassword, note, dateCreated);
+        root = entry_data_to_tree(&root, tokens[0], tokens[1], messagePassword, tokens[3], tokens[4]);
         countLine++;
     }
     inFile.close(); 
@@ -117,7 +113,7 @@ bool searching(listPassword *root, string keyword, int namaWidth, int userWidth,
     lowerKeyword = keyword;
     lower_case(lowerKeyword);
     if (root != NULL) {
-        searching(root->left, keyword, namaWidth, userWidth, passWidth, noteWidth);
+        found = searching(root->left, keyword, namaWidth, userWidth, passWidth, noteWidth);
 
         lowerNama = root->nama;
         lowerUsername = root->username;
@@ -142,7 +138,7 @@ bool searching(listPassword *root, string keyword, int namaWidth, int userWidth,
                 << setw(passWidth) << left << root->password << " | " 
                 << setw(noteWidth) << left << root->note << endl;
                 }
-        searching(root->right, keyword, namaWidth, userWidth, passWidth, noteWidth);
+        found = searching(root->right, keyword, namaWidth, userWidth, passWidth, noteWidth);
     }
     return found;
 }
@@ -211,7 +207,8 @@ void print_tree_reverse(listPassword *root, int &nomor, int namaWidth, int userW
 
 void delete_list_infile(string loggedInUser) {
     ofstream inputFile;
-    inputFile.open(loggedInUser + ".txt", ios::ate);
+    inputFile.open(loggedInUser + ".txt", ios::trunc);
+    inputFile.close();
 }
 
 void entry_data_to_file(listPassword* root, string loggedInUser) {
@@ -223,10 +220,12 @@ void entry_data_to_file(listPassword* root, string loggedInUser) {
     
 	//Membuka file
 	inputFile.open(loggedInUser + ".txt", ios::app);
+    cout << "Tes" << endl;
 	//Menyimpan file
 	messagePassword = root->password;
 	encrypPassword = encryption(loggedInUser, messagePassword);
-	inputFile << root->nama << ";" <<root->username << ";" << encrypPassword << ";" << root->note << ";" << root->dateCreated;
+    cout << "Writing: " << root->nama << ";" << root->username << ";" << encrypPassword << ";" << root->note << ";" << root->dateCreated << endl;
+	inputFile << root->nama << ";" <<root->username << ";" << encrypPassword << ";" << root->note << ";" << root->dateCreated << "\n";
 	inputFile.close();
     entry_data_to_file(root->left, loggedInUser);
     entry_data_to_file(root->right, loggedInUser);
