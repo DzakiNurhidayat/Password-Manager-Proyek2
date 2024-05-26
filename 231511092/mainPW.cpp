@@ -313,6 +313,118 @@ void uniquePassword()
 }
 
 
+void insert_last(pointPassword *llPassword, listPassword *newNode)
+{
+    if (llPassword->tail != NULL) 
+    {
+        llPassword->tail->next = newNode;
+    }
+    llPassword->tail = newNode;
+    if (llPassword->head == NULL) 
+    {
+        llPassword->head = newNode;
+    }
+    newNode->next = NULL;
+}
+
+long get_timestamp() 
+{
+  time_t rawtime;
+  struct tm *timeinfo;
+
+  // Mendapatkan waktu saat ini
+  time(&rawtime);
+  timeinfo = localtime(&rawtime);
+
+  // Mengubah kembali struct tm menjadi time_t untuk mendapatkan Unix timestamp
+  long timestamp = (long)mktime(timeinfo);
+
+  return timestamp;
+}
+
+void insert_order(pointPassword *llPassword, listPassword *newNode)
+{
+    newNode->timestamp = get_timestamp();
+    //kasus linked list kosong
+    if (llPassword->head == NULL && llPassword->tail == NULL)
+    {
+        // newNode->timestamp = get_timestamp();
+        llPassword->head = newNode;
+        llPassword->tail = newNode;
+    }
+    //cmn punya 1 node
+    else if (llPassword->head == llPassword->tail)
+    {
+        if (newNode->timestamp > llPassword->head->timestamp)
+        {
+            insert_last(llPassword, newNode);
+        }
+        else
+        {
+            // newNode->timestamp = get_timestamp(); // Mengatur timestamp node baru
+            newNode->next = llPassword->head;
+            llPassword->head = newNode;
+        }
+    }
+    //newNode lebih kecil dari head
+    else if (newNode->timestamp < llPassword->head->timestamp) 
+    {
+        newNode->next = llPassword->head; // Menambahkan di awal
+        llPassword->head = newNode;
+    } else if (newNode->timestamp >= llPassword->tail->timestamp) 
+    {
+        // newNode lebih besar atau sama dengan tail saat ini
+        insert_last(llPassword, newNode); // Menambahkan di akhir
+    } else {
+        // Menambahkan newNode di tengah-tengah list
+        listPassword *temp = llPassword->head;
+        while (temp->next != NULL && temp->next->timestamp < newNode->timestamp) {
+            temp = temp->next;
+        }
+        // Menyisipkan newNode di antara temp dan temp->next
+        newNode->next = temp->next;
+        temp->next = newNode;
+    }
+}
+void trav_preorder(pointPassword *llPreorder, listPassword *root) 
+{
+    if (root == NULL) 
+    {
+        return;  
+    }
+    listPassword *newNode = new listPassword(*root);  // Deep copy
+    newNode->left = NULL;
+    newNode->right = NULL;
+    newNode->next = NULL;
+
+    insert_order(llPreorder, root);  
+
+    trav_preorder(llPreorder, root->left);  
+    trav_preorder(llPreorder, root->right);  
+}
+
+// Fungsi untuk menyimpan linked list ke dalam file
+void save_to_file(listPassword *head, string loggedInUser) 
+{
+    ofstream outputFile;
+    string encrypPassword;
+
+    outputFile.open(loggedInUser + ".txt", ios::app);
+    if (!outputFile.is_open()) {
+        cout << "Error!! file tidak dapat dibuka" << endl;
+        return;
+    }
+
+    while (head != NULL) {
+        encrypPassword = encryption(loggedInUser, head->password);
+        outputFile << head->nama << ";" << head->username << ";" << encrypPassword << ";" << head->note << ";" << head->dateCreated << endl;
+        head = head->next;
+    }
+
+    outputFile.close();
+}
+
+
 // int main()
 // {
 // 	// MODUL MORE INFO
