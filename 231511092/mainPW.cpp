@@ -313,6 +313,8 @@ void uniquePassword()
 }
 
 
+#include "test.h"
+
 void insert_last(pointPassword *llPassword, listPassword *newNode)
 {
     if (llPassword->tail != NULL) 
@@ -423,6 +425,7 @@ void save_to_file(listPassword *head, string loggedInUser)
 
     outputFile.close();
 }
+
 
 
 // int main()
