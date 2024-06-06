@@ -1,4 +1,6 @@
+#include "../231511094/enkripsi_playfair/Linkedlist/playfair.h"
 #include "test.h"
+#include "../treeListPassword.h"
 
 
 using namespace std;
@@ -38,6 +40,7 @@ using namespace std;
          cout << endl << "2. Siapkan username dan password yang akan anda gunakan untuk keamanan akun" << endl ;
          cout << endl << "3. pastikan password yang akan anda gunakan memliki panjang karakter maksimal 18 dan minimal 6 karakter" << endl ;
          cout << endl;
+         system("pause");
          break;
        case 2:
          cout << endl << "1. Pilih No.2 di menu utama" << endl ;
@@ -45,6 +48,7 @@ using namespace std;
          cout << endl << "3. Masukkan username dan password anda setelah anda masuk pada menu login" << endl ;
          cout << endl << "4. Jika anda belum memiliki akun kembali ke menu utama dan input No. 1" << endl ;
          cout << endl;
+         system("pause");
          break;
        case 3:
          cout << endl << "1. Pilih No.3 pada bagian Menu Untuk Merubah Password" << endl ;
@@ -52,6 +56,7 @@ using namespace std;
          cout << endl << "3. Karena case sensitive anda akan disarankan untuk memasukkan jawaban di lower saat membuat akun" << endl ;
          cout << endl << "4. Pastikan password yang anda gunakan terdiri dari maksimal 18 karakter dan minimal 6 karakter" << endl ;
          cout << endl;
+         system("pause");
          break;
        default:
          cout << endl << "Pilihan tidak valid" << endl ;
@@ -74,7 +79,7 @@ using namespace std;
          cout << "|         Help / More Info?         |" << endl;
          cout << "'-----------------------------------'" << endl;
          cout << "| Ketik: (1 untuk Ya) / (2 untuk Tidak) " << endl;
-         cout << "|" ;
+         cout << "| " ;
    cin >> help;
 
 
@@ -90,7 +95,7 @@ using namespace std;
          cout << "| 6. Ingin menghapus password?                 |" << endl;
          cout << "| 7. Bagaimana Cara Melihat List Password?     |" << endl;
          cout << "'----------------------------------------------'" << endl;
-     cout << "|" ;
+     cout << "| " ;
      cin >> no;
 
      // Menampilkan informasi berdasarkan pilihan
@@ -103,6 +108,7 @@ using namespace std;
          cout << endl << "| " ;
          cout << endl << "| " ;
          cout << endl << "| Untuk kembali ke menu aplikasi tekan ENTER" ;
+         system("pause");
          break;
        case 2:
          cout << endl << "| Input No. 2 pada MENU aplikasi jika anda ingin MENGUBAH password yang sudah di simpan. " ; 
@@ -115,6 +121,7 @@ using namespace std;
          cout << endl << "| Pastikan tidak ada yang salah lalu Simpan perubahan password anda" ;
          cout << endl << "| " ;
          cout << endl << "| Untuk kembali ke menu aplikasi takan ENTER" ;
+         system("pause");
          break;
        case 3:
          cout << endl << "| Kembali ke MENU Aplikasi dan Input No. 2  jika anda ingin MENGUBAH Username dari password yang sudah di simpan pada list. " ; 
@@ -127,6 +134,7 @@ using namespace std;
          cout << endl << "| Setelah Username di ubah jangan lupa untuk di simpan kembali dengan benar :)) " ;
          cout << endl << "| " ;
          cout << endl << "| Untuk kembali ke MENU Aplikasi tekan ENTER" ;
+         system("pause");
          break;
        case 4:
          cout << endl << "| Untuk Mengubah Note anda harus kembali ke MENU Aplikasi dan mengInput-kan No. 2  " ; 
@@ -138,6 +146,7 @@ using namespace std;
          cout << endl << "| Sesuaikan nomor yang anda input dengan nomor password pada list yang ingin anda ubah " ; 
          cout << endl << "| " ;
          cout << endl << "| Untuk kembali ke menu aplikasi takan ENTER" ;
+         system("pause");
          break;
        case 5:
          cout << endl << "| Mohon maaf anda tidak bisa meng-Ubah NAMA Aplikasinya " ; 
@@ -148,6 +157,7 @@ using namespace std;
          cout << endl << "| Terimakasih Kembali :))" ;
          cout << endl << "| " ;
          cout << endl << "| Untuk kembali ke menu aplikasi tekan ENTER" ;
+         system("pause");
          break;
        case 6:
          cout << endl << "| Input No. 3 pada MENU aplikasi jika anda ingin MENGHAPUS password yang sudah di simpan. " ; 
@@ -157,6 +167,7 @@ using namespace std;
          cout << endl << "| Sesuaikan nomor yang anda input dengan nomor password pada list yang ingin anda HAPUS " ; 
          cout << endl << "| " ;
          cout << endl << "| Untuk kembali ke menu aplikasi tekan ENTER" ;
+         system("pause");
          break;
        case 7:
          cout << endl << "| Untuk Menampilkan List Password Anda Cukup Inputkan No. 4 pada MENU Aplikasi" ;
@@ -166,6 +177,7 @@ using namespace std;
          cout << endl << "| 2. Anda juga dapat melihat dan mencari Password yang pernah ada simpan" ;
          cout << endl << "| " ;
          cout << endl << "| Untuk kembali ke Menu Aplikasi tekan ENTER" ;
+         system("pause");
          break;
        default:
          cout << "| Pilihan tidak valid" << endl ;
@@ -243,8 +255,8 @@ using namespace std;
 
    // Menampilkan hasil
    // cout << "| Password : " << messagePassword << endl;
-   cout << "* Level Kekuatan Password : " << strength << endl;
-   cout << "* Tipe Kekuatan : " << kekuatan << endl;
+   cout << "| Level Kekuatan Password : " << strength << endl;
+   cout << "| Tipe Kekuatan : " << kekuatan << endl;
  }
 
 void uniquePassword()
@@ -314,27 +326,27 @@ void uniquePassword()
 }
 
 
-void alloc_listPassword(string nama, string username, string password, string note, string dateCreated, listPassword **newNode) {
-    *newNode = new listPassword;
-    if (*newNode == NULL) {
-        cout << "Memory Sudah Full" << endl;
-    } else {
-        (*newNode)->nama = nama;
-        (*newNode)->username = username;
-        (*newNode)->password = password;
-        (*newNode)->note = note;
-        (*newNode)->dateCreated = dateCreated;
-        (*newNode)->next = NULL;
-    }
-}
+// void alloc_listPassword(string nama, string username, string password, string note, string dateCreated, listPassword **newNode) {
+//     *newNode = new listPassword;
+//     if (*newNode == NULL) {
+//         cout << "Memory Sudah Full" << endl;
+//     } else {
+//         (*newNode)->nama = nama;
+//         (*newNode)->username = username;
+//         (*newNode)->password = password;
+//         (*newNode)->note = note;
+//         (*newNode)->dateCreated = dateCreated;
+//         (*newNode)->next = NULL;
+//     }
+// }
 
-void insert_last(listPassword **head, listPassword **tail, listPassword *newNode) {
-    if (*tail != NULL) {
-        (*tail)->next = newNode;
+void insert_last(filePassword **first, filePassword **last, filePassword *newNode) {
+    if (*last != NULL) {
+        (*last)->next = newNode;
     }
-    *tail = newNode;
-    if (*head == NULL) {
-        *head = newNode;
+    *last = newNode;
+    if (*first == NULL) {
+        *first = newNode;
     }
     newNode->next = NULL;
 }
@@ -351,32 +363,31 @@ long get_timestamp() {
     return timestamp;
 }
 
-void insert_order(listPassword **head, listPassword **tail, string nama, string username, string password, string note, string dateCreated) 
+void insert_order(filePassword **first, filePassword **last, string nama, string username, string password, string note, string dateCreated) 
 {
-    listPassword *newNode;
+    filePassword *newNode;
+    // cout << "Test Yanto Gay";
     alloc_listPassword(nama, username, password, note, dateCreated, &newNode);
-    newNode->timestamp = get_timestamp();
-
-    if (*head == NULL && *tail == NULL) 
+    if (*first == NULL && *last == NULL) 
 	{
-        *head = newNode;
-        *tail = newNode;
-    } else if (*head == *tail) 
+        *first = newNode;
+        *last = newNode;
+    } else if (*first == *last) 
 	{
-        if (newNode->timestamp > (*head)->timestamp) {
-            insert_last(head, tail, newNode);
+        if (newNode->dateCreated > (*first)->dateCreated) {
+            insert_last(first, last, newNode);
         } else {
-            newNode->next = *head;
-            *head = newNode;
+            newNode->next = *first;
+            *first = newNode;
         }
-    } else if (newNode->timestamp < (*head)->timestamp) {
-        newNode->next = *head;
-        *head = newNode;
-    } else if (newNode->timestamp >= (*tail)->timestamp) {
-        insert_last(head, tail, newNode);
+    } else if (newNode->dateCreated < (*first)->dateCreated) {
+        newNode->next = *first;
+        *first = newNode;
+    } else if (newNode->dateCreated >= (*last)->dateCreated) {
+        insert_last(first, last, newNode);
     } else {
-        listPassword *temp = *head;
-        while (temp->next != NULL && temp->next->timestamp < newNode->timestamp) {
+        filePassword *temp = *first;
+        while (temp->next != NULL && temp->next->dateCreated < newNode->dateCreated) {
             temp = temp->next;
         }
         newNode->next = temp->next;
@@ -384,35 +395,87 @@ void insert_order(listPassword **head, listPassword **tail, string nama, string 
     }
 }
 
-void trav_preorder(listPassword **head, listPassword **tail, TreeNode *root) {
+
+void entry_to_linkedlist(filePassword **first, filePassword **last, listPassword *root) {
     if (root == NULL) {
         return;
     }
-    insert_order(head, tail, root->nama, root->username, root->password, root->note, root->dateCreated);
-    trav_preorder(head, tail, root->left);
-    trav_preorder(head, tail, root->right);
+    cout << "Test Hafiz Gay";
+    insert_order(first, last, root->nama, root->username, root->password, root->note, root->dateCreated);
+    // cout << "Nama: " << root->nama << ", Username: " << root->username << ", Password: " << root->password << ", Note: " << root->note << ", Date Created: " << root->dateCreated << endl;
+    entry_to_linkedlist(first, last, root->left);
+    entry_to_linkedlist(first, last, root->right);
 }
 
-
 // Fungsi untuk menyimpan linked list ke dalam file
-void save_to_file(listPassword* head, string &loggedInUser) {
+void save_to_file(filePassword* first, string &loggedInUser) {
     ofstream outputFile;
+    string messagePassword, encrypPassword;
+    outputFile.open((loggedInUser + ".txt").c_str(), ios::trunc);
+    
+    if (!outputFile.is_open()) {
+        cout << "Error!! file tidak dapat dibuka" << endl;
+        return;
+    }
+  
+    while (first != NULL) {
+      messagePassword = first->password;
+	    encrypPassword = encryption(loggedInUser, messagePassword);
+      outputFile << first->nama << ";" << first->username << ";" << encrypPassword << ";"  << first->note << ";" << first->dateCreated;
+        
+		first = first->next;
+    }
+    outputFile.close();
+}
+
+void entry_to_file(filePassword* first, string &loggedInUser) {
+    ofstream outputFile;
+    string messagePassword, encrypPassword;
     outputFile.open((loggedInUser + ".txt").c_str(), ios::app);
     
     if (!outputFile.is_open()) {
         cout << "Error!! file tidak dapat dibuka" << endl;
         return;
     }
-    
-    listPassword* current = head;
-    while (head != NULL) {
-        //string encrypPassword = encryption(loggedInUser, current->password);
-//        inputFile << current->nama << ";" << current->username << ";" << encrypPassword << ";" << current->note << ";" << current->dateCreated << "\n";
-        outputFile << head->nama << ";" << head->username << ";" << head->note << ";" << head->dateCreated << "\n";
-        
-		head = head->next;
+
+    while (first->next != NULL) {
+        first = first->next;
     }
+    messagePassword = first->password;
+	  encrypPassword = encryption(loggedInUser, messagePassword);
+    outputFile << first->nama << ";" << first->username << ";" << encrypPassword << ";"  << first->note << ";" << first->dateCreated << "\n";
     outputFile.close();
+}
+
+//Alokasi memori pada linked list
+void alloc_listPassword (string nama, string username, string password, string note, string dateCreated, filePassword **newNode) {
+    *newNode = new filePassword;
+    if (*newNode == NULL) {
+        cout << "Memory Sudah Full" << endl;
+    }
+    else {
+        (*newNode) -> nama = nama;
+        // cout << "Nama : " << (*newNode)->nama;
+        (*newNode) -> username = username;
+        (*newNode) -> password = password;
+        (*newNode) -> note = note;
+        (*newNode) -> dateCreated = dateCreated;
+        (*newNode) -> next = NULL;
+    }
+}
+
+//Dealokasi memori pada linked  list
+filePassword* dealloc_listPassword(filePassword** head) {
+    filePassword* current = *head;
+    filePassword* nextNode = NULL;
+
+    while (current != NULL) {
+        nextNode = current->next;
+        delete current;
+        current = nextNode;
+    }
+    *head = NULL; // Mengatur head menjadi NULL setelah dealokasi
+    return *head;
 }
 
 

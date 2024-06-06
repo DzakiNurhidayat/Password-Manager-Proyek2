@@ -1,6 +1,7 @@
 #ifndef TEST_H
 #define TEST_H
 
+#include "../treeListPassword.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -10,14 +11,13 @@
 using namespace std;
 
 // Struktur data untuk linked list
-struct listPassword {
+struct filePassword {
     string nama;
     string username;
     string password;
     string note;
     string dateCreated;
-    long timestamp;
-    listPassword *next;
+    filePassword *next;
 };
 
 
@@ -27,12 +27,19 @@ void helpLogin();
 void helpIn();
 int checkPasswordStrength(string messagePassword);
 void uniquePassword();
-void alloc_listPassword(string nama, string username, string password, string note, string dateCreated, listPassword **newNode);
-void insert_last(listPassword **head, listPassword **tail, listPassword *newNode);
-long get_timestamp();
-void insert_order(listPassword **head, listPassword **tail, string nama, string username, string password, string note, string dateCreated);
-void trav_preorder(listPassword **head, listPassword **tail, TreeNode *root);
-void save_to_file(listPassword *head, string &loggedInUser);
+void insert_last(filePassword **first, filePassword **last, filePassword *newNode);
+void insert_order(filePassword **first, filePassword **last, string nama, string username, string password, string note, string dateCreated);
+void entry_to_linkedlist(filePassword **first, filePassword **last, listPassword *root);
+void save_to_file(filePassword *first, string &loggedInUser);
+void entry_to_file(filePassword* first, string &loggedInUser);
+void alloc_listPassword (string nama, string username, string password, string note, string dateCreated, filePassword **newNode);
+filePassword* dealloc_listPassword (filePassword **first);
+// void alloc_listPassword(string nama, string username, string password, string note, string dateCreated, listPassword **newNode);
+// void insert_last(listPassword **first, listPassword **last, listPassword *newNode);
+// long get_timestamp();
+// void insert_order(listPassword **first, listPassword **last, string nama, string username, string password, string note, string dateCreated);
+// void trav_preorder(listPassword **first, listPassword **last, TreeNode *root);
+// void save_to_file(listPassword *first, string &loggedInUser);
 #endif
 
 // Struktur data untuk binary tree
