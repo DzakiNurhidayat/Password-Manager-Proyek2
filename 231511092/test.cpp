@@ -447,6 +447,8 @@ void entry_to_file(filePassword* first, string &loggedInUser) {
     outputFile.close();
 }
 
+// Punya Jihan
+
 //Alokasi memori pada linked list
 void alloc_listPassword (string nama, string username, string password, string note, string dateCreated, filePassword **newNode) {
     *newNode = new filePassword;

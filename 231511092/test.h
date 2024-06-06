@@ -32,6 +32,8 @@ void insert_order(filePassword **first, filePassword **last, string nama, string
 void entry_to_linkedlist(filePassword **first, filePassword **last, listPassword *root);
 void save_to_file(filePassword *first, string &loggedInUser);
 void entry_to_file(filePassword* first, string &loggedInUser);
+
+// Punya Jihan
 void alloc_listPassword (string nama, string username, string password, string note, string dateCreated, filePassword **newNode);
 filePassword* dealloc_listPassword (filePassword **first);
 // void alloc_listPassword(string nama, string username, string password, string note, string dateCreated, listPassword **newNode);
