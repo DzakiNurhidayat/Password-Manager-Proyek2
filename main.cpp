@@ -2,8 +2,9 @@
 #include "231511066/akun.h"
 // #include "231511083/listpassword.h"
 #include "treeListPassword.h"
-// #include "231511079/kelola.h"
 #include "231511092/test.h"
+// #include "231511079/kelola.h"
+
 
 
 int main()
@@ -15,7 +16,8 @@ int main()
     char temp;
     string registInUser, loggedInUser, loginResult, isLoginSuccess, kondisi;
     string nama, username, password, note, dateCreated, keyword;
-    listPassword *root;
+    listPassword *root, *nodeCari;
+    filePassword *first, *last;
     string space = "    "; // nilai pembantu ketika niali search tidak ada
     namaWidth = 2;
     userWidth = 2;
@@ -97,6 +99,8 @@ int main()
                     do
                     {
                         system("cls");
+                        first = NULL;
+                        last = NULL;
                         cout << endl;
                         cout << ".-----------------------------------------------." << endl;
                         cout << "|           Menu Utama Password Manager         |" << endl;
@@ -131,7 +135,11 @@ int main()
                                 entry_data_to_tree(&root, nama, username, password, note, dateCreated);
                                 cout << ".-----------------------------------------------." << endl;
                                 cout << "| Password Berhasil Ditambahkan Ke Dalam List   |" << endl;
-                                cout << "'-----------------------------------------------'" << endl << endl;
+                                cout << "'-----------------------------------------------'" << endl;
+                                // delete_list_infile(loggedInUser);
+                                entry_to_linkedlist(&first, &last, root);
+                                entry_to_file(first, loggedInUser);
+                                first = dealloc_listPassword(&first);
                                 break;
                             case 2:
                                 cout << endl;
@@ -147,6 +155,9 @@ int main()
                                 cin.ignore();
                                 getline(cin, nama);
                                 edit_data_from_tree(root, nama, loggedInUser);
+                                entry_to_linkedlist(&first, &last, root);
+                                save_to_file(first, loggedInUser);
+                                first = dealloc_listPassword(&first);
                                 break;
                             case 3:
                                 cout << endl;
@@ -162,6 +173,10 @@ int main()
                                 cout << ".-------------------------------------------------------." << endl;
                                 cout << "|              Password Berhasil Dihapus                |" << endl;
                                 cout << "'-------------------------------------------------------'" << endl;
+                                // delete_list_infile(loggedInUser);
+                                entry_to_linkedlist(&first, &last, root);
+                                save_to_file(first, loggedInUser);
+                                first = dealloc_listPassword(&first);
                                 break;
                             case 4:
                                 cout << endl;
@@ -246,8 +261,8 @@ int main()
                                 break;
                             case 6:
                                 cout << "| Logout" << endl;
-                                delete_list_infile(loggedInUser);
-                                entry_data_to_file(root, loggedInUser);
+                                // delete_list_infile(loggedInUser);
+                                // entry_data_to_file(root, loggedInUser);
                                 dealokasi_tree(root);
                                 break;
                             default:

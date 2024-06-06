@@ -44,5 +44,8 @@ void print_nama_tree(listPassword *root, int &nomor);
 listPassword *search_node(listPassword *root, string nilaiCari);
 listPassword *delete_data_from_tree(listPassword *root, string nama);
 listPassword *edit_data_from_tree(listPassword *root, string nama, string loggedInUser);
+// void alloc_listPassword (string nama, string username, string password, string note, string dateCreated, filePassword **newNode);
+// filePassword* dealloc_listPassword (filePassword **head);
+
 
 #endif // TREELISTPASSWORD_H
