@@ -366,7 +366,6 @@ long get_timestamp() {
 void insert_order(filePassword **first, filePassword **last, string nama, string username, string password, string note, string dateCreated) 
 {
     filePassword *newNode;
-    // cout << "Test Yanto Gay";
     alloc_listPassword(nama, username, password, note, dateCreated, &newNode);
     if (*first == NULL && *last == NULL) 
 	{
@@ -400,7 +399,6 @@ void entry_to_linkedlist(filePassword **first, filePassword **last, listPassword
     if (root == NULL) {
         return;
     }
-    cout << "Test Hafiz Gay";
     insert_order(first, last, root->nama, root->username, root->password, root->note, root->dateCreated);
     // cout << "Nama: " << root->nama << ", Username: " << root->username << ", Password: " << root->password << ", Note: " << root->note << ", Date Created: " << root->dateCreated << endl;
     entry_to_linkedlist(first, last, root->left);
